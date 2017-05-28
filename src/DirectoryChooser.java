@@ -134,7 +134,6 @@ public class DirectoryChooser extends JPanel
     private static void createAndShowGUI(DirectoryList dirList) {
     	//Create and set up the window.
         JFrame frame = new JFrame("Data directory");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Add content to the window.
         frame.add(new DirectoryChooser(dirList));
@@ -145,6 +144,15 @@ public class DirectoryChooser extends JPanel
     }
  
 
+    public static void createDirectoryChoser(DirectoryList dirList) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Turn off metal's use of bold fonts
+                UIManager.put("swing.boldMetal", Boolean.FALSE); 
+                createAndShowGUI(dirList); //TODO penser au format... savings.xml ?
+            }
+        });            	
+    }
 
 	public static void main(String[] args) {
 //    	FileChooserDemo fc1 = new FileChooserDemo();

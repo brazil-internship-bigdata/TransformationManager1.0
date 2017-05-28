@@ -35,29 +35,26 @@ public class Home extends JFrame
 	private JPanel manualSendPanel; //BOTTOM
 	private JButton sendManuallyButton;
 
+	private DirectoryList directoryList;
+	private File savingsFile;
 
 	public static final String SOFTWARE_NAME = "Ecureuil";
 
 	public Home(File savingsFile) {
 		super(SOFTWARE_NAME);
 
-		//this.setLayout(new BorderLayout());
-
+		this.savingsFile = savingsFile;
+		this.directoryList = new DirectoryList(savingsFile);
 		
-
+		
 		
 		//List of selected directories (left part)
 		directoryPanes = new JList<DirectorySelectedPane>();
 		directoriesScrollPane = new JScrollPane(directoryPanes);
-
-		horizontalSplitPane.add(directoriesScrollPane, BorderLayout.WEST);
 		
 		
-		// Add button and send manually button (right part)
+		/* Add button and send manually button (right part) */
 	
-		//Creation of the vertical split
-		actionsSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		
 		//Creation of both panels and buttons
 		addPanel = new JPanel(new BorderLayout());
 		addRepoButton = new JButton("Add new repository");
@@ -65,14 +62,19 @@ public class Home extends JFrame
 		
 		manualSendPanel = new JPanel(new BorderLayout());
 		sendManuallyButton = new JButton("Send Manually the data");
-		manualSendPanel.add(addRepoButton, BorderLayout.CENTER);
+		manualSendPanel.add(sendManuallyButton, BorderLayout.CENTER);
+
 		
+		//Creation of the vertical split
+		actionsSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
+				manualSendPanel, addPanel);
 		
 		
 		/*  Creation of the horizontal split  */
 		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				directoriesScrollPane, actionsSplitPane);
 		this.add(horizontalSplitPane);
+
 		
 		//buttons listeners
 		addRepoButton.addActionListener(this);
@@ -80,8 +82,10 @@ public class Home extends JFrame
 		
 		
 		//print
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
+
 	}
 
 
@@ -94,7 +98,12 @@ public class Home extends JFrame
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource() == addRepoButton) {
+			DirectoryChooser.createDirectoryChoser(directoryList);
+		} else if (e.getSource() == sendManuallyButton) {
+			//TODO get->transformation->put
+			System.out.println("send");
+		}
 	}
 
 
