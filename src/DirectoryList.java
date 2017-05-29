@@ -1,7 +1,13 @@
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+
 public class DirectoryList extends ArrayList<File> {
+	
+	private File savingsFile; //file to modify in case of put/remove/save. This file contains the list of the selected directories
+	
 	
 	public DirectoryList(File savingsFile) {
 		super();
@@ -27,4 +33,18 @@ public class DirectoryList extends ArrayList<File> {
 		//TODO remove from the savings file the File deletedElement;
 		return deletedElement;
 	}
+	
+	@Override
+	public File get(int index) {
+		File item = super.get(index);
+		
+		//TODO verify on internet that the files are really immutable
+		
+		return item;
+	}
+	
+	public void save() {
+		//TODO rewrite the savingsFile
+	}
+
 }

@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,66 +23,78 @@ public class Home extends JFrame
 	
 	private JSplitPane horizontalSplitPane;
 
-	/*  RIGHT */
-	private JScrollPane directoriesScrollPane;//vertical scroll
-	private JList<DirectorySelectedPane> directoryPanes; 
-	
 	/*  LEFT */
+	private JScrollPane directoriesScrollPane;//vertical scroll
+	private JPanel directoriesPane;
+	
+	
+	/*  RIGHT */
 	//This part creates the "add repository" and "send manually" part of the home frame
-	private JSplitPane actionsSplitPane; 
-	private JPanel addPanel; //TOP
+	private JPanel actionsPanel; //Panel that contains 2 panels : 1 for send button (top)  and 1 for add repo button (bottom)
+	
+	private JPanel addRepoPanel; //TOP
 	private JButton addRepoButton;
 	
-	private JPanel manualSendPanel; //BOTTOM
+	private JPanel sendButtonPanel; //BOTTOM
 	private JButton sendManuallyButton;
 
+	private DirectoryList directoryList; //List of the selected directories to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
+	private File savingsFile;	//File that saves the list of directories to transform and send.
 
 	public static final String SOFTWARE_NAME = "Ecureuil";
 
 	public Home(File savingsFile) {
 		super(SOFTWARE_NAME);
 
-		//this.setLayout(new BorderLayout());
-
+		this.savingsFile = savingsFile;
+		this.directoryList = new DirectoryList(savingsFile);
 		
-
+		
 		
 		//List of selected directories (left part)
-		directoryPanes = new JList<DirectorySelectedPane>();
-		directoriesScrollPane = new JScrollPane(directoryPanes);
+		
+		directoriesScrollPane = new JScrollPane(directoriesPane);
+		//TODO put the list of DirectorySelectedPane int the scrollPane
+		
+		/* Add button and send manually button (right part) */
 
-
-		
-		
-		// Add button and send manually button (right part)
-	
-		//Creation of the vertical split
-		actionsSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
-		
+		/*
+		 * The actionsPanel (uses BorderLayout) is composed of two panels (using default flowLayout) which contain 1 button each. This creates a vertical flowLayout
+		 * TODO improve this layout because full screen is ugly
+		 */
 		//Creation of both panels and buttons
-		addPanel = new JPanel(new BorderLayout());
 		addRepoButton = new JButton("Add new repository");
-		addPanel.add(addRepoButton, BorderLayout.CENTER);
+		addRepoPanel = new JPanel();
+		addRepoPanel.add(addRepoButton);
 		
-		manualSendPanel = new JPanel(new BorderLayout());
 		sendManuallyButton = new JButton("Send Manually the data");
-		manualSendPanel.add(addRepoButton, BorderLayout.CENTER);
+		sendButtonPanel = new JPanel();
+		sendButtonPanel.add(sendManuallyButton);
 		
+		
+		//Insertion of the buttons in the action panel (right part of the home frame)
+		actionsPanel = new JPanel(new BorderLayout());
+		actionsPanel.add(sendButtonPanel, BorderLayout.PAGE_START);
+		actionsPanel.add(addRepoPanel, BorderLayout.PAGE_END);
+			
 		
 		
 		/*  Creation of the horizontal split  */
 		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				directoriesScrollPane, actionsSplitPane);
+				directoriesScrollPane, actionsPanel);
 		this.add(horizontalSplitPane);
-		horizontalSplitPane.add(directoriesScrollPane, BorderLayout.WEST);
+
+		
 		//buttons listeners
 		addRepoButton.addActionListener(this);
 		sendManuallyButton.addActionListener(this);
 		
 		
 		//print
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
 		this.setVisible(true);
+
 	}
 
 
@@ -94,7 +107,12 @@ public class Home extends JFrame
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource() == addRepoButton) {
+			DirectoryChooser.createDirectoryChoser(directoryList);
+		} else if (e.getSource() == sendManuallyButton) {
+			//TODO get->transformation->put
+			System.out.println("send");
+		}
 	}
 
 

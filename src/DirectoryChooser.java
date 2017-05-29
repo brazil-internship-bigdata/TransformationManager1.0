@@ -47,7 +47,7 @@ public class DirectoryChooser extends JPanel
 	 */
 	private static final long serialVersionUID = 8418475192604430955L;
 	static private final String newline = "\n";
-    JButton openButton, saveButton;
+    JButton openButton, okButton;
     JTextArea log;
     JFileChooser fc;
     private File directorySelected;    
@@ -85,6 +85,9 @@ public class DirectoryChooser extends JPanel
         openButton = new JButton("Open a File...",
                                  new ImageIcon("images/Open16.gif"));
         openButton.addActionListener(this);
+        
+        okButton = new JButton("OK");
+        okButton.addActionListener(this);
  /*
         //Create the save button.  We use the image from the JLF
         //Graphics Repository (but we extracted it from the jar).
@@ -93,14 +96,17 @@ public class DirectoryChooser extends JPanel
         saveButton.addActionListener(this);
  */
         //For layout purposes, put the buttons in a separate panel
-        JPanel buttonPanel = new JPanel(); //use FlowLayout
-        buttonPanel.add(openButton);
+        JPanel openButtonPanel = new JPanel(); //use FlowLayout
+        openButtonPanel.add(openButton);
 //        buttonPanel.add(saveButton);
  
-        //Add the buttons and the log to this panel.
-        add(buttonPanel, BorderLayout.PAGE_START);
-        add(logScrollPane, BorderLayout.CENTER);
+        JPanel okButtonPanel = new JPanel();
+        okButtonPanel.add(okButton);
         
+        //Add the buttons and the log to this panel.
+        add(openButtonPanel, BorderLayout.PAGE_START);
+        add(logScrollPane, BorderLayout.CENTER);
+        add(okButtonPanel, BorderLayout.PAGE_END);
         
        //fileList = new LinkedList<File>();
 
@@ -118,9 +124,13 @@ public class DirectoryChooser extends JPanel
                 //fileList.add(fileSelected);
                 String path = dir.getAbsolutePath();
                 //This is where a real application would open the file.
-                log.append("Opening: " + dir.getName() + " is at: " + path + newline);
+                log.setText("Opening: " + dir.getName() + newline + "is at: " + path + newline);
+                
+                //TODO possible explosion
+                dirList.add(dir);
+                
             } else {
-                log.append("Open command cancelled by user." + newline);
+                System.out.println("Open command cancelled by user." + newline);
             }
             log.setCaretPosition(log.getDocument().getLength());
         }
@@ -134,7 +144,6 @@ public class DirectoryChooser extends JPanel
     private static void createAndShowGUI(DirectoryList dirList) {
     	//Create and set up the window.
         JFrame frame = new JFrame("Data directory");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
  
         //Add content to the window.
         frame.add(new DirectoryChooser(dirList));
@@ -145,6 +154,15 @@ public class DirectoryChooser extends JPanel
     }
  
 
+    public static void createDirectoryChoser(DirectoryList dirList) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                //Turn off metal's use of bold fonts
+                UIManager.put("swing.boldMetal", Boolean.FALSE); 
+                createAndShowGUI(dirList); //TODO penser au format... savings.xml ?
+            }
+        });            	
+    }
 
 	public static void main(String[] args) {
 //    	FileChooserDemo fc1 = new FileChooserDemo();
