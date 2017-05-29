@@ -22,13 +22,16 @@ public class Home extends JFrame
 	
 	private JSplitPane horizontalSplitPane;
 
-	/*  RIGHT */
+	/*  LEFT */
 	private JScrollPane directoriesScrollPane;//vertical scroll
 	private JList<DirectorySelectedPane> directoryPanes; 
 	
-	/*  LEFT */
+	/*  RIGHT */
 	//This part creates the "add repository" and "send manually" part of the home frame
-	private JSplitPane actionsSplitPane; 
+	private JSplitPane actionsSplitPane;
+	private JPanel actionsPanel; //TODO
+	private JPanel addRepoPanel, sendButtonPanel; //TODO
+	
 	private JPanel addPanel; //TOP
 	private JButton addRepoButton;
 	
@@ -56,7 +59,7 @@ public class Home extends JFrame
 		/* Add button and send manually button (right part) */
 	
 		//Creation of both panels and buttons
-		addPanel = new JPanel(new BorderLayout());
+		addPanel = new JPanel();
 		addRepoButton = new JButton("Add new repository");
 		addPanel.add(addRepoButton, BorderLayout.CENTER);
 		
@@ -69,10 +72,13 @@ public class Home extends JFrame
 		actionsSplitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT,
 				manualSendPanel, addPanel);
 		
-		
+		sendButtonPanel = new JPanel();
+		actionsPanel.add(sendManuallyButton);
+	
+		addRepoPanel.add(addRepoButton);
 		/*  Creation of the horizontal split  */
 		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				directoriesScrollPane, actionsSplitPane);
+				directoriesScrollPane, actionsPanel);
 		this.add(horizontalSplitPane);
 
 		
