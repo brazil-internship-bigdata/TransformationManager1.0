@@ -50,7 +50,7 @@ public class Home extends JFrame
 		directoryPanes = new JList<DirectorySelectedPane>();
 		directoriesScrollPane = new JScrollPane(directoryPanes);
 
-		horizontalSplitPane.add(directoriesScrollPane, BorderLayout.WEST);
+
 		
 		
 		// Add button and send manually button (right part)
@@ -73,7 +73,7 @@ public class Home extends JFrame
 		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
 				directoriesScrollPane, actionsSplitPane);
 		this.add(horizontalSplitPane);
-		
+		horizontalSplitPane.add(directoriesScrollPane, BorderLayout.WEST);
 		//buttons listeners
 		addRepoButton.addActionListener(this);
 		sendManuallyButton.addActionListener(this);
