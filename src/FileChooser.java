@@ -39,7 +39,7 @@ import javax.swing.SwingUtilities;
  * DirectoryChooser.java uses these files:
  *   images/Open16.gif
  */
-public class DirectoryChooser extends JPanel
+public class FileChooser extends JPanel
                              implements ActionListener{
 
 	/**
@@ -50,15 +50,15 @@ public class DirectoryChooser extends JPanel
     JButton openButton, okButton;
     JTextArea log;
     JFileChooser fc;
-    private File directorySelected;    
-    private DirectoryList dirList;
+    private File fileSelected;    
+    private FileList fileList;
     
     
     
-    public DirectoryChooser(DirectoryList dirList) {
+    public FileChooser(FileList fileList) {
        	super(new BorderLayout());
  
-       	this.dirList = dirList; 
+       	this.fileList = fileList; 
         
         //Create the log first, because the action listeners
         //need to refer to it.
@@ -77,7 +77,7 @@ public class DirectoryChooser extends JPanel
         //to be selected.  If you leave these lines commented out,
         //then the default mode (FILES_ONLY) will be used.
         //
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        //fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         //fc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
  
         //Create the open button.  We use the image from the JLF
@@ -88,6 +88,7 @@ public class DirectoryChooser extends JPanel
         
         okButton = new JButton("OK");
         okButton.addActionListener(this);
+        okButton.setVisible(false);
  /*
         //Create the save button.  We use the image from the JLF
         //Graphics Repository (but we extracted it from the jar).
@@ -102,6 +103,8 @@ public class DirectoryChooser extends JPanel
  
         JPanel okButtonPanel = new JPanel();
         okButtonPanel.add(okButton);
+
+        
         
         //Add the buttons and the log to this panel.
         add(openButtonPanel, BorderLayout.PAGE_START);
@@ -114,21 +117,26 @@ public class DirectoryChooser extends JPanel
     }
  
     public synchronized void actionPerformed(ActionEvent e) {
- 
-        //Handle open button action.
-        if (e.getSource() == openButton) {
-            int returnVal = fc.showOpenDialog(DirectoryChooser.this);
+
+    	if (e.getSource() == okButton) {
+        	fileList.add(fileSelected);
+        	SwingUtilities.getWindowAncestor(this).dispose();
+        	System.out.println("ok pressed");
+        	
+        	//repaint
+    	}
+    	else if (e.getSource() == openButton) {
+            //Handle open button action.
+            int returnVal = fc.showOpenDialog(FileChooser.this);
  
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File dir = fc.getSelectedFile();
+                fileSelected = fc.getSelectedFile();
                 //fileList.add(fileSelected);
-                String path = dir.getAbsolutePath();
+                String path = fileSelected.getAbsolutePath();
                 //This is where a real application would open the file.
-                log.setText("Opening: " + dir.getName() + newline + "is at: " + path + newline);
+                log.setText("Opening: " + fileSelected.getName() + newline + "is at: " + path + newline);
                 
-                //TODO possible explosion
-                dirList.add(dir);
-                
+                okButton.setVisible(true);
             } else {
                 System.out.println("Open command cancelled by user." + newline);
             }
@@ -141,12 +149,12 @@ public class DirectoryChooser extends JPanel
      * this method should be invoked from the
      * event dispatch thread.
      */
-    private static void createAndShowGUI(DirectoryList dirList) {
+    private static void createAndShowGUI(FileList fileList) {
     	//Create and set up the window.
         JFrame frame = new JFrame("Data directory");
  
         //Add content to the window.
-        frame.add(new DirectoryChooser(dirList));
+        frame.add(new FileChooser(fileList));
  
         //Display the window.
         frame.pack();
@@ -154,19 +162,19 @@ public class DirectoryChooser extends JPanel
     }
  
 
-    public static void createDirectoryChoser(DirectoryList dirList) {
+    public static void createFileChoser(FileList fileList) {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 //Turn off metal's use of bold fonts
                 UIManager.put("swing.boldMetal", Boolean.FALSE); 
-                createAndShowGUI(dirList); //TODO penser au format... savings.xml ?
+                createAndShowGUI(fileList); //TODO penser au format... savings.xml ?
             }
         });            	
     }
 
 	public static void main(String[] args) {
 //    	FileChooserDemo fc1 = new FileChooserDemo();
-    	File dir = new File("");
+    	File f = new File("");
 
     	//Schedule a job for the event dispatch thread:
         //creating and showing this application's GUI.
@@ -174,7 +182,7 @@ public class DirectoryChooser extends JPanel
             public void run() {
                 //Turn off metal's use of bold fonts
                 UIManager.put("swing.boldMetal", Boolean.FALSE); 
-                createAndShowGUI(new DirectoryList(new File("savings.txt"))); //TODO penser au format... savings.xml ?
+                createAndShowGUI(new FileList()); //TODO penser au format... savings.xml ?
             }
         });        
     }
