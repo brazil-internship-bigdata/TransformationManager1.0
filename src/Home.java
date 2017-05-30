@@ -54,7 +54,7 @@ public class Home extends JFrame
 		//List of selected directories (left part)
 		
 		directoriesScrollPane = new JScrollPane(directoriesPane);
-		//TODO put the list of DirectorySelectedPane int the scrollPane
+		//TODO put the list of DirectorySelectedPane in the scrollPane
 		
 		/* Add button and send manually button (right part) */
 
@@ -98,10 +98,16 @@ public class Home extends JFrame
 	}
 
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new Home(new File(""));
+	public void createListOfDirectoryPanes() {
+		if(directoriesScrollPane == null) {
+			System.err.println("directoriesScrollPane not initialized");
+			return;
+		}
+		for(int i = 0 ; i<directoryList.size() ; i++) {
+			directoriesScrollPane.add(new DirectorySelectedPane(directoryList, i));
+		}
 	}
+	
 
 
 	@Override
@@ -113,6 +119,13 @@ public class Home extends JFrame
 			//TODO get->transformation->put
 			System.out.println("send");
 		}
+	}
+
+
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Home(new File(""));
 	}
 
 

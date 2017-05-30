@@ -1,11 +1,14 @@
 import java.io.File;
 import java.util.ArrayList;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 public class DirectoryList extends ArrayList<File> {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4962373861401353388L;
+
 	private File savingsFile; //file to modify in case of put/remove/save. This file contains the list of the selected directories
 	
 	
