@@ -1,3 +1,4 @@
+package fileManaging;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -138,6 +139,10 @@ public class FileList extends ArrayList<File> {
 	 * @param f file to be saved
 	 */
 	private void saveOne(File f) {
+
+		if(!savingsFile.exists()) {
+			createSavingsFile();
+		}
 		
 		BufferedWriter bw = null;
 		FileWriter fw = null;

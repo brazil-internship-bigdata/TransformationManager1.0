@@ -1,4 +1,6 @@
+package fileManaging;
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -6,7 +8,9 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,7 +24,7 @@ public class Home extends JFrame
 	 */
 	private static final long serialVersionUID = -4611492777705564096L;
 
-	
+//	private JDesktopPane desktop;
 	
 	private JSplitPane horizontalSplitPane;
 
@@ -49,12 +53,13 @@ public class Home extends JFrame
 
 		this.fileList = new FileList();
 		
-		
+//		desktop = new JDesktopPane();
 		
 		//List of selected directories (left part)
-		
+		filesPane = new JPanel();	
+		filesPane.setLayout(new BoxLayout(filesPane, BoxLayout.Y_AXIS));
 		filesScrollPane = new JScrollPane(filesPane);
-		filesPane = new JPanel(new BoxLayout(filesPane, BoxLayout.Y_AXIS));
+		createListOfFilePanes();
 		//TODO put the list of DirectorySelectedPane in the scrollPane
 		
 		
@@ -91,21 +96,26 @@ public class Home extends JFrame
 		addFileButton.addActionListener(this);
 		sendManuallyButton.addActionListener(this);
 		
-		
+	
 		//print
+//		this.add(desktop, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.pack();
+		this.setSize(800, 800);
 		this.setVisible(true);
 	}
 
 
-	public void createListOfDirectoryPanes() {
-		if(filesScrollPane == null) {
+	public void createListOfFilePanes() {
+		if(filesScrollPane == null || filesPane == null) {
 			System.err.println("directoriesScrollPane not initialized");
 			return;
 		}
 		for(int i = 0 ; i<fileList.size() ; i++) {
-			filesScrollPane.add(new FileSelectedPane(fileList, i));
+			FileSelectedPane fsPane = new FileSelectedPane(fileList, i);
+			fsPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+			filesPane.add(fsPane);
+			System.out.println("filesPane n°"+(i+1));
 		}
 	}
 	
@@ -115,7 +125,20 @@ public class Home extends JFrame
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == addFileButton) {
-			FileChooser.createFileChoser(fileList);
+			FileChooser.createFileChooser(fileList);
+			
+			
+/*			//Creation of internal frame, and insertion into desktop pane
+			JInternalFrame internalFileChooser = new JInternalFrame("Data selector", true, true, true, true);
+			desktop.add(internalFileChooser);
+			internalFileChooser.setBounds(25, 25, 200, 100);
+
+			
+			//Creation of FileChooser and insertion into internal frame
+			FileChooser fc = new FileChooser(fileList);
+			internalFileChooser.add(fc);
+			fc.setVisible(true);
+*/			
 		} else if (e.getSource() == sendManuallyButton) {
 			//TODO get->transformation->put
 			System.out.println("send");
@@ -125,9 +148,32 @@ public class Home extends JFrame
 
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		new Home();
+		Home h = new Home();
+		
+/*		while(true) {
+			try {
+				Thread.sleep(5000);
+				System.out.println(h.toString());
+				h.repaint();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+*/
 	}
 
+	
+	@Override
+	public String toString() {
+		String res = "";
+		res += "JScrollPane contains: ";
+		Component [] c = this.filesScrollPane.getComponents();
+		
+		for (int i = 0; i<c.length ; i++)
+			res += "\n\t" + c[i].toString();
+		
+		return res;
+	}
 
 }
