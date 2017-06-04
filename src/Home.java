@@ -1,13 +1,11 @@
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -20,7 +18,7 @@ public class Home extends JFrame
 	 */
 	private static final long serialVersionUID = -4611492777705564096L;
 
-	
+	JDesktopPane desktop;
 	
 	private JSplitPane horizontalSplitPane;
 
