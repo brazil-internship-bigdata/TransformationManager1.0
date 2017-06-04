@@ -1,3 +1,4 @@
+package fileManaging;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -17,6 +18,7 @@ public class FileSelectedPane extends JPanel
 	private File file;
 	private int index;
 	private FileList fileList;
+	private MyFileListView parent;
 	
 	private JTextArea filePath;
 	private JButton deleteButton;
@@ -47,13 +49,44 @@ public class FileSelectedPane extends JPanel
 		
 		this.add(filePath);
 		this.add(deleteButton);
+		
+		this.setSize(300, 10);
 	}
 
+	public FileSelectedPane(MyFileListView parent, File file) {
+		super();
+		
+		this.parent = parent;
+		this.file = file;
+		
+		filePath = new JTextArea(file.getAbsolutePath());
+		filePath.append("\n File Name: " + file.getName());
+		
+		deleteButton = new JButton("X");
+		deleteButton.addActionListener(this);
+		
+		relocateButton = new JButton("relocate File");
+		relocateButton.addActionListener(this);
+		
+		this.add(filePath);
+		this.add(deleteButton);
+	}
+
+	public void remove() {
+		parent.remove(this);
+	}
+	
+	public File getFile() {
+		return file;
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == deleteButton) {
-			fileList.remove(index);
+			
+			//fileList.remove(index);
+			parent.remove(this);
 			System.out.println("item: " + file.getName() + " was deleted");
 		} 
 		else if (e.getSource() == relocateButton) {
