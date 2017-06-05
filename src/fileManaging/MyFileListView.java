@@ -5,6 +5,7 @@ import java.io.File;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+
 public class MyFileListView extends JPanel{
 
 	/**
@@ -32,10 +33,16 @@ public class MyFileListView extends JPanel{
 		this.revalidate();
 		this.repaint();
 	}
-	
+
+	/**
+	 * removes the FileSelectedPane from the scrollBar and removes the element from the list.
+	 * @param child the pane that was deleted
+	 */
 	public void remove(FileSelectedPane child) {
 		super.remove(child);
 		fileList.remove(child.getFile());
 		this.repaint();
 	}
+	
+
 }

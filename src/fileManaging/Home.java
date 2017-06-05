@@ -3,34 +3,33 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.ArrayList;
+import java.awt.event.ContainerEvent;
+import java.awt.event.ContainerListener;
 
-import javax.swing.BoxLayout;
+
 import javax.swing.JButton;
-import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+
 public class Home extends JFrame
-						implements ActionListener{
+						implements ActionListener, ContainerListener{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -4611492777705564096L;
 
-//	private JDesktopPane desktop;
+	
+	public static final String SOFTWARE_NAME = "Ecureuil";
+
 	
 	private JSplitPane horizontalSplitPane;
 
 	/*  LEFT */
 	private JScrollPane filesScrollPane;//vertical scroll
-//	private JPanel filesPane;
 	private MyFileListView filesPane;
 	
 	
@@ -46,16 +45,14 @@ public class Home extends JFrame
 	private JButton sendManuallyButton;
 
 	private FileList fileList; //List of the selected directories to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
-//	private File savingsFile;	//File that saves the list of directories to transform and send.
 
-	public static final String SOFTWARE_NAME = "Ecureuil";
 
+	
 	public Home() {
 		super(SOFTWARE_NAME);
 
 		this.fileList = new FileList();
 		
-//		desktop = new JDesktopPane();
 		
 		//List of selected directories (left part)
 		/*filesPane = new JPanel(); TODO remove this comment block	
@@ -98,6 +95,9 @@ public class Home extends JFrame
 		//buttons listeners
 		addFileButton.addActionListener(this);
 		sendManuallyButton.addActionListener(this);
+		
+		//Resizing Listener
+		filesPane.addContainerListener(this);
 		
 	
 		//print
@@ -177,6 +177,19 @@ public class Home extends JFrame
 			res += "\n\t" + c[i].toString();
 		
 		return res;
+	}
+
+
+
+	@Override
+	public void componentAdded(ContainerEvent e) {
+		horizontalSplitPane.setDividerLocation(-1);
+	}
+
+
+	@Override
+	public void componentRemoved(ContainerEvent e) {
+		horizontalSplitPane.setDividerLocation(-1);		
 	}
 
 }
