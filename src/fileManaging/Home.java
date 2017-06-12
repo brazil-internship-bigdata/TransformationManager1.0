@@ -36,13 +36,17 @@ public class Home extends JFrame
 	
 	/*  RIGHT */
 	//This part creates the "add repository" and "send manually" part of the home frame
-	private JPanel actionsPanel; //Panel that contains 2 panels : 1 for send button (top)  and 1 for add repo button (bottom)
+	private JPanel actionsPanel; //Panel that contains 3 panels : 1 for send button (top), 1 to connect to a database (middle)  and 1 for add repo button (bottom)
 	
 	private JPanel addFilePanel; //TOP
 	private JButton addFileButton;
 	
+	private JPanel connectToDatabasePanel; //MIDDLE
+	private JButton connectToDatabaseButton;
+	
 	private JPanel sendButtonPanel; //BOTTOM
 	private JButton sendManuallyButton;
+	
 
 	private FileList fileList; //List of the selected directories to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
 
@@ -108,7 +112,7 @@ public class Home extends JFrame
 		this.setVisible(true);
 	}
 
-
+/*
 	public void createListOfFilePanes() {
 		if(filesScrollPane == null || filesPane == null) {
 			System.err.println("directoriesScrollPane not initialized");
@@ -121,7 +125,7 @@ public class Home extends JFrame
 			System.out.println("filesPane n°"+(i+1));
 		}
 	}
-	
+*/
 
 
 	@Override

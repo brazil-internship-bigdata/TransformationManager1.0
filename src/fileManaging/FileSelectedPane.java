@@ -33,7 +33,7 @@ public class FileSelectedPane extends JPanel
 	 * @param fileList List of selected directories
 	 * @param index position of the item in the list
 	 */
-	public FileSelectedPane(FileList fileList, int index) {
+/*	public FileSelectedPane(FileList fileList, int index) {
 		super();
 		
 		this.fileList = fileList;
@@ -52,7 +52,7 @@ public class FileSelectedPane extends JPanel
 		
 		this.setSize(300, 10);
 	}
-
+*/
 	public FileSelectedPane(MyFileListView parent, File file) {
 		super();
 		
@@ -72,9 +72,6 @@ public class FileSelectedPane extends JPanel
 		this.add(deleteButton);
 	}
 
-	public void remove() {
-		parent.remove(this);
-	}
 	
 	public File getFile() {
 		return file;
