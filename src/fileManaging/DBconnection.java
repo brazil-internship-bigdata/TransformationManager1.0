@@ -11,7 +11,17 @@ public class DBconnection implements Item {
 	private String portName;
 	private String password;
 	
+	private MyListView<DBconnection> listView;
 	
+	public DBconnection(MyListView<DBconnection> listView) {
+		this.listView = listView;
+		//TODO
+	}
+	
+	public DBconnection() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String editText() {
 		// TODO Auto-generated method stub
@@ -22,6 +32,12 @@ public class DBconnection implements Item {
 	public String name() {
 		// TODO Auto-generated method stub
 		return customName;
+	}
+
+	@Override
+	public boolean check() {
+		// TODO check the connection
+		return true;
 	}
 
 }

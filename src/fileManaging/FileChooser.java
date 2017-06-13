@@ -111,7 +111,7 @@ public class FileChooser extends JPanel
        
     }
  
-    public synchronized void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e) {
 
     	if (e.getSource() == okButton) {
         	fileListView.add(fileSelected);

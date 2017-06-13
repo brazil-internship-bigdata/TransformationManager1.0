@@ -24,7 +24,7 @@ public class FileList extends ArrayList<File> {
 	public FileList() {
 		super();
 		
-		this.savingsFile = new File("savings/savings.txt");
+		this.savingsFile = new File("savings/Files_Savings.txt");
 		
 		//if the savings file doesn't exist, we have to create the directory and the file.
 		if(!savingsFile.exists()) {
