@@ -1,6 +1,9 @@
 package tools;
 
+import javax.swing.JOptionPane;
+
 import fileManaging.DBconnection;
+import fileManaging.DBconnectionPane;
 import fileManaging.MyListView;
 
 public class DBconnectionFactory implements Factory<DBconnection> {
@@ -16,5 +19,20 @@ public class DBconnectionFactory implements Factory<DBconnection> {
 		// TODO Auto-generated method stub
 		return new DBconnection();
 	}
-	
+
+	/**
+	 * return the DBconnection corresponding to the users settings.
+	 * If the user cancels, it returns null. This should be replaced with a custom exception. 
+	 */
+	@Override
+	public DBconnection createWithGUI() {
+		DBconnectionPane dbcp = new DBconnectionPane(); 
+		
+		int answer = dbcp.showCreationDialog();
+		if(answer == JOptionPane.CANCEL_OPTION || answer == JOptionPane.CLOSED_OPTION) {
+			return null;
+		}
+		return dbcp.makeDBconnection();
+	}
+
 }

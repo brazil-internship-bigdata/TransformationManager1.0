@@ -28,12 +28,11 @@ public class DBconnectionPane extends JPanel {
 	
 	public DBconnectionPane() {
 		super();
-		yourConnectionName = new JTextField(textLength);
+		yourConnectionName = new JTextField(textLength);		
 		hostName = new JTextField(textLength);
 		databaseName = new JTextField(textLength);
-		userName = new JTextField(textLength);
+		userName = new JTextField(textLength);		
 		password = new JPasswordField(textLength);
-		
 		
 		this.setLayout(new GridLayout(5,2));
 
@@ -71,12 +70,29 @@ public class DBconnectionPane extends JPanel {
 		text = "Put your password here";
 		password.setToolTipText(text);
 		label.setToolTipText(text);
+	}
+	
+	public DBconnectionPane(DBconnection dbc) {
+		this();
+		
+		if(dbc == null) {
+			return;
+		}
+		
+		yourConnectionName.setText(dbc.getConnectionName());
+		hostName.setText(dbc.getHostName());
+		databaseName.setText(dbc.getDataBaseName());
+		userName.setText(dbc.getUserName());
+		password.setText(dbc.getPassword());
 
 	}
 
+	/**
+	 * create option pane and return the result of showOptionDialog
+	 * @return the result of a showOptionDialog with JOPTIONPANE.OK_CANCEL_OPTION
+	 */
 	public int showCreationDialog() {
 		return JOptionPane.showOptionDialog(null, this, "Connection parameters", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
-		
 	}
 
 	
