@@ -1,15 +1,9 @@
 package main;
-import java.awt.BorderLayout;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
 
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
@@ -42,7 +36,6 @@ public class Home extends JFrame
 	
 	
 	/*  RIGHT */
-	//This part creates the "add repository" and "send manually" part of the home frame
 	private JScrollPane dbConnectionsScrollPane;
 	private MyListView<DBconnection> dbConnectionsPane;
 	
@@ -87,53 +80,6 @@ public class Home extends JFrame
 		this.setVisible(true);
 	}
 
-/*
-	public void createListOfFilePanes() {
-		if(filesScrollPane == null || filesPane == null) {
-			System.err.println("directoriesScrollPane not initialized");
-			return;
-		}
-		for(int i = 0 ; i<fileList.size() ; i++) {
-			FileSelectedPane fsPane = new FileSelectedPane(fileList, i);
-			fsPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-			filesPane.add(fsPane);
-			System.out.println("filesPane n°"+(i+1));
-		}
-	}
-*/
-
-
-	
-	public static void main(String[] args) {
-		Home h = new Home();
-		
-/*		while(true) {
-			try {
-				Thread.sleep(5000);
-				System.out.println(h.toString());
-				h.repaint();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-*/
-	}
-
-	
-	@Override
-	public String toString() {
-		String res = "";
-		res += "JScrollPane contains: ";
-		Component [] c = this.filesScrollPane.getComponents();
-		
-		for (int i = 0; i<c.length ; i++)
-			res += "\n\t" + c[i].toString();
-		
-		return res;
-	}
-
-
 
 	@Override
 	public void componentAdded(ContainerEvent e) {
@@ -145,5 +91,15 @@ public class Home extends JFrame
 	public void componentRemoved(ContainerEvent e) {
 		horizontalSplitPane.setDividerLocation(-1);		
 	}
+
+
+
+	
+	public static void main(String[] args) {
+		Home h = new Home();
+		
+	}
+
+	
 
 }

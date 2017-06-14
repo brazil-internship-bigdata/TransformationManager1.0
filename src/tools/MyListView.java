@@ -25,8 +25,8 @@ public class MyListView<T extends Item> extends JPanel
 	
 	private Factory<T> factory;
 	
-	private ArrayList<T> listData; //TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
-//	private ArrayList<MyItemView> listView; 
+	private AbstractDataList<T> listData; //TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
+
 	
 	private JPanel buttonsPane;
 	private JButton addButton;
@@ -35,7 +35,7 @@ public class MyListView<T extends Item> extends JPanel
 	
 	
 	//TODO modify this
-	public MyListView(List<T> list, Factory<T> factory) {
+	public MyListView(AbstractDataList<T> list, Factory<T> factory) {
 		super();
 		
 		this.factory = factory;
@@ -54,6 +54,11 @@ public class MyListView<T extends Item> extends JPanel
 		buttonsPane.add(sendButton, BorderLayout.LINE_END);
 		
 		
+		//Subscribe buttons
+		addButton.addActionListener(this);
+		checkButton.addActionListener(this);
+		sendButton.addActionListener(this);
+		
 		//Creation of the List view
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.add(buttonsPane);
@@ -61,8 +66,8 @@ public class MyListView<T extends Item> extends JPanel
 	}
 	
 	
-	private void init(List<T> list) {
-		listData = (ArrayList<T>) list;
+	private void init(AbstractDataList<T> list) {
+		listData = (AbstractDataList<T>) list;
 		for(T t : list) {
 			MyItemView itemView = new MyItemView(this, t);
 			//listView.add(itemView);
@@ -100,7 +105,7 @@ public class MyListView<T extends Item> extends JPanel
 
 		String invalidItems = "";
 		for(T t : listData) {
-			if(t.check()) {
+			if(!t.check()) {
 				successfulCheck = false;
 				invalidItems += "\n" + t.name();
 			}
@@ -128,12 +133,17 @@ public class MyListView<T extends Item> extends JPanel
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
 		if(e.getSource() == addButton) {
-			//Open new element perspective => FileChooser if E is MyFile
-//			try {
-				T t = factory.create();
+			//Open new element perspective e.g. FileChooser if E is MyFile
+
+			try {
+				T t;
+				t = factory.createWithGUI();
 				this.add(t);
+			} catch (CancelledCommandException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 
 		}
 		else if(e.getSource() == checkButton) {

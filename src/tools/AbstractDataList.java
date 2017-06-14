@@ -24,9 +24,10 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	
 	
 	
-	public AbstractDataList() {
+	public AbstractDataList(String savingsFileName) {
 		super();
 
+		this.savingsFileName = savingsFileName;
 		this.savingsFile = new File("savings/" + savingsFileName);
 		
 		//if the savings file doesn't exist, we have to create the directory and the file.
