@@ -1,4 +1,4 @@
-package fileManaging;
+package tools;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -36,7 +36,7 @@ public class MyItemView extends JPanel
 		deleteButton = new JButton("X");
 		deleteButton.addActionListener(this);
 		
-		editButton = new JButton(item.editText()); //we could change the button's text with item.editText
+		editButton = new JButton(item.editText()); //we can change the button's text with item.editText
 		editButton.addActionListener(this);
 		
 		this.add(itemName);

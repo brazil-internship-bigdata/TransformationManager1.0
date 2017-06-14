@@ -1,4 +1,4 @@
-package fileManaging;
+package main;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -13,9 +13,17 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import dbConnectionManaging.DBconnection;
+import dbConnectionManaging.DBconnectionsList;
+import fileManaging.FileList;
+import fileManaging.MyFile;
+import tools.DBconnectionFactory;
+import tools.MyFileFactory;
+import tools.MyListView;
+
 
 public class Home extends JFrame
-						implements ActionListener, ContainerListener{
+						implements ContainerListener{
 
 	/**
 	 * 
@@ -30,75 +38,42 @@ public class Home extends JFrame
 
 	/*  LEFT */
 	private JScrollPane filesScrollPane;//vertical scroll
-	private MyFileListView filesPane;
-	
+	private MyListView<MyFile> filesPane;
 	
 	
 	/*  RIGHT */
 	//This part creates the "add repository" and "send manually" part of the home frame
-	private JPanel actionsPanel; //Panel that contains 3 panels : 1 for send button (top), 1 to connect to a database (middle)  and 1 for add repo button (bottom)
+	private JScrollPane dbConnectionsScrollPane;
+	private MyListView<DBconnection> dbConnectionsPane;
 	
-	private JPanel addFilePanel; //TOP
-	private JButton addFileButton;
-	
-	private JPanel connectToDatabasePanel; //MIDDLE
-	private JButton connectToDatabaseButton;
-	
-	private JPanel sendButtonPanel; //BOTTOM
-	private JButton sendManuallyButton;
 	
 
-	private FileList fileList; //List of the selected directories to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
-
+	private FileList fileList; //List of the selected files to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
+	private DBconnectionsList dbConnectionsList;
 
 	
 	public Home() {
 		super(SOFTWARE_NAME);
 
 		this.fileList = new FileList();
-		
+		this.dbConnectionsList = new DBconnectionsList();
 		
 		//List of selected directories (left part)
 		/*filesPane = new JPanel(); TODO remove this comment block	
 		filesPane.setLayout(new BoxLayout(filesPane, BoxLayout.Y_AXIS));
 		*/
-		filesPane = new MyFileListView(fileList);
+		filesPane = new MyListView<MyFile>(fileList, new MyFileFactory());
 		filesScrollPane = new JScrollPane(filesPane);
-		//createListOfFilePanes();
 		
-		
-		/* Add button and send manually button (right part) */
-
-		/*
-		 * The actionsPanel (uses BorderLayout) is composed of two panels (using default flowLayout) which contain 1 button each. This creates a vertical flowLayout
-		 * TODO improve this layout because full screen is ugly
-		 */
-		//Creation of both panels and buttons
-		addFileButton = new JButton("Add new repository");
-		addFilePanel = new JPanel();
-		addFilePanel.add(addFileButton);
-		
-		sendManuallyButton = new JButton("Send Manually the data");
-		sendButtonPanel = new JPanel();
-		sendButtonPanel.add(sendManuallyButton);
-		
-		
-		//Insertion of the buttons in the action panel (right part of the home frame)
-		actionsPanel = new JPanel(new BorderLayout());
-		actionsPanel.add(sendButtonPanel, BorderLayout.PAGE_START);
-		actionsPanel.add(addFilePanel, BorderLayout.PAGE_END);
-			
-		
+		dbConnectionsPane = new MyListView<>(dbConnectionsList, new DBconnectionFactory());
+		dbConnectionsScrollPane = new JScrollPane(dbConnectionsPane);
 		
 		/*  Creation of the horizontal split  */
 		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
-				filesScrollPane, actionsPanel);
+				filesScrollPane, dbConnectionsScrollPane);
 		this.add(horizontalSplitPane);
 
 		
-		//buttons listeners
-		addFileButton.addActionListener(this);
-		sendManuallyButton.addActionListener(this);
 		
 		//Resizing Listener
 		filesPane.addContainerListener(this);
@@ -126,31 +101,6 @@ public class Home extends JFrame
 		}
 	}
 */
-
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource() == addFileButton) {
-			FileChooser.createFileChooser(filesPane);
-			
-			
-/*			//Creation of internal frame, and insertion into desktop pane
-			JInternalFrame internalFileChooser = new JInternalFrame("Data selector", true, true, true, true);
-			desktop.add(internalFileChooser);
-			internalFileChooser.setBounds(25, 25, 200, 100);
-
-			
-			//Creation of FileChooser and insertion into internal frame
-			FileChooser fc = new FileChooser(fileList);
-			internalFileChooser.add(fc);
-			fc.setVisible(true);
-*/			
-		} else if (e.getSource() == sendManuallyButton) {
-			//TODO get->transformation->put
-			System.out.println("send");
-		}
-	}
 
 
 	

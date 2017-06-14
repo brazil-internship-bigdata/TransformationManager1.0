@@ -1,4 +1,4 @@
-package fileManaging;
+package tools;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -12,8 +12,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-
-import tools.Factory;
 
 
 public class MyListView<T extends Item> extends JPanel
@@ -47,13 +45,13 @@ public class MyListView<T extends Item> extends JPanel
 		
 		//Creation and insertion of the buttons in the buttonsPane
 		addButton = new JButton("+"); //+ icon
-		buttonsPane.add(addButton);
+		buttonsPane.add(addButton, BorderLayout.LINE_START);
 		
 		checkButton = new JButton("v"); //check icon
-		buttonsPane.add(checkButton);
+		buttonsPane.add(checkButton, BorderLayout.CENTER);
 		
 		sendButton = new JButton("->"); //run icon
-		buttonsPane.add(sendButton);
+		buttonsPane.add(sendButton, BorderLayout.LINE_END);
 		
 		
 		//Creation of the List view
@@ -133,8 +131,10 @@ public class MyListView<T extends Item> extends JPanel
 		// TODO Auto-generated method stub
 		if(e.getSource() == addButton) {
 			//Open new element perspective => FileChooser if E is MyFile
-			T t = factory.create();
-			this.add(t);
+//			try {
+				T t = factory.create();
+				this.add(t);
+
 		}
 		else if(e.getSource() == checkButton) {
 			this.checkItems();

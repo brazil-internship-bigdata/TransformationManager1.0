@@ -6,6 +6,9 @@ import java.net.URI;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 
+import tools.CancelledCommandException;
+import tools.Item;
+
 public class MyFile implements Item {
 
 	private File file;
@@ -27,17 +30,16 @@ public class MyFile implements Item {
 		}
 	}
 */	
+	
 	public MyFile() {
-		JFileChooser fc = new JFileChooser();
-		
-		int returnVal = fc.showOpenDialog(null);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			file = fc.getSelectedFile();
-		} else {
-			System.out.println("Open command cancelled by user." );
-		}		
 	}
+	
+	
+
+	public MyFile(String pathName) {
+		file = new File(pathName);
+	}
+
 
 
 	@Override
@@ -55,6 +57,38 @@ public class MyFile implements Item {
 	@Override
 	public boolean check() {
 		return file.exists();
+	}
+
+
+
+
+
+	public int openFileChooser() throws CancelledCommandException{
+		JFileChooser fc = new JFileChooser();
+		
+		int returnVal = fc.showOpenDialog(null);
+
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			file = fc.getSelectedFile();
+		} else {
+			throw new CancelledCommandException("Command cancelled by user");
+		}		
+
+		return returnVal;
+	}
+
+
+
+	public String getAbsolutePath() {
+		// TODO Auto-generated method stub
+		return file.getAbsolutePath();
+	}
+
+
+
+	@Override
+	public String generateSavingTextLine() {
+		return this.getAbsolutePath();
 	}
 
 }

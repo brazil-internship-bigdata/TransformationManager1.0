@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import tools.MyListView;
+
 public class FileSelectedPane extends JPanel
 										implements ActionListener {
 
@@ -18,7 +20,7 @@ public class FileSelectedPane extends JPanel
 	private File file;
 	private int index;
 	private FileList fileList;
-	private MyFileListView parent;
+	private MyListView<MyFile> parent;
 	
 	private JTextArea filePath;
 	private JButton deleteButton;
@@ -53,7 +55,7 @@ public class FileSelectedPane extends JPanel
 		this.setSize(300, 10);
 	}
 */
-	public FileSelectedPane(MyFileListView parent, File file) {
+	public FileSelectedPane(MyListView<MyFile> parent, File file) {
 		super();
 		
 		this.parent = parent;

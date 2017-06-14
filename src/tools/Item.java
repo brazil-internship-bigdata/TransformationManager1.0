@@ -1,4 +1,5 @@
-package fileManaging;
+package tools;
+
 
 public interface Item {
 
@@ -11,5 +12,7 @@ public interface Item {
 	 * @return true if the item is valid, false otherwise
 	 */
 	public boolean check();
+	
+	public String generateSavingTextLine();
 	
 }

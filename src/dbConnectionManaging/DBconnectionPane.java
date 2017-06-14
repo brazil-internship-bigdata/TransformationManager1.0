@@ -1,4 +1,4 @@
-package fileManaging;
+package dbConnectionManaging;
 
 import java.awt.GridLayout;
 
@@ -79,7 +79,7 @@ public class DBconnectionPane extends JPanel {
 			return;
 		}
 		
-		yourConnectionName.setText(dbc.getConnectionName());
+		yourConnectionName.setText(dbc.name());
 		hostName.setText(dbc.getHostName());
 		databaseName.setText(dbc.getDataBaseName());
 		userName.setText(dbc.getUserName());
@@ -97,7 +97,7 @@ public class DBconnectionPane extends JPanel {
 
 	
 	public DBconnection makeDBconnection() {
-		return null;
+		return new DBconnection(yourConnectionName.getText(), hostName.getText(), databaseName.getText(), userName.getText(), password.getPassword());
 	}
 	
 	

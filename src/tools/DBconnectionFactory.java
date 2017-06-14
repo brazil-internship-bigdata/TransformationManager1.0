@@ -2,9 +2,8 @@ package tools;
 
 import javax.swing.JOptionPane;
 
-import fileManaging.DBconnection;
-import fileManaging.DBconnectionPane;
-import fileManaging.MyListView;
+import dbConnectionManaging.DBconnection;
+import dbConnectionManaging.DBconnectionPane;
 
 public class DBconnectionFactory implements Factory<DBconnection> {
 
@@ -25,12 +24,12 @@ public class DBconnectionFactory implements Factory<DBconnection> {
 	 * If the user cancels, it returns null. This should be replaced with a custom exception. 
 	 */
 	@Override
-	public DBconnection createWithGUI() {
+	public DBconnection createWithGUI() throws CancelledCommandException {
 		DBconnectionPane dbcp = new DBconnectionPane(); 
 		
 		int answer = dbcp.showCreationDialog();
 		if(answer == JOptionPane.CANCEL_OPTION || answer == JOptionPane.CLOSED_OPTION) {
-			return null;
+			throw new CancelledCommandException("Command cancelled by user");
 		}
 		return dbcp.makeDBconnection();
 	}
