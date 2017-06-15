@@ -1,6 +1,6 @@
-package dbConnectionManaging;
+package dataManaging.databaseConnections;
 
-import tools.AbstractDataList;
+import dataManaging.AbstractDataList;
 
 public class DBconnectionsList extends AbstractDataList<DBconnection> {
 

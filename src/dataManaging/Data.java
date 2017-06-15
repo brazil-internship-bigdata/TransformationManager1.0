@@ -1,6 +1,4 @@
-package tools;
-
-
+package dataManaging;
 
 public interface Data<E extends Item> {
 	

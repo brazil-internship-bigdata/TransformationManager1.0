@@ -1,6 +1,8 @@
-package tools;
+package dataManaging.files;
 
-import fileManaging.MyFile;
+import dataManaging.Factory;
+import dataManaging.MyListView;
+import tools.CancelledCommandException;
 
 public class MyFileFactory implements Factory<MyFile> {
 

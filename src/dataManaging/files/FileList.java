@@ -1,7 +1,7 @@
-package fileManaging;
+package dataManaging.files;
 
 
-import tools.AbstractDataList;
+import dataManaging.AbstractDataList;
 
 
 public class FileList extends AbstractDataList<MyFile> {

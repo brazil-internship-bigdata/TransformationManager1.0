@@ -7,13 +7,13 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
-import dbConnectionManaging.DBconnection;
-import dbConnectionManaging.DBconnectionsList;
-import fileManaging.FileList;
-import fileManaging.MyFile;
-import tools.DBconnectionFactory;
-import tools.MyFileFactory;
-import tools.MyListView;
+import dataManaging.MyListView;
+import dataManaging.databaseConnections.DBconnection;
+import dataManaging.databaseConnections.DBconnectionFactory;
+import dataManaging.databaseConnections.DBconnectionsList;
+import dataManaging.files.FileList;
+import dataManaging.files.MyFile;
+import dataManaging.files.MyFileFactory;
 
 
 public class Home extends JFrame

@@ -1,4 +1,4 @@
-package dbConnectionManaging;
+package dataManaging.databaseConnections;
 
 import java.awt.GridLayout;
 

@@ -1,4 +1,4 @@
-package fileManaging;
+package dataManaging.files;
 
 import java.io.File;
 import java.net.URI;
@@ -6,8 +6,8 @@ import java.net.URI;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 
+import dataManaging.Item;
 import tools.CancelledCommandException;
-import tools.Item;
 
 public class MyFile implements Item {
 

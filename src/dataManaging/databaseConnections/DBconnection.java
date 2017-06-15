@@ -1,7 +1,7 @@
-package dbConnectionManaging;
+package dataManaging.databaseConnections;
 
-import tools.Item;
-import tools.MyListView;
+import dataManaging.Item;
+import dataManaging.MyListView;
 
 public class DBconnection implements Item {
 

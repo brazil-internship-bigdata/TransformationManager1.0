@@ -1,17 +1,16 @@
-package tools;
+package dataManaging;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
+import tools.CancelledCommandException;
 
 
 public class MyListView<T extends Item> extends JPanel
@@ -39,7 +38,7 @@ public class MyListView<T extends Item> extends JPanel
 		super();
 		
 		this.factory = factory;
-		
+
 		//Creation of the buttons Pane
 		buttonsPane = new JPanel(new BorderLayout());		
 		

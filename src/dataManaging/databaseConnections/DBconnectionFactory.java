@@ -1,9 +1,10 @@
-package tools;
+package dataManaging.databaseConnections;
 
 import javax.swing.JOptionPane;
 
-import dbConnectionManaging.DBconnection;
-import dbConnectionManaging.DBconnectionPane;
+import dataManaging.Factory;
+import dataManaging.MyListView;
+import tools.CancelledCommandException;
 
 public class DBconnectionFactory implements Factory<DBconnection> {
 
