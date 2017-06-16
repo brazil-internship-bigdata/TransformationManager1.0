@@ -22,7 +22,7 @@ public class MyItemView extends JPanel
 	private JTextArea itemName;
 	private JButton deleteButton;
 	private JButton editButton;
-	
+	private JButton jobButton;
 	//TODO file browser, check if file exists and print red text if it doesn't > advising to relocate or delete
 
 	
@@ -36,14 +36,20 @@ public class MyItemView extends JPanel
 
 		
 		deleteButton = new JButton("X");
+		deleteButton.setToolTipText("delete this item");
 		deleteButton.addActionListener(this);
 		
 		editButton = new JButton(item.editText()); //we can change the button's text with item.editText
 		editButton.addActionListener(this);
 		
+		jobButton = new JButton("->");
+		jobButton.setToolTipText("send the data to the Lab!");
+		jobButton.addActionListener(this);
+		
 		this.add(itemName);
 		this.add(deleteButton);
 		this.add(editButton);
+		this.add(jobButton);
 	}
 
 	
@@ -62,17 +68,18 @@ public class MyItemView extends JPanel
 		else if (e.getSource() == editButton) {
 			try {
 				//If the user clics on the edit Button, we modify the item through the corresponding GUI.
-				item.setWithGUI();
-				
-				//Here the user didn't cancel the modification so we need to save the modifications
-				parent.getDataList().saveAll();
-				
+				parent.getDataList().editItem(item); 
+
+				//Here, the user didn't cancel the item editing => we have to upload the view
 				itemName.setText(item.name());
 //				parent.revalidate();
 //				parent.repaint();
 			} catch (CancelledCommandException e1) {
 				e1.printStackTrace();
 			}
+		}
+		else if (e.getSource() == jobButton) {
+			//TODO get transform put!
 		}
 		
 	}

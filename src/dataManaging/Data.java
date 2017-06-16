@@ -1,6 +1,6 @@
 package dataManaging;
 
-public interface Data<E extends Item> {
+public interface Data {
 	
 
 	/**

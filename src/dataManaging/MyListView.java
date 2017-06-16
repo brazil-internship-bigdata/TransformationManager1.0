@@ -148,6 +148,7 @@ public class MyListView<T extends Item> extends JPanel
 		
 			} catch (CancelledCommandException e1) {
 				e1.printStackTrace();
+				System.err.println("Cancelled");
 			}
 		}
 		else if(e.getSource() == checkButton) {

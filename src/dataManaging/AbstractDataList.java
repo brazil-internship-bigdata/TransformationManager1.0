@@ -10,9 +10,13 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
+import tools.CancelledCommandException;
 
 
-public abstract class AbstractDataList<E extends Item> extends ArrayList<E> implements Data<E> {
+
+public abstract class AbstractDataList<E extends Item> extends ArrayList<E> implements Data {
 
 	/**
 	 * 
@@ -59,17 +63,25 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	public void initList() {
 		FileReader fr = null;
 		BufferedReader br = null;
+		boolean some_error_occured = false;
+		
 		try {
 			fr = new FileReader(savingsFile);
 			br = new BufferedReader(fr);
 
 			String currentLine;
 			while((currentLine = br.readLine()) != null && !currentLine.equals("")) {
-				E e = textLine2Element(currentLine);
-				super.add(e);
+				
+				try {
+					E e = textLine2Element(currentLine);
+					super.add(e);
 
-				if(!e.check()) {
-					//TODO : for now I'm thinking about printing red text and asking the user to relocate the file. => TODO in FileSelectedPane
+					if(!e.check()) {
+						//TODO : for now I'm thinking about printing red text and asking the user to relocate the file. => TODO in FileSelectedPane
+					}
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+					some_error_occured = true;
 				}
 			}
 		} catch (IOException e) {
@@ -88,14 +100,21 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 				ex.printStackTrace();
 			}
 		}		
+		
+		if(some_error_occured) {
+			JOptionPane.showMessageDialog(null,
+					"One or more items couldn't be loaded because of some errors in the savings file... Maybe you used illegal characters?",
+					"error while loading",
+					JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	/**
-	 * creates and Element from a textLine
+	 * creates an Element from a textLine
 	 * @param textLine
 	 * @return the element corresponding to the parameters contained in the textLine
 	 */
-	protected abstract E textLine2Element(String textLine);
+	protected abstract E textLine2Element(String textLine) throws IllegalArgumentException;
 
 	
 	@Override
@@ -190,5 +209,13 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 		return res;
 	}
 
+	
+	public void editItem(Item item) throws CancelledCommandException {
+		item.setWithGUI();
+		
+		//Here the user didn't cancel the modification so we need to save the modifications
+		saveAll();
+
+	}
 
 }

@@ -75,8 +75,8 @@ public class Home extends JFrame
 		//print
 //		this.add(desktop, BorderLayout.CENTER);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.pack();
 		this.setSize(800, 800);
+		this.pack();
 		this.setVisible(true);
 	}
 
