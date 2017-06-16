@@ -6,6 +6,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import tools.CancelledCommandException;
+
 public class MyItemView extends JPanel
 										implements ActionListener {
 
@@ -58,7 +60,19 @@ public class MyItemView extends JPanel
 			System.out.println("item: " + item.toString() + " was deleted");
 		} 
 		else if (e.getSource() == editButton) {
-			//TODO createFileChooser with fileList
+			try {
+				//If the user clics on the edit Button, we modify the item through the corresponding GUI.
+				item.setWithGUI();
+				
+				//Here the user didn't cancel the modification so we need to save the modifications
+				parent.getDataList().saveAll();
+				
+				itemName.setText(item.name());
+//				parent.revalidate();
+//				parent.repaint();
+			} catch (CancelledCommandException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 	}

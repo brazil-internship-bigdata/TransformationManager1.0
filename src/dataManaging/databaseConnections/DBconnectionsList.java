@@ -16,7 +16,7 @@ public class DBconnectionsList extends AbstractDataList<DBconnection> {
 	@Override
 	protected DBconnection textLine2Element(String textLine) {
 		// TODO BE CAREFULL WITH THE SPACES
-		String [] parameters = textLine.split(" ");
+		String [] parameters = textLine.split(DBconnection.separator);
 		return new DBconnection(parameters);
 	}
 

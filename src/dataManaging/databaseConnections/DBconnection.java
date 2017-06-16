@@ -1,10 +1,14 @@
 package dataManaging.databaseConnections;
 
+import javax.swing.JOptionPane;
+
 import dataManaging.Item;
-import dataManaging.MyListView;
+import tools.CancelledCommandException;
 
 public class DBconnection implements Item {
 
+	static final String separator = " ";
+	
 	private String connectionName;
 	private String hostName;
 	private String dataBaseName;
@@ -14,17 +18,8 @@ public class DBconnection implements Item {
 	private String portName;
 	private String password;
 	
-	private MyListView<DBconnection> listView;
-	
-	public DBconnection(MyListView<DBconnection> listView) {
-		this.listView = listView;
-		//TODO
-	}
-
-	
 	
 	public DBconnection() {
-		// TODO Auto-generated constructor stub
 	}
 
 	public DBconnection(String customName, String hostName, String dataBaseName, String userName, char[] password) {
@@ -41,6 +36,39 @@ public class DBconnection implements Item {
 		dataBaseName = parameters[2];
 		userName = parameters[3];
 		password = parameters[4];
+	}
+
+	
+	@Override
+	public String generateSavingTextLine() {
+		
+		return connectionName
+				+ separator + hostName
+				+ separator + dataBaseName
+				+ separator + userName
+				+ separator + password;
+	}
+
+
+
+	@Override
+	public void setWithGUI() throws CancelledCommandException {
+		DBconnectionPane dbcp = new DBconnectionPane(this); 
+		
+		int answer = dbcp.showCreationDialog();
+		if(answer == JOptionPane.CANCEL_OPTION || answer == JOptionPane.CLOSED_OPTION) {
+			throw new CancelledCommandException("Command cancelled by user");
+		}
+		
+		setFieldsFromGUI(dbcp);
+	}
+
+	private void setFieldsFromGUI(DBconnectionPane dbcp) {
+		connectionName = dbcp.getConnectionName();
+		dataBaseName = dbcp.getHostName();
+		hostName = dbcp.getDatabaseName();
+		userName = dbcp.getUserName();
+		password = dbcp.getPassword();		
 	}
 
 
@@ -82,18 +110,6 @@ public class DBconnection implements Item {
 
 	public String getPassword() {
 		return password;
-	}
-
-
-
-	@Override
-	public String generateSavingTextLine() {
-		
-		return connectionName
-				+" " + hostName
-				+" " + dataBaseName
-				+" " + userName
-				+" " + password;
 	}
 
 }

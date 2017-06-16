@@ -19,5 +19,4 @@ public interface Data<E extends Item> {
 	
 	
 	public void saveAll();
-
-	}
+}

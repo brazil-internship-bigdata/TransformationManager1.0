@@ -1,5 +1,6 @@
 package dataManaging;
 
+import tools.CancelledCommandException;
 
 public interface Item {
 
@@ -15,4 +16,5 @@ public interface Item {
 	
 	public String generateSavingTextLine();
 	
+	public void setWithGUI() throws CancelledCommandException;
 }

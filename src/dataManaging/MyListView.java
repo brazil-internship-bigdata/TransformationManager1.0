@@ -40,7 +40,7 @@ public class MyListView<T extends Item> extends JPanel
 		this.factory = factory;
 
 		//Creation of the buttons Pane
-		buttonsPane = new JPanel(new BorderLayout());		
+		buttonsPane = new JPanel();		
 		
 		//Creation and insertion of the buttons in the buttonsPane
 		addButton = new JButton("+"); //+ icon
@@ -91,6 +91,7 @@ public class MyListView<T extends Item> extends JPanel
 	public void remove(MyItemView child) {
 		super.remove(child);
 		listData.remove(child.getItem());
+		this.revalidate();
 		this.repaint();
 	}
 	
@@ -136,14 +137,18 @@ public class MyListView<T extends Item> extends JPanel
 			//Open new element perspective e.g. FileChooser if E is MyFile
 
 			try {
-				T t;
-				t = factory.createWithGUI();
+				//We use the factory to create an item of type T.
+				T t = factory.create();
+				
+				//We open the GUI so the user sets the parameters
+				t.setWithGUI();
+				
+				//Here the user approved the parameters, thus we have to add the new Item to the data list
 				this.add(t);
+		
 			} catch (CancelledCommandException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 		}
 		else if(e.getSource() == checkButton) {
 			this.checkItems();
@@ -151,6 +156,10 @@ public class MyListView<T extends Item> extends JPanel
 		else if(e.getSource() == sendButton) {
 			//TODO run the transformation thread
 		}
+	}
+	
+	public AbstractDataList<T> getDataList() {
+		return listData;
 	}
 	
 

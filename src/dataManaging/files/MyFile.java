@@ -12,24 +12,7 @@ import tools.CancelledCommandException;
 public class MyFile implements Item {
 
 	private File file;
-/*	private MyListView<MyFile> listView;
 	
-	public MyFile(MyListView<MyFile> listView) {
-
-		this.listView = listView;
-		
-		JFileChooser fc = new JFileChooser();
-		
-		int returnVal = fc.showOpenDialog(listView);
-
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			file = fc.getSelectedFile();
-			listView.add(this);
-		} else {
-			System.out.println("Open command cancelled by user." );
-		}
-	}
-*/	
 	
 	public MyFile() {
 	}
@@ -61,10 +44,8 @@ public class MyFile implements Item {
 
 
 
-
-
 	public int openFileChooser() throws CancelledCommandException{
-		JFileChooser fc = new JFileChooser();
+		JFileChooser fc = new JFileChooser(this.file);
 		
 		int returnVal = fc.showOpenDialog(null);
 
@@ -89,6 +70,13 @@ public class MyFile implements Item {
 	@Override
 	public String generateSavingTextLine() {
 		return this.getAbsolutePath();
+	}
+
+
+
+	@Override
+	public void setWithGUI() throws CancelledCommandException {
+		openFileChooser();
 	}
 
 }
