@@ -25,6 +25,8 @@ public class DBconnection implements Item {
 	private String portName;
 	private String password;
 	
+	private boolean jobRunning;
+	
 	
 	public DBconnection() {
 	}
@@ -155,6 +157,12 @@ public class DBconnection implements Item {
 		}
 		
 		return true;
+	}
+
+	@Override
+	public boolean isJobRunning() {
+		// TODO check if the job is scheduled by the computer
+		return jobRunning;
 	}
 	
 

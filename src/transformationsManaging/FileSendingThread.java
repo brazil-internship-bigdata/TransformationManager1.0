@@ -2,6 +2,8 @@ package transformationsManaging;
 
 import java.io.File;
 
+import dataManaging.files.MyFile;
+
 public class FileSendingThread implements Runnable {
 
 	private File fileToTransform;
@@ -12,7 +14,7 @@ public class FileSendingThread implements Runnable {
 	
 	@Override
 	public void run() {
-		File kjb = null;
+		MyFile kjb = null;
 		//TODO get kjb
 		Transformer t = new Transformer("path to kitchen", kjb.getAbsolutePath(), fileToTransform);
 		File csvFile = null; //TODO récupérer le résultat

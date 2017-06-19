@@ -17,4 +17,10 @@ public interface Item {
 	public String generateSavingTextLine();
 	
 	public void setWithGUI() throws CancelledCommandException;
+	
+	/**
+	 * verifies if the job is scheduled correctly. for now, a simple boolean should do the trick
+	 * @return true if the job is running
+	 */
+	public boolean isJobRunning();
 }

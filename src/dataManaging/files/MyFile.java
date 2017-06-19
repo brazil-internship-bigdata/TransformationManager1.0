@@ -12,7 +12,7 @@ import tools.CancelledCommandException;
 public class MyFile implements Item {
 
 	private File file;
-	
+	private boolean jobRunning;
 	
 	public MyFile() {
 	}
@@ -77,6 +77,14 @@ public class MyFile implements Item {
 	@Override
 	public void setWithGUI() throws CancelledCommandException {
 		openFileChooser();
+	}
+
+
+
+	@Override
+	public boolean isJobRunning() {
+		// TODO check if the job is scheduled on the computer
+		return jobRunning;
 	}
 
 }
