@@ -37,6 +37,9 @@ public class DBconnectionPane extends JPanel
 	
 	private JButton createButton;
 	private JButton cancelButton;
+	
+	private JDialog dialog;
+	private int user_choice; //0 for createButton Button and 1 for cancelButton
 	/*
 	private JTextField [] textFields = {
 			new JTextField(textLength) ,
@@ -169,9 +172,9 @@ public class DBconnectionPane extends JPanel
 	 * @return the result of a showOptionDialog with JOPTIONPANE.OK_CANCEL_OPTION
 	 */
 	public int showCreationDialog() {
-		final JOptionPane optionPane = new JOptionPane(this, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+//		final JOptionPane optionPane = new JOptionPane(this, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		
-		final JDialog dialog = new JDialog();//= new JDialog((Frame) this.getTopLevelAncestor(), "Connection parameters",true);
+		dialog = new JDialog();//= new JDialog((Frame) this.getTopLevelAncestor(), "Connection parameters",true);
 		dialog.setModal(true);
 		dialog.setTitle("Connection parameters");
 		dialog.setContentPane(this);
@@ -204,7 +207,7 @@ public class DBconnectionPane extends JPanel
 		dialog.setVisible(true);
 		
 		//return the optionPane answer value.
-		return ((Integer)optionPane.getValue()).intValue();
+		return user_choice;
 		
 		//		return JOptionPane.showOptionDialog(null, this, "Connection parameters", JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE, null, null, null);
 	}
@@ -262,8 +265,18 @@ public class DBconnectionPane extends JPanel
 
 		if(e.getSource() == createButton) {
 			if( checkFields() ) {
-				
+				user_choice = 0;
+				dialog.setVisible(false);
 			}
+			else 			            		
+				JOptionPane.showMessageDialog(null,
+						"One or more fields are not correctly filled.\nThere must be no empty field, and spaces aren't allowed.",
+						"I can't save these parameters :'(",
+						JOptionPane.ERROR_MESSAGE);
+		}
+		else if (e.getSource() == cancelButton) {
+			user_choice = 1;
+			dialog.setVisible(false);
 		}
 	}
 }

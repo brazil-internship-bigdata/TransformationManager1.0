@@ -68,7 +68,7 @@ public class DBconnection implements Item {
 		DBconnectionPane dbcp = new DBconnectionPane(this); 
 		
 		int answer = dbcp.showCreationDialog();
-		if(answer == JOptionPane.CANCEL_OPTION || answer == JOptionPane.CLOSED_OPTION) {
+		if(answer != JOptionPane.OK_OPTION) {
 			throw new CancelledCommandException("Command cancelled by user");
 		}
 		
