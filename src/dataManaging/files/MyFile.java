@@ -12,29 +12,33 @@ import tools.CancelledCommandException;
 public class MyFile extends AbstractItem {
 
 	private File file;
-	private boolean jobRunning;
 
 	
 	public MyFile() {
+		init();
 	}
 	
-	
+	@Override
+	public void init() { 
+		file = null;
+	}
 
-	public MyFile(String pathName) {
-		file = new File(pathName);
+
+
+	public MyFile(String [] attributes) {
+		super(attributes);
+		file = new File(attributes[0]);
 	}
 
 
 
 	@Override
 	public String editText() {
-		// TODO Auto-generated method stub
 		return "Edit file location";
 	}
 
 	@Override
 	public String name() {
-		// TODO Auto-generated method stub
 		return file.getName();
 	}
 
@@ -69,7 +73,7 @@ public class MyFile extends AbstractItem {
 
 
 	@Override
-	public String generateSavingTextLine() {
+	protected String childSavingTextLine() {
 		return this.getAbsolutePath();
 	}
 
@@ -93,7 +97,7 @@ public class MyFile extends AbstractItem {
 
 	@Override
 	public String[] commandLineArguments() {
-		String [] arguments = new String[numberOfFields()];
+		String [] arguments = new String[numberOfParameters()];
 		
 		
 		//LastTime
@@ -108,10 +112,18 @@ public class MyFile extends AbstractItem {
 
 
 	@Override
-	public int numberOfFields() {
-		// TODO Auto-generated method stub
+	public int numberOfCustomFields() {
+		return 1;
+	}
+
+
+
+	@Override
+	public int numberOfParameters() {
 		return 2;
 	}
+
+
 
 
 }

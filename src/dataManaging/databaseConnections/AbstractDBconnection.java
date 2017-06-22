@@ -7,17 +7,15 @@ import tools.CancelledCommandException;
 
 public abstract class AbstractDBconnection extends AbstractItem {
 
-	protected boolean jobRunning;
+//	protected boolean jobRunning;
 
 	//parameters that represent the connection to the DB
 	protected String[][] fields; 
 
-	public static final String separator = " ";
-	
+
 	
 	protected AbstractDBconnection() {
-//		fields = new String [numberOfFields()][3];
-		init();
+		super();
 	}
 
 	public AbstractDBconnection(DBconnectionPane adbcp) {
@@ -25,33 +23,15 @@ public abstract class AbstractDBconnection extends AbstractItem {
 		setFieldsFromGUI(adbcp);
 	}
 
-	public AbstractDBconnection(String[] parameters) throws IllegalArgumentException {
-		this();
+	public AbstractDBconnection(String[] attributes) throws IllegalArgumentException {
+		super(attributes);
 		
-		if (parameters.length != numberOfFields()) {
-			throw new IllegalArgumentException("the line in the DBconnections savings file couldn't be analyzed correctly. No field should be empty nor contain spaces");
-		}
-		
-		for(int i = 0 ; i<numberOfFields(); i++) {
-			fields[i][0] = parameters[i];
+		for(int i = 0 ; i<numberOfCustomFields(); i++) {
+			fields[i][0] = attributes[i];
 		}
 	}
 
-	
-	protected abstract void init();
-	
-	@Override
-	public String generateSavingTextLine() {
-
-		String res = fields[0][0];
-
-		for(int i = 1 ; i<numberOfFields(); i++) {
-			res += fields[i];
-		}
-
-		return res;
-	}
-
+		
 
 
 	@Override
@@ -66,11 +46,12 @@ public abstract class AbstractDBconnection extends AbstractItem {
 		setFieldsFromGUI(adbcp);
 	}
 
+	
 	private void setFieldsFromGUI(DBconnectionPane adbcp) {
-		String[] paneParameters = adbcp.paneParameters();
+		String[] paneFields = adbcp.paneFields();
 		
-		for(int i = 0; i<numberOfFields() ; i++) {
-			fields[i][0] = paneParameters[i];
+		for(int i = 0; i<numberOfCustomFields() ; i++) {
+			fields[i][0] = paneFields[i];
 		}
 	}
 
@@ -111,7 +92,7 @@ public abstract class AbstractDBconnection extends AbstractItem {
 	 * @return the index of the password in this array
 	 */
 	protected int passwordIndex() {
-		return numberOfFields()-1;
+		return numberOfCustomFields()-1;
 	}
 	
 	/**
@@ -124,15 +105,28 @@ public abstract class AbstractDBconnection extends AbstractItem {
 	
 	
 	public String[] commandLineArguments() {
-		String [] arguments = new String[numberOfFields()]; //the arguments take the date and every field except the connectionName
+		String [] arguments = new String[numberOfParameters()]; //the arguments take the date and every field except the connectionName
 		
 		//DATE: LAST TIME
 		arguments[connectionNameIndex()] = lastTransformationDate();
 		
 		
-		for(int i = 1 ; i<numberOfFields(); i++) {
+		for(int i = 1 ; i<numberOfParameters(); i++) {
 			arguments[i] = fields[i][0];
 		}
 		return arguments;
 	}
+	
+	
+	@Override
+	protected String childSavingTextLine() {
+
+		String res = "";
+		for(int i = 0; i<numberOfCustomFields() ; i++) {
+			res += separator + fields[i][0];
+		}
+				
+		return res;
+	}
+
 }

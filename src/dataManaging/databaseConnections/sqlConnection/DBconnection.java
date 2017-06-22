@@ -40,10 +40,11 @@ public class DBconnection extends AbstractDBconnection {
 	
 	@Override
 	public void init() {
-		for(int i = 0 ; i<numberOfFields() ; i++) {
+		fields = new String[numberOfCustomFields()][3];
+		for(int i = 0 ; i<numberOfCustomFields() ; i++) {
 			fields[i][0] = "";
-			fields[i][1] = fields_details[i][1];
-			fields[i][2] = fields_details[i][2];
+			fields[i][1] = fields_details[i][0];
+			fields[i][2] = fields_details[i][1];
 		}		
 	}
 	
@@ -97,16 +98,15 @@ public class DBconnection extends AbstractDBconnection {
 
 
 	@Override
-	public int numberOfFields() {
+	public int numberOfCustomFields() {
 		return 5; //MYSQL
 	}
 
-	@Override
-	public String generateSavingTextLine() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	@Override
+	public int numberOfParameters() {
+		return 5; //MYSQL -> needs lastTime, hostName, DataBaseName, userName, Password
+	}
 
 
 }

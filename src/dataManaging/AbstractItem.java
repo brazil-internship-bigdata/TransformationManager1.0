@@ -12,15 +12,38 @@ public abstract class AbstractItem implements Item {
 
 	private DateFormat format = new SimpleDateFormat("dd.MM.yyyy-hh:mm:ss");
 	
+	public static final String separator = " ";
+	
+	
 	public AbstractItem() {
-		this.jobRunning = false;
-		lastTransformation = null;		
+		abstractInit();
 	}
 	
-	public AbstractItem(String jobRunning, String lastTransformationDate) {
-		this.jobRunning = jobRunning.equals("true");
+	public AbstractItem(String [] attributes) throws IllegalArgumentException {//String lastTransformationDate, String jobRunning) {
+		this();
 		
+		if(attributes.length != numberOfAttributes()) {
+			throw new IllegalArgumentException("the line in the savings file couldn't be analyzed correctly. No field should be empty nor contain spaces");			
+		}
+		
+		int indexOfDate = attributes.length -2;
+		int indexOfJobRunning = attributes.length -1;
+		
+		parseLastTransformationDate(attributes[indexOfDate]);
+		this.jobRunning = attributes[indexOfJobRunning].equals("true");
+
+	
 	}
+	
+
+	
+	private void abstractInit() {
+		this.jobRunning = false;
+		lastTransformation = null;
+		init(); //abstract method for now
+	}
+
+	
 	
 	
 	@Override
@@ -33,22 +56,42 @@ public abstract class AbstractItem implements Item {
 
 	@Override
 	public String lastTransformationDate() {
-		return format.format(lastTransformation);
+		if(lastTransformation == null) {
+			return null;
+		}
+		else
+			return format.format(lastTransformation);
 	}
 
 
-	
-	@Override
-	public void parseLastTransformationDate(String lastTransformationDate) {
+
+	private void parseLastTransformationDate(String lastTransformationDate) {
 		try {
 			lastTransformation = format.parse(lastTransformationDate);
 		} catch (ParseException e) {
 			lastTransformation = null;
 			System.err.println("date of last transformation could not be read. The date is now null");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 
 	
+	@Override
+	public int numberOfAttributes() {
+		//last transformation date and jobRunning boolean
+		return 2 + numberOfCustomFields();
+	}
+	
+
+	@Override
+	public String generateSavingTextLine() {
+		String res = childSavingTextLine();
+		res += separator+lastTransformationDate();
+		res += separator+jobRunning;
+		
+		return res;
+	}
+
+	protected abstract String childSavingTextLine();
 	
 }

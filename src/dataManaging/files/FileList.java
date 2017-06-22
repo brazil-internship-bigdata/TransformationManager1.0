@@ -20,7 +20,8 @@ public class FileList extends AbstractDataList<MyFile> {
 
 	@Override
 	protected MyFile textLine2Element(String textLine) {
-		return new MyFile(textLine);
+		String [] attributes = textLine.split(MyFile.separator);
+		return new MyFile(attributes);
 	}
 
 	

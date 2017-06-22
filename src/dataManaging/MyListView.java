@@ -78,7 +78,6 @@ public class MyListView<T extends Item> extends JPanel
 	public void add (T t) {
 		MyItemView itemView = new MyItemView(this, t);
 		listData.add(t);
-//		listView.add(itemView);
 		this.add(itemView);
 		this.revalidate();
 		this.repaint();

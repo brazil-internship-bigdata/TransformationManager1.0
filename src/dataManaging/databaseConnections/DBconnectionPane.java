@@ -38,7 +38,7 @@ public class DBconnectionPane extends JPanel
 	private JButton cancelButton;
 	
 	private JDialog dialog;
-	private int user_choice; //0 for createButton Button and 1 for cancelButton
+	private int user_choice = -1; //0 for createButton Button and 1 for cancelButton
 	
 	
 	private DBconnectionPane() {
@@ -58,11 +58,11 @@ public class DBconnectionPane extends JPanel
 		}
 */		
 		
-		this.setLayout(new GridLayout(adbc.numberOfFields(),2));
+		this.setLayout(new GridLayout(adbc.numberOfCustomFields()+2,2)); //numberOfFields+2 rows to add the blanc and the buttons. 2 columns to add the labels and the JTextFields
 
 		
-		t_jfields = new JTextField[adbc.numberOfFields()];
-		t_labels = new JLabel[adbc.numberOfFields()];
+		t_jfields = new JTextField[adbc.numberOfCustomFields()];
+		t_labels = new JLabel[adbc.numberOfCustomFields()];
 
 		
 		for(int i = 0 ; i<t_jfields.length-1 ; i++) { //Password must be the last field.
@@ -135,7 +135,7 @@ public class DBconnectionPane extends JPanel
 					&& !t_jfields[i].getText().contains(" ")
 					&& !t_jfields[i].getText().equals(""); 			
 		}
-				
+
 		return all_fields_correct;
 	}
 
@@ -147,7 +147,7 @@ public class DBconnectionPane extends JPanel
 	
 
 	
-	public String[] paneParameters() {
+	public String[] paneFields() {
 		String[] res = new String[t_jfields.length];
 		
 		for(int i = 0 ; i<t_jfields.length ; i++) {
@@ -179,7 +179,6 @@ public class DBconnectionPane extends JPanel
 						JOptionPane.ERROR_MESSAGE);
 		}
 		else if (e.getSource() == cancelButton) {
-			user_choice = 1;
 			dialog.setVisible(false);
 		}
 	}
