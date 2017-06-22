@@ -1,6 +1,7 @@
 package dataManaging.databaseConnections;
 
 import dataManaging.AbstractDataList;
+import dataManaging.databaseConnections.sqlConnection.DBconnection;
 
 public class DBconnectionsList extends AbstractDataList<DBconnection> {
 

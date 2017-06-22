@@ -1,18 +1,19 @@
 package dataManaging.files;
 
 import java.io.File;
-import java.net.URI;
+import java.util.Date;
 
 import javax.swing.JFileChooser;
-import javax.swing.SwingUtilities;
 
+import dataManaging.AbstractItem;
 import dataManaging.Item;
 import tools.CancelledCommandException;
 
-public class MyFile implements Item {
+public class MyFile extends AbstractItem {
 
 	private File file;
 	private boolean jobRunning;
+
 	
 	public MyFile() {
 	}
@@ -86,5 +87,31 @@ public class MyFile implements Item {
 		// TODO check if the job is scheduled on the computer
 		return jobRunning;
 	}
+
+
+
+
+	@Override
+	public String[] commandLineArguments() {
+		String [] arguments = new String[numberOfFields()];
+		
+		
+		//LastTime
+		arguments[0] = lastTransformationDate();
+		
+		//file path
+		arguments[1] = getAbsolutePath();
+		
+		return arguments;
+	}
+
+
+
+	@Override
+	public int numberOfFields() {
+		// TODO Auto-generated method stub
+		return 2;
+	}
+
 
 }

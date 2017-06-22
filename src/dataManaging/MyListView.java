@@ -3,6 +3,7 @@ package dataManaging;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.function.Supplier;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -22,7 +23,7 @@ public class MyListView<T extends Item> extends JPanel
 	 */
 	private static final long serialVersionUID = 6278407390981154945L;
 	
-	private Factory<T> factory;
+	private Supplier<T> supplier;
 	
 	private AbstractDataList<T> listData; //TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
 
@@ -34,10 +35,10 @@ public class MyListView<T extends Item> extends JPanel
 	
 	
 	//TODO modify this
-	public MyListView(AbstractDataList<T> list, Factory<T> factory) {
+	public MyListView(AbstractDataList<T> list, Supplier<T> supplier) {
 		super();
 		
-		this.factory = factory;
+		this.supplier = supplier;
 
 		//Creation of the buttons Pane
 		buttonsPane = new JPanel();		
@@ -138,7 +139,7 @@ public class MyListView<T extends Item> extends JPanel
 
 			try {
 				//We use the factory to create an item of type T.
-				T t = factory.create();
+				T t = supplier.get();
 				
 				//We open the GUI so the user sets the parameters
 				t.setWithGUI();

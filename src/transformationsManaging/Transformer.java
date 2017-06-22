@@ -25,7 +25,6 @@ public class Transformer{
 		try {
 			CommandExecutor.execute("/bin/bash", pathToKitchen+"kitchen.sh", "./kitchen.sh", "/file", pathToKjb, fileToTransform.getName(), "/norep");
 		} catch (InterruptedException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

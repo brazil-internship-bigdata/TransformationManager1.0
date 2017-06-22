@@ -1,15 +1,13 @@
 package dataManaging.files;
 
-import dataManaging.Factory;
-import dataManaging.MyListView;
-import tools.CancelledCommandException;
+import java.util.function.Supplier;
 
-public class MyFileFactory implements Factory<MyFile> {
+public class MyFileSupplier implements Supplier<MyFile> {
 
 
 	
 	@Override
-	public MyFile create() {
+	public MyFile get() {
 		return new MyFile();
 	}
 /*

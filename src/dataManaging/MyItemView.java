@@ -1,12 +1,14 @@
 package dataManaging;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import tools.CancelledCommandException;
+import tools.CommandExecutor;
 
 public class MyItemView extends JPanel
 										implements ActionListener {
@@ -67,7 +69,7 @@ public class MyItemView extends JPanel
 		} 
 		else if (e.getSource() == editButton) {
 			try {
-				//If the user clics on the edit Button, we modify the item through the corresponding GUI.
+				//If the user clicks on the edit Button, we modify the item through the corresponding GUI.
 				parent.getDataList().editItem(item); 
 
 				//Here, the user didn't cancel the item editing => we have to upload the view
@@ -80,6 +82,11 @@ public class MyItemView extends JPanel
 		}
 		else if (e.getSource() == jobButton) {
 			//TODO get transform put!
+			try {
+				CommandExecutor.execute(item);
+			} catch (InterruptedException | IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		
 	}

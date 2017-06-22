@@ -8,12 +8,12 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import dataManaging.MyListView;
-import dataManaging.databaseConnections.DBconnection;
-import dataManaging.databaseConnections.DBconnectionFactory;
 import dataManaging.databaseConnections.DBconnectionsList;
+import dataManaging.databaseConnections.sqlConnection.DBconnection;
+import dataManaging.databaseConnections.sqlConnection.DBconnectionSupplier;
 import dataManaging.files.FileList;
 import dataManaging.files.MyFile;
-import dataManaging.files.MyFileFactory;
+import dataManaging.files.MyFileSupplier;
 
 
 public class Home extends JFrame
@@ -55,10 +55,10 @@ public class Home extends JFrame
 		/*filesPane = new JPanel(); TODO remove this comment block	
 		filesPane.setLayout(new BoxLayout(filesPane, BoxLayout.Y_AXIS));
 		*/
-		filesPane = new MyListView<MyFile>(fileList, new MyFileFactory());
+		filesPane = new MyListView<MyFile>(fileList, new MyFileSupplier());
 		filesScrollPane = new JScrollPane(filesPane);
 		
-		dbConnectionsPane = new MyListView<>(dbConnectionsList, new DBconnectionFactory());
+		dbConnectionsPane = new MyListView<>(dbConnectionsList, new DBconnectionSupplier());
 		dbConnectionsScrollPane = new JScrollPane(dbConnectionsPane);
 		
 		/*  Creation of the horizontal split  */
