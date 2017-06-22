@@ -13,7 +13,7 @@ import dataManaging.databaseConnections.AbstractDBconnection;
 import dataManaging.databaseConnections.DBconnectionPane;
 import tools.CancelledCommandException;
 
-public class DBconnection extends AbstractDBconnection {
+public class MySQLconnection extends AbstractDBconnection {
 
 	protected static final String[][] fields_details =
 		{
@@ -25,15 +25,15 @@ public class DBconnection extends AbstractDBconnection {
 		};
 
 
-	public DBconnection() {
+	public MySQLconnection() {
 		super();
 	}
 	
-	public DBconnection(DBconnectionPane dbcp) {
+	public MySQLconnection(DBconnectionPane dbcp) {
 		super(dbcp);
 	}
 
-	public DBconnection(String[] parameters) throws IllegalArgumentException {
+	public MySQLconnection(String[] parameters) throws IllegalArgumentException {
 		super(parameters);
 	}
 
@@ -104,7 +104,7 @@ public class DBconnection extends AbstractDBconnection {
 
 
 	@Override
-	public int numberOfParameters() {
+	public int numberOfArguments() {
 		return 5; //MYSQL -> needs lastTime, hostName, DataBaseName, userName, Password
 	}
 

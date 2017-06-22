@@ -16,7 +16,7 @@ public interface Item {
 	 * number of the necessary parameters to launch the transformation
 	 * @return the number of parameters
 	 */
-	public abstract int numberOfParameters();
+	public abstract int numberOfArguments();
 	
 	/**
 	 * defines the number of attributes that are necessary to save an item. An array = number of non final elements in it

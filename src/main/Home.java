@@ -8,9 +8,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
 import dataManaging.MyListView;
-import dataManaging.databaseConnections.DBconnectionsList;
-import dataManaging.databaseConnections.sqlConnection.DBconnection;
-import dataManaging.databaseConnections.sqlConnection.DBconnectionSupplier;
+import dataManaging.databaseConnections.sqlConnection.MySQLconnection;
+import dataManaging.databaseConnections.sqlConnection.MySQLconnectionSupplier;
+import dataManaging.databaseConnections.sqlConnection.MySQLconnectionsList;
 import dataManaging.files.FileList;
 import dataManaging.files.MyFile;
 import dataManaging.files.MyFileSupplier;
@@ -37,19 +37,19 @@ public class Home extends JFrame
 	
 	/*  RIGHT */
 	private JScrollPane dbConnectionsScrollPane;
-	private MyListView<DBconnection> dbConnectionsPane;
+	private MyListView<MySQLconnection> mySQLconnectionsPane;
 	
 	
 
 	private FileList fileList; //List of the selected files to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
-	private DBconnectionsList dbConnectionsList;
+	private MySQLconnectionsList mySQLconnectionsList;
 
 	
 	public Home() {
 		super(SOFTWARE_NAME);
 
 		this.fileList = new FileList();
-		this.dbConnectionsList = new DBconnectionsList();
+		this.mySQLconnectionsList = new MySQLconnectionsList();
 		
 		//List of selected directories (left part)
 		/*filesPane = new JPanel(); TODO remove this comment block	
@@ -58,8 +58,8 @@ public class Home extends JFrame
 		filesPane = new MyListView<MyFile>(fileList, new MyFileSupplier());
 		filesScrollPane = new JScrollPane(filesPane);
 		
-		dbConnectionsPane = new MyListView<>(dbConnectionsList, new DBconnectionSupplier());
-		dbConnectionsScrollPane = new JScrollPane(dbConnectionsPane);
+		mySQLconnectionsPane = new MyListView<MySQLconnection>(mySQLconnectionsList, new MySQLconnectionSupplier());
+		dbConnectionsScrollPane = new JScrollPane(mySQLconnectionsPane);
 		
 		/*  Creation of the horizontal split  */
 		horizontalSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,

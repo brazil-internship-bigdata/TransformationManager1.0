@@ -105,13 +105,13 @@ public abstract class AbstractDBconnection extends AbstractItem {
 	
 	
 	public String[] commandLineArguments() {
-		String [] arguments = new String[numberOfParameters()]; //the arguments take the date and every field except the connectionName
+		String [] arguments = new String[numberOfArguments()]; //the arguments take the date and every field except the connectionName
 		
 		//DATE: LAST TIME
 		arguments[connectionNameIndex()] = lastTransformationDate();
 		
 		
-		for(int i = 1 ; i<numberOfParameters(); i++) {
+		for(int i = 1 ; i<numberOfArguments(); i++) {
 			arguments[i] = fields[i][0];
 		}
 		return arguments;

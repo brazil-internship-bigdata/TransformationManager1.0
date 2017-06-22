@@ -1,8 +1,6 @@
 package dataManaging.files;
 
-
 import dataManaging.AbstractDataList;
-
 
 public class FileList extends AbstractDataList<MyFile> {
 	
@@ -15,7 +13,6 @@ public class FileList extends AbstractDataList<MyFile> {
 		super("Files_Savings.txt");
 	}
 	
-	
 
 
 	@Override
@@ -25,7 +22,7 @@ public class FileList extends AbstractDataList<MyFile> {
 	}
 
 	
-	
+	//this is now useless. I need to delete this and place textLine2Element in the super class => GENERIC
 	@Override
 	public String toString() {
 		String res = "FileList: ";

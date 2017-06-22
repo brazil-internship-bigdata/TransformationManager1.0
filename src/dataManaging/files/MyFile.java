@@ -97,7 +97,7 @@ public class MyFile extends AbstractItem {
 
 	@Override
 	public String[] commandLineArguments() {
-		String [] arguments = new String[numberOfParameters()];
+		String [] arguments = new String[numberOfArguments()];
 		
 		
 		//LastTime
@@ -119,7 +119,7 @@ public class MyFile extends AbstractItem {
 
 
 	@Override
-	public int numberOfParameters() {
+	public int numberOfArguments() {
 		return 2;
 	}
 

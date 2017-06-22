@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 import javax.swing.JOptionPane;
 
@@ -31,6 +32,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	public AbstractDataList(String savingsFileName) {
 		super();
 
+		
 		this.savingsFileName = savingsFileName;
 		this.savingsFile = new File("savings/" + savingsFileName);
 		
