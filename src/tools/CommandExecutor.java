@@ -4,6 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Date;
+
+import javax.swing.JOptionPane;
 
 import dataManaging.Item;
 
@@ -65,7 +68,7 @@ public class CommandExecutor {
 		
 	/**
 	 * execute the given command
-	 * @param command format must be: "bin/bash" (for UNIX), path+command, arg1, arg2, etc...
+	 * @param item that must be transformed.
 	 */
 	public static void execute(Item item) throws InterruptedException, IOException{
 		String [] command = buildCommand(item);
@@ -75,8 +78,16 @@ public class CommandExecutor {
 		System.out.println("Run command: " + command.toString());
 		Process process = pb.start();
 		int errCode = process.waitFor();
-		System.out.println("command executed, any errors? " + (errCode == 0 ? "No" : "Yes: " + errCode));
+
+		
 		System.out.println("Output:\n" + output(process.getInputStream()));			
+		if(errCode != 0) {
+			JOptionPane.showMessageDialog(null, "error during the transformation. errcode: " + errCode);
+		}
+		else {
+			item.setLastTransformationDate(new Date());
+		}
+		
 	}
 
 

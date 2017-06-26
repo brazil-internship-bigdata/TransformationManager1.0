@@ -84,7 +84,9 @@ public class MyItemView extends JPanel
 			//TODO get transform put!
 			try {
 				CommandExecutor.execute(item);
+				item.setJobRunning(true);
 			} catch (InterruptedException | IOException e1) {
+				item.setJobRunning(false);
 				e1.printStackTrace();
 			}
 		}

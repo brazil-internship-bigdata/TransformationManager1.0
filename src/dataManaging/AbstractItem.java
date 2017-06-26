@@ -77,6 +77,16 @@ public abstract class AbstractItem implements Item {
 
 	
 	@Override
+	public void setJobRunning(boolean b) {
+		jobRunning = b;
+	}
+	
+	@Override
+	public void setLastTransformationDate(Date date) {
+		lastTransformation = date;
+	}
+	
+	@Override
 	public int numberOfAttributes() {
 		//last transformation date and jobRunning boolean
 		return 2 + numberOfCustomFields();

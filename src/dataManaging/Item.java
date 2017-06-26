@@ -65,8 +65,22 @@ public interface Item {
 	
 	/**
 	 * the arguments used to do the transformation in kitchen
-	 * @return an array of strings conatining the necessary arguments.
+	 * @return an array of strings containing the necessary arguments.
 	 */
 	public String[] commandLineArguments();
+
+	/**
+	 * set the boolean jobRunning.
+	 * @param b new value of jobRunning
+	 */
+	public abstract void setJobRunning(boolean b);
+	
+	
+	/**
+	 * set the date of the last transformation
+	 * @param date
+	 */
+	public void setLastTransformationDate(Date date);
+
 	
 }
