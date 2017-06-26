@@ -108,5 +108,10 @@ public class MySQLconnection extends AbstractDBconnection {
 		return 5; //MYSQL -> needs lastTime, hostName, DataBaseName, userName, Password
 	}
 
+	@Override
+	protected String savingFolder() {
+		return "savings/MYSQL/";
+	}
+
 
 }

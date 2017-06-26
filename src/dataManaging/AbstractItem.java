@@ -1,9 +1,15 @@
 package dataManaging;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import javafx.print.Printer;
 
 public abstract class AbstractItem implements Item {
 
@@ -102,6 +108,45 @@ public abstract class AbstractItem implements Item {
 		return res;
 	}
 
+	/**
+	 * generates the saving text line of the item. This textline must contain the necessary attributes to represent an instance of this item. This doesn't take into account the attributes from superior classes
+	 * @return the saving text line corresponding to this particular item.
+	 */
 	protected abstract String childSavingTextLine();
+	
+	/**
+	 * returns the saving folder corresponding to the type of item
+	 * @return path of the item's saving folder
+	 */
+	protected abstract String savingFolder();
+
+	
+	
+	
+	@Override
+	public void save() throws IOException {
+		
+		String text = generateSavingTextLine();
+		
+		String savingFilePath = savingFolder() + name(); 
+				
+		File savingFile = new File( savingFilePath );
+		
+		if( !savingFile.exists() ) {
+			savingFile.createNewFile();
+		}
+		
+		try {
+			PrintWriter printer = new PrintWriter(savingFile);
+			printer.write(text);			
+			printer.close();
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			save();
+		} 
+	}
+	
+	
 	
 }

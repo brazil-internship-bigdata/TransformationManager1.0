@@ -1,5 +1,6 @@
 package dataManaging;
 
+import java.io.IOException;
 import java.util.Date;
 
 import tools.CancelledCommandException;
@@ -82,5 +83,12 @@ public interface Item {
 	 */
 	public void setLastTransformationDate(Date date);
 
+	
+	/**
+	 * save the item in a file corresponding to its name. If the file already exists, the file is overwritten.
+	 * @throws IOException 
+	 */
+	public void save() throws IOException;
+	
 	
 }

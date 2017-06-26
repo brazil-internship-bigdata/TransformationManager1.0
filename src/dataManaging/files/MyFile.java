@@ -123,6 +123,11 @@ public class MyFile extends AbstractItem {
 		return 2;
 	}
 
+	@Override
+	protected String savingFolder() {
+		return "savings/files/";
+	}
+
 
 
 

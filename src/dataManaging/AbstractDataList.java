@@ -122,7 +122,16 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	@Override
 	public boolean add(E e) {
 		boolean res = super.add(e);
-		saveOne(e);
+	
+		try {
+			e.save();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		
+//		saveOne(e);
 		return res;
 	}
 

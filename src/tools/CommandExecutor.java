@@ -88,6 +88,7 @@ public class CommandExecutor {
 			item.setLastTransformationDate(new Date());
 		}
 		
+		item.save();
 	}
 
 
