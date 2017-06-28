@@ -82,13 +82,25 @@ public class MyItemView extends JPanel
 		}
 		else if (e.getSource() == jobButton) {
 			//TODO get transform put!
+			
+			//Just in case of problem, we generate the folders necessary to receive the job.
+			item.generateFolders();
+			
+			//TODO GET HERE
+			
 			try {
 				CommandExecutor.execute(item);
 				item.setJobRunning(true);
 			} catch (InterruptedException | IOException e1) {
 				item.setJobRunning(false);
 				e1.printStackTrace();
+			} finally {
+				item.save();
 			}
+			
+			
+			//TODO PUT HERE (or maybe through pentaho)
+			
 		}
 		
 	}

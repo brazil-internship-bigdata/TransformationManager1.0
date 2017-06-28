@@ -105,5 +105,24 @@ public interface Item {
 	 */
 	public File savingFile();
 	
+	/**
+	 * folder that contains the transformation & job files
+	 * @return the path to the transformationFolder.
+	 */
+	public String transformationFolder();
 	
+	
+	/**
+	 * file that contains the job to be run to transform the item to csv format.
+	 * @return rootJob.kjb of this specific item.
+	 */
+	public File jobFile();
+
+
+	/**
+	 * generates the necessary folders to store the saving files, transformation files, why not result file also
+	 */
+	public void generateFolders();
+
+
 }

@@ -313,7 +313,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x2f;home&#x2f;ferreraalexandre&#x2f;Desktop&#x2f;ecureuil_corporation&#x2f;sql_to_csv&#x2f;set variables from command line arguments.ktr</filename>
+      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;set variables from command line arguments.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -401,7 +401,7 @@
       <name>Create the results folder</name>
       <description/>
       <type>CREATE_FOLDER</type>
-      <foldername>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;..&#x2f;csv</foldername>
+      <foldername>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;..&#x2f;..&#x2f;..&#x2f;csv</foldername>
       <fail_of_folder_exists>Y</fail_of_folder_exists>
       <parallel>N</parallel>
       <draw>Y</draw>

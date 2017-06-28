@@ -1,6 +1,7 @@
 package tools;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -12,7 +13,11 @@ import dataManaging.Item;
 
 public class CommandExecutor {
 
-	public static void main(String[] args) throws InterruptedException,
+	
+	public final static String pathToPentaho = "transformation/pentaho/data-integration/";
+	
+	//TODO remove this main
+	public void main(String[] args) throws InterruptedException,
 	IOException {
 		String pathToScript = "/home/ferreraalexandre/Desktop/data-integration/";  //This must be an absolute path => no '~' allowed
 
@@ -33,13 +38,15 @@ public class CommandExecutor {
 		/*command format: 
 		0->/bin/bash,
 		1->path to kitchen.sh(here path to data-integration/),
-		2->"./kitchen.sh",
-		3->"/file" (precedes the file containing the job),
-		4 to X-1 -> arguments from Item.commandLineArguments,
-		X+1 -> "/norep" */
+		2->"/file" (precedes the file containing the job),
+		3-> path to .kjb
+		4 to X-2 -> arguments from Item.commandLineArguments,
+		X-1 -> "/norep" */
 		String [] commandLineArguments = item.commandLineArguments();
+
 		
-		int x = commandLineArguments.length + 5;
+		
+		int x = commandLineArguments.length + 5; //commandLineArguments from item + arguments 
 		
 		String [] command = new String [x];
 		
@@ -52,12 +59,14 @@ public class CommandExecutor {
 		command[0] = "/bin/bash";
 		
 		
-		String pathToScript = "/home/ferreraalexandre/Desktop/data-integration/";  //This must be an absolute path => no '~' allowed
-		command[1] = pathToScript;
+		String pathToScript = new File(pathToPentaho).getAbsolutePath();  //This must be an absolute path => no '~' allowed
+		command[1] = pathToScript+"/kitchen.sh";
 		
-		command[2] = "./kitchen.sh";
+//		command[2] = "./kitchen.sh";
 		
-		command[3] = "/file";
+		command[2] = "/file";
+		
+		command[3] = item.jobFile().getAbsolutePath();
 		
 		command[x-1] = "/norep";
 		
@@ -71,6 +80,12 @@ public class CommandExecutor {
 	 * @param item that must be transformed.
 	 */
 	public static void execute(Item item) throws InterruptedException, IOException{
+
+		File job = new File( item.transformationFolder()+"rootJob.kjb" );
+		if( ! job.exists() )
+			throw new IOException();
+		
+		
 		String [] command = buildCommand(item);
 		ProcessBuilder pb = new ProcessBuilder(command);
 		//Thank you : https://examples.javacodegeeks.com/core-java/lang/processbuilder/java-lang-processbuilder-example/

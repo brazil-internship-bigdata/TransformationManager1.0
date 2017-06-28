@@ -105,9 +105,10 @@ public class MySQLconnection extends AbstractDBconnection {
 	}
 
 	@Override
-	public String savingFolder() {
-		return "savings/MYSQL/";
+	public String childFolderPath() {
+		return "MYSQL/";
 	}
+
 
 
 }

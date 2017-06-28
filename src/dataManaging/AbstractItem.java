@@ -17,7 +17,9 @@ public abstract class AbstractItem implements Item {
 	protected Date lastTransformation;
 
 	private DateFormat format = new SimpleDateFormat("dd.MM.yyyy-hh:mm:ss");
-	
+	protected Date defaultDate = new Date(0L); //defaultDate to replace null. This date corresponds to a transformation that never happened yet.
+
+
 	public static final String separator = " ";
 	
 	
@@ -45,7 +47,7 @@ public abstract class AbstractItem implements Item {
 	
 	private void abstractInit() {
 		this.jobRunning = false;
-		lastTransformation = null;
+		lastTransformation = defaultDate;
 		init(); //abstract method for now
 	}
 
@@ -62,11 +64,7 @@ public abstract class AbstractItem implements Item {
 
 	@Override
 	public String lastTransformationDate() {
-		if(lastTransformation == null) {
-			return null;
-		}
-		else
-			return format.format(lastTransformation);
+		return format.format(lastTransformation);
 	}
 
 
@@ -75,8 +73,8 @@ public abstract class AbstractItem implements Item {
 		try {
 			lastTransformation = format.parse(lastTransformationDate);
 		} catch (ParseException e) {
-			lastTransformation = null;
-			System.err.println("date of last transformation could not be read. The date is now null");
+			//lastTransformation = defaultDate; //No need to do that in my opinion
+			System.err.println("date of last transformation could not be read. The date remain what it was. (probably defaultDate)");
 			//e.printStackTrace();
 		}
 	}
@@ -166,5 +164,37 @@ public abstract class AbstractItem implements Item {
 	public File savingFile() {
 		return new File( savingFolder() + name() );
 	}
+
+	@Override
+	public File jobFile() {
+		return new File( transformationFolder() + "rootJob.kjb" );
+	}
 	
+	
+	@Override
+	public String savingFolder() {
+		return "savings/" + childFolderPath();
+	}
+	
+	@Override
+	public String transformationFolder() {
+		return "transformation/jobs/" + childFolderPath() + name() + "/";
+	}
+
+	
+	/**
+	 * typical hierarchy of results, savings, transformation files etc... for a specific item
+	 * @return <item type>/
+	 */
+	protected abstract String childFolderPath();
+
+	
+	@Override
+	public void generateFolders() {
+		savingFile().mkdirs();
+		new File( transformationFolder() ).mkdirs();
+	}
+	
+	
+
 }

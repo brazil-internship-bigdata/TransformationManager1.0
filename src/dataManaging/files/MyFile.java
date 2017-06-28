@@ -121,9 +121,10 @@ public class MyFile extends AbstractItem {
 		return 2;
 	}
 
+
 	@Override
-	public String savingFolder() {
-		return "savings/files/";
+	protected String childFolderPath() {
+		return "files/";
 	}
 
 

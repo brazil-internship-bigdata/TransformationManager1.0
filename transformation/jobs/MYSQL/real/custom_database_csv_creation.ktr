@@ -464,11 +464,6 @@
   </connection>
   <order>
     <hop>
-      <from>Filter rows</from>
-      <to>csv</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Table input</from>
       <to>filter dates</to>
       <enabled>Y</enabled>
@@ -476,6 +471,21 @@
     <hop>
       <from>filter dates</from>
       <to>Filter rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows</from>
+      <to>csv</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>csv</from>
+      <to>Sort rows</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Sort rows</from>
+      <to>Group by</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -541,7 +551,7 @@
     </remotesteps>
     <GUI>
       <xloc>608</xloc>
-      <yloc>128</yloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -550,7 +560,7 @@
     <name>csv</name>
     <type>TextFileOutput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -571,7 +581,7 @@
     <fileNameField/>
     <create_parent_folder>Y</create_parent_folder>
     <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;..&#x2f;csv&#x2f;result</name>
+      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;..&#x2f;..&#x2f;..&#x2f;csv&#x2f;result_&#x24;&#x7b;DATABASE_NAME&#x7d;_&#x24;&#x7b;now&#x7d;</name>
       <is_command>N</is_command>
       <servlet_output>N</servlet_output>
       <do_not_open_new_file_init>N</do_not_open_new_file_init>
@@ -643,7 +653,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var last_time &#x3d; str2date&#x28;getVariable&#x28;&#x22;LAST_TIME&#x22;, &#x22;01.01.1492-12&#x3a;34&#x3a;56&#x22;&#x29;,&#x22;dd.MM.yyyy-hh&#x3a;mm&#x3a;ss&#x22;&#x29;.getTime&#x28;&#x29;&#x3b; &#x2f;&#x2f;time representing the date of the last transformation happened&#xa;var data_age &#x3d; orderDate.getTime&#x28;&#x29;&#x3b; &#x2f;&#x2f;time representing the date of the observed data&#x27;s creation&#xa;&#xa;&#xa;var isNewData &#x3d; last_time &#x3e; data_age&#x3b; &#x2f;&#x2f;it is new Data if the last transformation happened before the new data was created</jsScript_script>
+        <jsScript_script>var last_time &#x3d; str2date&#x28;getVariable&#x28;&#x22;LAST_TIME&#x22;, &#x22;01.01.1492-12&#x3a;34&#x3a;56&#x22;&#x29;,&#x22;dd.MM.yyyy-hh&#x3a;mm&#x3a;ss&#x22;&#x29;.getTime&#x28;&#x29;&#x3b; &#x2f;&#x2f;time representing the date of the last transformation happened&#xa;var data_age &#x3d; orderDate.getTime&#x28;&#x29;&#x3b; &#x2f;&#x2f;time representing the date of the observed data&#x27;s creation&#xa;&#xa;&#xa;var isNewData &#x3d; last_time &#x3e; data_age&#x3b; &#x2f;&#x2f;it is new Data if the last transformation happened before the new data was created&#xa;&#xa;var now &#x3d; date2str&#x28;new Date&#x28;&#x29;, &#x22;dd.MM.yyyy-hh&#x3a;mm&#x3a;ss&#x22;&#x29;&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>isNewData</name>
         <rename>isNewData</rename>
         <type>Boolean</type>
@@ -662,6 +672,12 @@
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
+      </field>      <field>        <name>now</name>
+        <rename>now</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
       </field>    </fields>    <cluster_schema/>
     <remotesteps>
       <input>
@@ -672,6 +688,94 @@
     <GUI>
       <xloc>608</xloc>
       <yloc>240</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Group by</name>
+    <type>GroupBy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <all_rows>Y</all_rows>
+      <ignore_aggregate>N</ignore_aggregate>
+      <field_ignore/>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>grp</prefix>
+      <add_linenr>N</add_linenr>
+      <linenr_fieldname/>
+      <give_back_row>Y</give_back_row>
+      <group>
+        <field>
+          <name>orderDate</name>
+        </field>
+      </group>
+      <fields>
+        <field>
+          <aggregate>max_date</aggregate>
+          <subject>orderDate</subject>
+          <type>MAX</type>
+          <valuefield/>
+        </field>
+      </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>816</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>Y</unique_rows>
+    <fields>
+      <field>
+        <name>orderDate</name>
+        <ascending>N</ascending>
+        <case_sensitive>N</case_sensitive>
+        <collator_enabled>N</collator_enabled>
+        <collator_strength>0</collator_strength>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>
     </step>

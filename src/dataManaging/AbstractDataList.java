@@ -173,6 +173,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 	@Override
 	public boolean add(E e) {
 		boolean res = super.add(e);
+		e.generateFolders();
 		e.save();
 		return res;
 	}
