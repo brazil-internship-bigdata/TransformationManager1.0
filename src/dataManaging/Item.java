@@ -1,5 +1,6 @@
 package dataManaging;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Date;
 
@@ -88,7 +89,21 @@ public interface Item {
 	 * save the item in a file corresponding to its name. If the file already exists, the file is overwritten.
 	 * @throws IOException 
 	 */
-	public void save() throws IOException;
+	public void save();
+	
+	
+	/**
+	 * path to the directory where the saving files for this specific kind of items are stored
+	 * @return path to saving directory
+	 */
+	public String savingFolder();
+	
+	
+	/**
+	 * file that contains the value of this item's attributes.
+	 * @return the saving file of this item
+	 */
+	public File savingFile();
 	
 	
 }

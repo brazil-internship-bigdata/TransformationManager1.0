@@ -121,11 +121,12 @@ public abstract class AbstractDBconnection extends AbstractItem {
 	@Override
 	protected String childSavingTextLine() {
 
-		String res = "";
-		for(int i = 0; i<numberOfCustomFields() ; i++) {
+		String res = fields[0][0]; //The textLine doesn't start with a space
+
+		for(int i = 1; i<numberOfCustomFields() ; i++) {
 			res += separator + fields[i][0];
 		}
-				
+
 		return res;
 	}
 

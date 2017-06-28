@@ -77,7 +77,7 @@ public class MyItemView extends JPanel
 //				parent.revalidate();
 //				parent.repaint();
 			} catch (CancelledCommandException e1) {
-				e1.printStackTrace();
+				//TODO
 			}
 		}
 		else if (e.getSource() == jobButton) {

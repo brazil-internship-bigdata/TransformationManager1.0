@@ -10,7 +10,7 @@ public class FileList extends AbstractDataList<MyFile> {
 	private static final long serialVersionUID = -4962373861401353388L;
 
 	public FileList(){
-		super("Files_Savings.txt");
+		super( new MyFileSupplier() );
 	}
 	
 

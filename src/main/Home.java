@@ -69,6 +69,7 @@ public class Home extends JFrame
 		
 		
 		//Resizing Listener
+		mySQLconnectionsPane.addContainerListener(this);
 		filesPane.addContainerListener(this);
 		
 	
@@ -83,15 +84,18 @@ public class Home extends JFrame
 
 	@Override
 	public void componentAdded(ContainerEvent e) {
+		this.revalidate();
+		this.pack();
 		horizontalSplitPane.setDividerLocation(-1);
 	}
 
 
 	@Override
 	public void componentRemoved(ContainerEvent e) {
+		this.revalidate();
+		this.pack();
 		horizontalSplitPane.setDividerLocation(-1);		
 	}
-
 
 
 	
@@ -99,7 +103,5 @@ public class Home extends JFrame
 		Home h = new Home();
 		
 	}
-
-	
 
 }

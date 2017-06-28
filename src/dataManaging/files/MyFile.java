@@ -1,12 +1,10 @@
 package dataManaging.files;
 
 import java.io.File;
-import java.util.Date;
 
 import javax.swing.JFileChooser;
 
 import dataManaging.AbstractItem;
-import dataManaging.Item;
 import tools.CancelledCommandException;
 
 public class MyFile extends AbstractItem {
@@ -124,7 +122,7 @@ public class MyFile extends AbstractItem {
 	}
 
 	@Override
-	protected String savingFolder() {
+	public String savingFolder() {
 		return "savings/files/";
 	}
 

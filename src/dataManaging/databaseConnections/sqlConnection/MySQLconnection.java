@@ -5,13 +5,9 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 //import com.microsoft.sqlserver.jdbc.SQLServerDriver
-import javax.swing.JOptionPane;
 
-import dataManaging.AbstractItem;
-import dataManaging.Item;
 import dataManaging.databaseConnections.AbstractDBconnection;
 import dataManaging.databaseConnections.DBconnectionPane;
-import tools.CancelledCommandException;
 
 public class MySQLconnection extends AbstractDBconnection {
 
@@ -109,7 +105,7 @@ public class MySQLconnection extends AbstractDBconnection {
 	}
 
 	@Override
-	protected String savingFolder() {
+	public String savingFolder() {
 		return "savings/MYSQL/";
 	}
 

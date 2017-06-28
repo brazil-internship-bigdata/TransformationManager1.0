@@ -67,10 +67,9 @@ public class MyListView<T extends Item> extends JPanel
 	
 	
 	private void init(AbstractDataList<T> list) {
-		listData = (AbstractDataList<T>) list;
+		listData = list;
 		for(T t : list) {
 			MyItemView itemView = new MyItemView(this, t);
-			//listView.add(itemView);
 			this.add(itemView);
 		}
 	}

@@ -10,7 +10,7 @@ public class MySQLconnectionsList extends AbstractDataList<MySQLconnection> {
 	private static final long serialVersionUID = 7544403469327141020L;
 
 	public MySQLconnectionsList() { 
-		super("DBconnections_Savings.txt");
+		super( new MySQLconnectionSupplier() );
 	}
 	
 	@Override

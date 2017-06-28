@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.function.Supplier;
 
@@ -17,7 +19,7 @@ import tools.CancelledCommandException;
 
 
 
-public abstract class AbstractDataList<E extends Item> extends ArrayList<E> implements Data {
+public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 
 	/**
 	 * 
@@ -28,7 +30,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	
 	
 	
-	
+/*	
 	public AbstractDataList(String savingsFileName) {
 		super();
 
@@ -43,9 +45,27 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 		
 		initList();
 	}
-
+*/
 	
+	public AbstractDataList(Supplier<E> supplier) {
+		super();
+		
+		E item = supplier.get();
+		
+		
+		
+		//Create the saving Folder if necessary.
+		File savingFolder = new File( item.savingFolder() );
+		
+		if( !savingFolder.isDirectory() ) {
+			savingFolder.mkdirs();
+			return;
+		}
+		
+		initList(savingFolder);
+	}
 	
+/*	
 	@Override
 	public void createSavingsFile() {
 		//Creation of the directory
@@ -60,9 +80,40 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 			return;
 		}		
 	}
+*/
+	/**
+	 * initializes the list with the files present in the savings directory.
+	 * @param savingFolder folder containing the saved elements
+	 */
+	private void initList(File savingFolder) {
+		File[] savingFiles = savingFolder.listFiles();
+		
+		
+	
+		if(savingFiles == null) {
+			return;
+		}
+		
+		for(int i = 0; i<savingFiles.length ; i++) {
+			try {
+				String savedAttributes = new String(Files.readAllBytes(savingFiles[i].toPath()));
+				
+				
+				E item = textLine2Element(savedAttributes);
+				super.add(item); //During initialization, we only want to register the data in this list. That's why we user super.add instead of add
 
-	@Override
-	public void initList() {
+			
+			} catch (Exception e) {
+				System.err.println("An existing element couldn't be read during initialisation.");
+				e.printStackTrace();
+			}
+		}
+		
+	}
+	
+	
+	
+	private void initList() {
 		FileReader fr = null;
 		BufferedReader br = null;
 		boolean some_error_occured = false;
@@ -122,16 +173,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	@Override
 	public boolean add(E e) {
 		boolean res = super.add(e);
-	
-		try {
-			e.save();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-
-		
-//		saveOne(e);
+		e.save();
 		return res;
 	}
 
@@ -139,7 +181,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	 * Saves the path to the given file in the savings file
 	 * @param f file to be saved
 	 * thank you https://www.mkyong.com/java/how-to-read-file-from-java-bufferedreader-example/
-	 */
+	 *//*
 	protected void saveOne(E e) {
 
 		if(!savingsFile.exists()) {
@@ -174,12 +216,13 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 			}
 		}
 	}
-
+	*/
 	
 	@Override
 	public E remove(int index) {
 		E deletedElement = super.remove(index);
-		saveAll();
+		System.out.println("I shouldn't be doing that...");
+	//	saveAll();
 		return deletedElement;
 	}
 
@@ -188,12 +231,16 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 	@Override
 	public boolean remove(Object o) {
 		boolean contained = super.remove(o);
-		saveAll();
+//		saveAll();
+		if( o instanceof Item) {
+			File savingFile = ((Item) o).savingFile();
+			savingFile.delete();
+		}
 		return contained;
 	}
 
 	
-	
+	/*
 	@Override
 	public void saveAll() {
 		PrintWriter pw = null;
@@ -209,6 +256,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 			saveOne(e);
 		}
 	}
+	*/
 	
 	@Override
 	public String toString() {
@@ -225,8 +273,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> impl
 		item.setWithGUI();
 		
 		//Here the user didn't cancel the modification so we need to save the modifications
-		saveAll();
-
+		item.save();
 	}
 
 }

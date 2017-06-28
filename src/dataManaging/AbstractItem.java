@@ -114,28 +114,42 @@ public abstract class AbstractItem implements Item {
 	 */
 	protected abstract String childSavingTextLine();
 	
-	/**
-	 * returns the saving folder corresponding to the type of item
-	 * @return path of the item's saving folder
-	 */
-	protected abstract String savingFolder();
 
 	
 	
 	
 	@Override
-	public void save() throws IOException {
+	public void save()  {
+
+		//Create the directory if it's necessary
 		
-		String text = generateSavingTextLine();
+		File savingDirectory = new File(savingFolder());
 		
-		String savingFilePath = savingFolder() + name(); 
-				
-		File savingFile = new File( savingFilePath );
-		
-		if( !savingFile.exists() ) {
-			savingFile.createNewFile();
+		if( !savingDirectory.isDirectory() ) {
+			savingDirectory.mkdirs();
 		}
 		
+		
+		//Create the file if it's necessary. The file is based on the name of the item. two items in the same directory shouldn't have the same name.
+		
+		File savingFile = new File(savingDirectory, name());
+		
+		if( !savingFile.exists() ) {
+			
+			try {
+				savingFile.createNewFile();
+			} catch (IOException e) {
+				System.err.println("the following item couldn't be saved: " + name());
+				e.printStackTrace();
+			}
+		
+		}
+
+		
+		//generate the savingTextLine and print it in the savingFile. the previous content is erased when the PrintWriter is created.
+		
+		String text = generateSavingTextLine();
+
 		try {
 			PrintWriter printer = new PrintWriter(savingFile);
 			printer.write(text);			
@@ -148,5 +162,9 @@ public abstract class AbstractItem implements Item {
 	}
 	
 	
+	@Override
+	public File savingFile() {
+		return new File( savingFolder() + name() );
+	}
 	
 }
