@@ -16,7 +16,7 @@ public abstract class AbstractItem implements Item {
 	protected boolean jobRunning;
 	protected Date lastTransformation;
 
-	private DateFormat format = new SimpleDateFormat("dd.MM.yyyy-hh:mm:ss");
+	private DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
 	protected Date defaultDate = new Date(0L); //defaultDate to replace null. This date corresponds to a transformation that never happened yet.
 
 
@@ -191,7 +191,7 @@ public abstract class AbstractItem implements Item {
 	
 	@Override
 	public void generateFolders() {
-		savingFile().mkdirs();
+		new File( savingFolder() ).mkdirs();
 		new File( transformationFolder() ).mkdirs();
 	}
 	

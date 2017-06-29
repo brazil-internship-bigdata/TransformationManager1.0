@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>custom_database_csv_creation</name>
+    <name>set variables from command line arguments</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -427,71 +427,29 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2017&#x2f;06&#x2f;12 13&#x3a;54&#x3a;08.916</created_date>
+    <created_date>2017&#x2f;06&#x2f;12 12&#x3a;47&#x3a;52.913</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2017&#x2f;06&#x2f;12 13&#x3a;54&#x3a;08.916</modified_date>
+    <modified_date>2017&#x2f;06&#x2f;12 12&#x3a;47&#x3a;52.913</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
-  <connection>
-    <name>my ecureuil connection</name>
-    <server>&#x24;&#x7b;HOST_NAME&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;DATABASE_NAME&#x7d;</database>
-    <port>3306</port>
-    <username>&#x24;&#x7b;USER_NAME&#x7d;</username>
-    <password>&#x24;&#x7b;PASSWORD&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>N</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
     <hop>
-      <from>Table input</from>
-      <to>filter dates</to>
+      <from>Get system Info - ecureuil corporation database</from>
+      <to>modify date format</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>filter dates</from>
-      <to>Filter rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Filter rows</from>
-      <to>csv</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>csv</from>
-      <to>Sort rows</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Sort rows</from>
-      <to>Group by</to>
+      <from>modify date format</from>
+      <to>Set Variables</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
+    <name>Get system Info - ecureuil corporation database</name>
+    <type>SystemInfo</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -500,60 +458,30 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-<send_true_to>csv</send_true_to>
-<send_false_to>Text file output</send_false_to>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>isNewData</leftvalue>
- <function>&#x3d;</function>
- <rightvalue/>
- <value><name>constant</name><type>Boolean</type><text>Y</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
-    </compare>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>368</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>Group by</name>
-    <type>GroupBy</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-      <all_rows>Y</all_rows>
-      <ignore_aggregate>N</ignore_aggregate>
-      <field_ignore/>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>grp</prefix>
-      <add_linenr>N</add_linenr>
-      <linenr_fieldname/>
-      <give_back_row>Y</give_back_row>
-      <group>
-        <field>
-          <name>orderDate</name>
+    <fields>
+      <field>
+        <name>last_time</name>
+        <type>command line argument 1</type>
         </field>
-      </group>
-      <fields>
-        <field>
-          <aggregate>max_date</aggregate>
-          <subject>orderDate</subject>
-          <type>MAX</type>
-          <valuefield/>
+      <field>
+        <name>host_name</name>
+        <type>command line argument 2</type>
+        </field>
+      <field>
+        <name>database_name</name>
+        <type>command line argument 3</type>
+        </field>
+      <field>
+        <name>user_name</name>
+        <type>command line argument 4</type>
+        </field>
+      <field>
+        <name>password</name>
+        <type>command line argument 5</type>
+        </field>
+      <field>
+        <name>now</name>
+        <type>system date &#x28;fixed&#x29;</type>
         </field>
       </fields>
     <cluster_schema/>
@@ -564,15 +492,15 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>672</yloc>
+      <xloc>544</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>Sort rows</name>
-    <type>SortRows</type>
+    <name>Set Variables</name>
+    <type>SetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -581,137 +509,45 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>out</prefix>
-      <sort_size>1000000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>Y</unique_rows>
     <fields>
       <field>
-        <name>orderDate</name>
-        <ascending>N</ascending>
-        <case_sensitive>N</case_sensitive>
-        <collator_enabled>N</collator_enabled>
-        <collator_strength>0</collator_strength>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>672</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>my ecureuil connection</connection>
-    <sql>SELECT&#xa;  orderNumber&#xa;, orderDate&#xa;, requiredDate&#xa;, shippedDate&#xa;, status&#xa;, comments&#xa;, customerNumber&#xa;FROM orders&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>608</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
-  <step>
-    <name>csv</name>
-    <type>TextFileOutput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <separator>&#x3b;</separator>
-    <enclosure>&#x22;</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding/>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;..&#x2f;..&#x2f;..&#x2f;csv&#x2f;result_&#x24;&#x7b;DATABASE_NAME&#x7d;_&#x24;&#x7b;now&#x7d;</name>
-      <is_command>N</is_command>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>csv</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery>0</splitevery>
-    </file>
-    <fields>
+        <field_name>last_time</field_name>
+        <variable_name>LAST_TIME</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
       <field>
-        <name>orderNumber</name>
-        <type>Integer</type>
-        <format>&#x23;&#x3b;-&#x23;</format>
-        <currency/>
-        <decimal>.</decimal>
-        <group>,</group>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>9</length>
-        <precision>0</precision>
-      </field>
+        <field_name>host_name</field_name>
+        <variable_name>HOST_NAME</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
       <field>
-        <name>orderDate</name>
-        <type>Date</type>
-        <format>yyyy&#x2f;MM&#x2f;dd HH&#x3a;mm&#x3a;ss</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
-        <trim_type>none</trim_type>
-        <length>-1</length>
-        <precision>-1</precision>
-      </field>
-    </fields>
+        <field_name>database_name</field_name>
+        <variable_name>DATABASE_NAME</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>user_name</field_name>
+        <variable_name>USER_NAME</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>password</field_name>
+        <variable_name>PASSWORD</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      <field>
+        <field_name>new_now</field_name>
+        <variable_name>NOW</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>Y</use_formatting>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -720,17 +556,17 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>512</yloc>
+      <xloc>544</xloc>
+      <yloc>592</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>filter dates</name>
+    <name>modify date format</name>
     <type>ScriptValueMod</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -741,27 +577,9 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var last_time &#x3d; str2date&#x28;getVariable&#x28;&#x22;LAST_TIME&#x22;, &#x22;01.01.1492-12&#x3a;34&#x3a;56&#x22;&#x29;,&#x22;dd.MM.yyyy-hh&#x3a;mm&#x3a;ss&#x22;&#x29;.getTime&#x28;&#x29;&#x3b; &#x2f;&#x2f;time representing the date of the last transformation happened&#xa;var data_age &#x3d; orderDate.getTime&#x28;&#x29;&#x3b; &#x2f;&#x2f;time representing the date of the observed data&#x27;s creation&#xa;&#xa;&#xa;var isNewData &#x3d; last_time &#x3e; data_age&#x3b; &#x2f;&#x2f;it is new Data if the last transformation happened before the new data was created&#xa;&#xa;var now &#x3d; date2str&#x28;new Date&#x28;&#x29;, &#x22;dd.MM.yyyy-hh&#x3a;mm&#x3a;ss&#x22;&#x29;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>isNewData</name>
-        <rename>isNewData</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>last_time</name>
-        <rename>last_time</rename>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>data_age</name>
-        <rename>data_age</rename>
-        <type>Number</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>now</name>
-        <rename>now</rename>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;&#xa;var new_now &#x3d; date2str&#x28;now, &#x22;dd.MM.yyyy-hh&#x3a;mm&#x3a;ss&#x22;&#x29;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>new_now</name>
+        <rename>new_now</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -774,8 +592,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>608</xloc>
-      <yloc>240</yloc>
+      <xloc>544</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
     </GUI>
     </step>

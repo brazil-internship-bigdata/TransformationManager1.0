@@ -1,7 +1,12 @@
 package dataManaging;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -86,8 +91,38 @@ public class MyItemView extends JPanel
 			//Just in case of problem, we generate the folders necessary to receive the job.
 			item.generateFolders();
 			
-			//TODO GET HERE
+			//TODO GET HERE.
+			//TODO change this function so it's a get and not a copy anymore.
+
 			
+			File destination = new File( item.transformationFolder() );			
+			//First we delete the previous jobs.
+			File[] old_jobs = destination.listFiles();
+			
+			
+			for(int i = 0 ; i< old_jobs.length ; i++) {
+				old_jobs[i].delete();
+			}
+			
+			
+			File sources = new File("transformation/jobs/source");			
+			File[] jobs =  sources.listFiles();
+
+			
+			//then we put the new jobs
+			for(int i = 0; i<jobs.length ; i++) {
+				
+				try {
+					Path p = Paths.get(destination.getAbsolutePath(), jobs[i].getName());
+					Files.copy(jobs[i].toPath(), p, StandardCopyOption.COPY_ATTRIBUTES);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+			
+			
+			//Now we execute the rootJob
 			try {
 				CommandExecutor.execute(item);
 				item.setJobRunning(true);
