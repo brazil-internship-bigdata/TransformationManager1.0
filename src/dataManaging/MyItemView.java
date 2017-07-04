@@ -39,7 +39,7 @@ public class MyItemView extends JPanel
 		this.parent = parent;
 		this.item = item;
 		
-		itemName = new JTextArea(item.name());
+		itemName = new JTextArea(item.getIdentifier());
 
 		
 		deleteButton = new JButton("X");
@@ -78,7 +78,7 @@ public class MyItemView extends JPanel
 				parent.getDataList().editItem(item); 
 
 				//Here, the user didn't cancel the item editing => we have to upload the view
-				itemName.setText(item.name());
+				itemName.setText(item.getIdentifier());
 //				parent.revalidate();
 //				parent.repaint();
 			} catch (CancelledCommandException e1) {

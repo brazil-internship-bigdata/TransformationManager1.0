@@ -12,7 +12,8 @@ public class MyFile extends AbstractItem {
 	private File file;
 
 	
-	public MyFile() {
+	public MyFile() throws CancelledCommandException {
+		super();
 		init();
 	}
 	
@@ -35,11 +36,11 @@ public class MyFile extends AbstractItem {
 		return "Edit file location";
 	}
 
-	@Override
+/*	@Override
 	public String name() {
 		return file.getName();
 	}
-
+*/
 	@Override
 	public boolean check() {
 		return file.exists();
@@ -92,7 +93,7 @@ public class MyFile extends AbstractItem {
 
 
 
-
+	//TODO now should be handled by supertype
 	@Override
 	public String[] commandLineArguments() {
 		String [] arguments = new String[numberOfArguments()];
@@ -116,6 +117,7 @@ public class MyFile extends AbstractItem {
 
 
 
+	//TODO should be 1 now.
 	@Override
 	public int numberOfArguments() {
 		return 2;

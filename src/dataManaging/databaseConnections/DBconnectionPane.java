@@ -45,10 +45,6 @@ public class DBconnectionPane extends JPanel
 			return;
 		}
 		
-/*		for(JTextField element : fields_map.keySet()) {
-			element.setText(t);
-		}
-*/		
 		
 		this.setLayout(new GridLayout(adbc.numberOfCustomFields()+2,2)); //numberOfFields+2 rows to add the blanc and the buttons. 2 columns to add the labels and the JTextFields
 
@@ -97,13 +93,12 @@ public class DBconnectionPane extends JPanel
 	}
 
 	/**
-	 * create option pane and return the result of showOptionDialog
+	 * create option pane and return the result of showOptionDialog TODO do the same as in IdentifierPane
 	 * @return the result of a showOptionDialog with JOPTIONPANE.OK_CANCEL_OPTION
 	 */
 	public int showCreationDialog() {
-//		final JOptionPane optionPane = new JOptionPane(this, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		
-		dialog = new JDialog();//= new JDialog((Frame) this.getTopLevelAncestor(), "Connection parameters",true);
+		dialog = new JDialog();
 		dialog.setModal(true);
 		dialog.setTitle("Connection parameters");
 		dialog.setContentPane(this);
@@ -151,10 +146,6 @@ public class DBconnectionPane extends JPanel
 
 	
 	
-	public static void main(String[] args) {
-//		System.out.println(new DBconnectionPane().showCreationDialog());
-	}
-
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

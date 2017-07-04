@@ -27,7 +27,6 @@ public interface Item {
 	public abstract int numberOfAttributes();
 	
 	public String editText();
-	public String name();
 	
 	/**
 	 * verifies if the item is correctly configured (e.g. file location, database connection etc...)
@@ -123,6 +122,12 @@ public interface Item {
 	 * generates the necessary folders to store the saving files, transformation files, why not result file also
 	 */
 	public void generateFolders();
+	
+	/**
+	 * get the identifier related to this item.
+	 * @return an identifier.
+	 */
+	public String getIdentifier();
 
 
 }

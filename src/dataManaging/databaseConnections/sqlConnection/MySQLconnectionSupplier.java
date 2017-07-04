@@ -1,13 +1,15 @@
 package dataManaging.databaseConnections.sqlConnection;
 
-import java.util.function.Supplier;
+
+import tools.CancelledCommandException;
+import tools.MySupplier;
 
 
-public class MySQLconnectionSupplier implements Supplier<MySQLconnection> {
 
+public class MySQLconnectionSupplier implements MySupplier<MySQLconnection> {
 
 	@Override
-	public MySQLconnection get() {
+	public MySQLconnection get() throws CancelledCommandException {
 		return new MySQLconnection();
 	}
 

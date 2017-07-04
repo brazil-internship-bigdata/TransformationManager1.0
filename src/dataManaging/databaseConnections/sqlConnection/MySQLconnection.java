@@ -8,12 +8,13 @@ import java.sql.SQLException;
 
 import dataManaging.databaseConnections.AbstractDBconnection;
 import dataManaging.databaseConnections.DBconnectionPane;
+import tools.CancelledCommandException;
 
 public class MySQLconnection extends AbstractDBconnection {
 
 	protected static final String[][] fields_details =
 		{
-				{ "Connection Name:" , "Put any name here" },
+//				{ "Connection Name:" , "Put any name here" },
 				{ "Host Name:" , "put here the name of the host e.g. 127.0.0.1 or localhost" },
 				{ "DataBase Name:" , "Put the name of  database e.g. \"world\" in the case of world.sql" },
 				{ "User Name:" , "Put the name you use to connect to the database" },
@@ -21,13 +22,10 @@ public class MySQLconnection extends AbstractDBconnection {
 		};
 
 
-	public MySQLconnection() {
+	public MySQLconnection() throws CancelledCommandException {
 		super();
 	}
 	
-	public MySQLconnection(DBconnectionPane dbcp) {
-		super(dbcp);
-	}
 
 	public MySQLconnection(String[] parameters) throws IllegalArgumentException {
 		super(parameters);
@@ -36,7 +34,7 @@ public class MySQLconnection extends AbstractDBconnection {
 	
 	@Override
 	public void init() {
-		fields = new String[numberOfCustomFields()][3];
+		fields = new String[4][3];
 		for(int i = 0 ; i<numberOfCustomFields() ; i++) {
 			fields[i][0] = "";
 			fields[i][1] = fields_details[i][0];
@@ -60,10 +58,10 @@ public class MySQLconnection extends AbstractDBconnection {
 	@Override
 	protected boolean checkConnection() {
 		
-		String hostName = fields[1][0];
-		String dataBaseName = fields[2][0];
-		String userName = fields[3][0];
-		String password = fields[4][0];
+		String hostName = fields[0][0];
+		String dataBaseName = fields[1][0];
+		String userName = fields[2][0];
+		String password = fields[3][0];
 		
 		try {
 			Class.forName("com.mysql.jdbc.Driver").newInstance();
@@ -93,20 +91,15 @@ public class MySQLconnection extends AbstractDBconnection {
 
 
 
-	@Override
-	public int numberOfCustomFields() {
-		return 5; //MYSQL
-	}
-
-
-	@Override
-	public int numberOfArguments() {
-		return 5; //MYSQL -> needs lastTime, hostName, DataBaseName, userName, Password
-	}
 
 	@Override
 	public String childFolderPath() {
 		return "MYSQL/";
+	}
+	
+	//TODO replace methods that should be static... I think
+	public static String savingFolderPath() {
+		return "savings/MYSQL";
 	}
 
 

@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.print.Printer;
+import tools.CancelledCommandException;
 
 public abstract class AbstractItem implements Item {
 
@@ -19,33 +20,38 @@ public abstract class AbstractItem implements Item {
 	private DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
 	protected Date defaultDate = new Date(0L); //defaultDate to replace null. This date corresponds to a transformation that never happened yet.
 
-
+	private String identifier;
+	
 	public static final String separator = " ";
 	
 	
-	public AbstractItem() {
+	public AbstractItem() throws CancelledCommandException{
+		this.identifier = new IdentifierPane().getIdentifier();
+		if(identifier == null)
+			throw new CancelledCommandException();
 		abstractInit();
 	}
 	
 	public AbstractItem(String [] attributes) throws IllegalArgumentException {//String lastTransformationDate, String jobRunning) {
-		this();
+		abstractInit();
 		
 		if(attributes.length != numberOfAttributes()) {
 			throw new IllegalArgumentException("the line in the savings file couldn't be analyzed correctly. No field should be empty nor contain spaces");			
 		}
 		
+		identifier = attributes[0];
+		
 		int indexOfDate = attributes.length -2;
 		int indexOfJobRunning = attributes.length -1;
 		
 		parseLastTransformationDate(attributes[indexOfDate]);
-		this.jobRunning = attributes[indexOfJobRunning].equals("true");
-
-	
+		this.jobRunning = attributes[indexOfJobRunning].equals("true");	
 	}
 	
 
 	
 	private void abstractInit() {
+		
 		this.jobRunning = false;
 		lastTransformation = defaultDate;
 		init(); //abstract method for now
@@ -93,15 +99,16 @@ public abstract class AbstractItem implements Item {
 	@Override
 	public int numberOfAttributes() {
 		//last transformation date and jobRunning boolean
-		return 2 + numberOfCustomFields();
+		return 3 + numberOfCustomFields();
 	}
 	
 
 	@Override
 	public String generateSavingTextLine() {
-		String res = childSavingTextLine();
-		res += separator+lastTransformationDate();
-		res += separator+jobRunning;
+		String res = getIdentifier();
+		res += separator + childSavingTextLine();
+		res += separator + lastTransformationDate();
+		res += separator + jobRunning;
 		
 		return res;
 	}
@@ -130,14 +137,14 @@ public abstract class AbstractItem implements Item {
 		
 		//Create the file if it's necessary. The file is based on the name of the item. two items in the same directory shouldn't have the same name.
 		
-		File savingFile = new File(savingDirectory, name());
+		File savingFile = new File(savingDirectory, getIdentifier());
 		
 		if( !savingFile.exists() ) {
 			
 			try {
 				savingFile.createNewFile();
 			} catch (IOException e) {
-				System.err.println("the following item couldn't be saved: " + name());
+				System.err.println("the following item couldn't be saved: " + getIdentifier());
 				e.printStackTrace();
 			}
 		
@@ -162,7 +169,7 @@ public abstract class AbstractItem implements Item {
 	
 	@Override
 	public File savingFile() {
-		return new File( savingFolder() + name() );
+		return new File( savingFolder() + identifier );
 	}
 
 	@Override
@@ -171,14 +178,14 @@ public abstract class AbstractItem implements Item {
 	}
 	
 	
-	@Override
+//	@Override
 	public String savingFolder() {
 		return "savings/" + childFolderPath();
 	}
 	
 	@Override
 	public String transformationFolder() {
-		return "transformation/jobs/" + childFolderPath() + name() + "/";
+		return "transformation/jobs/" + childFolderPath() + identifier + "/";
 	}
 
 	
@@ -197,4 +204,8 @@ public abstract class AbstractItem implements Item {
 	
 	
 
+	@Override
+	public String getIdentifier() {
+		return identifier;
+	}
 }

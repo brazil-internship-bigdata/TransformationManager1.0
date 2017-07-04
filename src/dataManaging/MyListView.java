@@ -12,6 +12,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import tools.CancelledCommandException;
+import tools.MySupplier;
 
 
 public class MyListView<T extends Item> extends JPanel
@@ -23,7 +24,7 @@ public class MyListView<T extends Item> extends JPanel
 	 */
 	private static final long serialVersionUID = 6278407390981154945L;
 	
-	private Supplier<T> supplier;
+	private MySupplier<T> supplier;
 	
 	private AbstractDataList<T> listData; //TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
 
@@ -35,7 +36,7 @@ public class MyListView<T extends Item> extends JPanel
 	
 	
 	//TODO modify this
-	public MyListView(AbstractDataList<T> list, Supplier<T> supplier) {
+	public MyListView(AbstractDataList<T> list, MySupplier<T> supplier) {
 		super();
 		
 		this.supplier = supplier;
@@ -106,7 +107,7 @@ public class MyListView<T extends Item> extends JPanel
 		for(T t : listData) {
 			if(!t.check()) {
 				successfulCheck = false;
-				invalidItems += "\n" + t.name();
+				invalidItems += "\n" + t.getIdentifier();
 			}
 		}
 

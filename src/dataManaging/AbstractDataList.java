@@ -45,17 +45,18 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 		
 		initList();
 	}
-*/
+*/ 
 	
-	public AbstractDataList(Supplier<E> supplier) {
+	public AbstractDataList() {
 		super();
 		
-		E item = supplier.get();
-		
-		
+//		E item = supplier.get();
 		
 		//Create the saving Folder if necessary.
-		File savingFolder = new File( item.savingFolder() );
+		File savingFolder = itemSavingFolder();
+		
+//		File savingFolder = new File( item.savingFolder() );
+		
 		
 		if( !savingFolder.isDirectory() ) {
 			savingFolder.mkdirs();
@@ -64,6 +65,12 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 		
 		initList(savingFolder);
 	}
+	
+	/**
+	 * saving folder of the concrete type of item contained in this list
+	 * @return the File pointing on the folder containing savings for this type of data.
+	 */
+	protected abstract File itemSavingFolder();
 	
 /*	
 	@Override
@@ -263,7 +270,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 	public String toString() {
 		String res = this.getClass().getName();
 		for(E e : this) {
-			res += "\n\t"+e.name();
+			res += "\n\t"+e.getIdentifier();
 		}
 		
 		return res;

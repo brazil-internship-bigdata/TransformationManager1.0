@@ -1,5 +1,7 @@
 package dataManaging.files;
 
+import java.io.File;
+
 import dataManaging.AbstractDataList;
 
 public class FileList extends AbstractDataList<MyFile> {
@@ -10,7 +12,7 @@ public class FileList extends AbstractDataList<MyFile> {
 	private static final long serialVersionUID = -4962373861401353388L;
 
 	public FileList(){
-		super( new MyFileSupplier() );
+		super();
 	}
 	
 
@@ -27,10 +29,17 @@ public class FileList extends AbstractDataList<MyFile> {
 	public String toString() {
 		String res = "FileList: ";
 		for(MyFile f : this) {
-			res += "\n\t"+f.name();
+			res += "\n\t"+f.getIdentifier();
 		}
 		
 		return res;
+	}
+
+
+
+	@Override
+	protected File itemSavingFolder() {
+		return new File("savings/files");
 	}
 }
 
