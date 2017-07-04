@@ -1,19 +1,9 @@
 package dataManaging;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.function.Supplier;
 
-import javax.swing.JOptionPane;
 
 import tools.CancelledCommandException;
 
@@ -30,32 +20,12 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 	
 	
 	
-/*	
-	public AbstractDataList(String savingsFileName) {
-		super();
-
-		
-		this.savingsFileName = savingsFileName;
-		this.savingsFile = new File("savings/" + savingsFileName);
-		
-		//if the savings file doesn't exist, we have to create the directory and the file.
-		if(!savingsFile.exists()) {
-			createSavingsFile();
-		}
-		
-		initList();
-	}
-*/ 
 	
 	public AbstractDataList() {
-		super();
-		
-//		E item = supplier.get();
+		super();		
 		
 		//Create the saving Folder if necessary.
 		File savingFolder = itemSavingFolder();
-		
-//		File savingFolder = new File( item.savingFolder() );
 		
 		
 		if( !savingFolder.isDirectory() ) {
@@ -66,28 +36,13 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 		initList(savingFolder);
 	}
 	
+	
 	/**
 	 * saving folder of the concrete type of item contained in this list
 	 * @return the File pointing on the folder containing savings for this type of data.
 	 */
 	protected abstract File itemSavingFolder();
 	
-/*	
-	@Override
-	public void createSavingsFile() {
-		//Creation of the directory
-		new File("savings").mkdir();
-
-		//Creation of the file
-		try {
-			savingsFile.createNewFile();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}		
-	}
-*/
 	/**
 	 * initializes the list with the files present in the savings directory.
 	 * @param savingFolder folder containing the saved elements
@@ -108,6 +63,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 				
 				E item = textLine2Element(savedAttributes);
 				super.add(item); //During initialization, we only want to register the data in this list. That's why we user super.add instead of add
+				Identifiers.use(item);
 
 			
 			} catch (Exception e) {
@@ -120,54 +76,6 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 	
 	
 	
-	private void initList() {
-		FileReader fr = null;
-		BufferedReader br = null;
-		boolean some_error_occured = false;
-		
-		try {
-			fr = new FileReader(savingsFile);
-			br = new BufferedReader(fr);
-
-			String currentLine;
-			while((currentLine = br.readLine()) != null && !currentLine.equals("")) {
-				
-				try {
-					E e = textLine2Element(currentLine);
-					super.add(e);
-
-					if(!e.check()) {
-						//TODO : for now I'm thinking about printing red text and asking the user to relocate the file. => TODO in FileSelectedPane
-					}
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-					some_error_occured = true;
-				}
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-
-			try {
-
-				if (br != null)
-					br.close();
-
-				if (fr != null)
-					fr.close();
-
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
-		}		
-		
-		if(some_error_occured) {
-			JOptionPane.showMessageDialog(null,
-					"One or more items couldn't be loaded because of some errors in the savings file... Maybe you used illegal characters?",
-					"error while loading",
-					JOptionPane.WARNING_MESSAGE);
-		}
-	}
 
 	/**
 	 * creates an Element from a textLine
@@ -180,11 +88,92 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 	@Override
 	public boolean add(E e) {
 		boolean res = super.add(e);
+		
+		//first, we "book" the selected identifier
+		Identifiers.use(e);
+		
+		//then we save the changes
 		e.generateFolders();
 		e.save();
+		
 		return res;
 	}
 
+	
+	@Override
+	public E remove(int index) {
+		try {
+			throw new Exception("illegal method used");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		E deletedElement = super.remove(index);
+		System.out.println("I shouldn't be doing that...");		
+		return deletedElement;
+	}
+
+	
+	
+	@Override
+	public boolean remove(Object o) {
+		boolean contained = super.remove(o);
+
+		//If the method isn't used on an item, it shouldn't remove anything.
+		if( ! (o instanceof Item )) {
+			return false;
+		}
+		
+		//Here the object is an Item
+		//first we free the identifier 
+		Identifiers.free((Item) o);
+
+		//then we save the changes
+		File savingFile = ((Item) o).savingFile();
+		savingFile.delete();
+
+		
+		return contained;
+	}
+
+	
+	
+	@Override
+	public String toString() {
+		String res = this.getClass().getName();
+		for(E e : this) {
+			res += "\n\t"+e.getIdentifier();
+		}
+		
+		return res;
+	}
+
+	
+	public void editItem(Item item) throws CancelledCommandException {
+		item.setWithGUI();
+		
+		//Here the user didn't cancel the modification so we need to save the modifications
+		item.save();
+	}
+
+	/*
+	@Override
+	public void saveAll() {
+		PrintWriter pw = null;
+		try {
+			pw = new PrintWriter(savingsFile);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			createSavingsFile();
+		}
+		pw.close();
+		
+		for(E e : this) {
+			saveOne(e);
+		}
+	}
+	*/
+	
 	/**
 	 * Saves the path to the given file in the savings file
 	 * @param f file to be saved
@@ -225,63 +214,40 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 		}
 	}
 	*/
-	
-	@Override
-	public E remove(int index) {
-		E deletedElement = super.remove(index);
-		System.out.println("I shouldn't be doing that...");
-	//	saveAll();
-		return deletedElement;
-	}
 
-	
-	
+	/*	
 	@Override
-	public boolean remove(Object o) {
-		boolean contained = super.remove(o);
-//		saveAll();
-		if( o instanceof Item) {
-			File savingFile = ((Item) o).savingFile();
-			savingFile.delete();
-		}
-		return contained;
-	}
+	public void createSavingsFile() {
+		//Creation of the directory
+		new File("savings").mkdir();
 
-	
-	/*
-	@Override
-	public void saveAll() {
-		PrintWriter pw = null;
+		//Creation of the file
 		try {
-			pw = new PrintWriter(savingsFile);
-		} catch (FileNotFoundException e) {
+			savingsFile.createNewFile();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return;
+		}		
+	}
+*/
+
+	/*	
+	public AbstractDataList(String savingsFileName) {
+		super();
+
+		
+		this.savingsFileName = savingsFileName;
+		this.savingsFile = new File("savings/" + savingsFileName);
+		
+		//if the savings file doesn't exist, we have to create the directory and the file.
+		if(!savingsFile.exists()) {
 			createSavingsFile();
 		}
-		pw.close();
 		
-		for(E e : this) {
-			saveOne(e);
-		}
+		initList();
 	}
-	*/
-	
-	@Override
-	public String toString() {
-		String res = this.getClass().getName();
-		for(E e : this) {
-			res += "\n\t"+e.getIdentifier();
-		}
-		
-		return res;
-	}
+*/ 
 
-	
-	public void editItem(Item item) throws CancelledCommandException {
-		item.setWithGUI();
-		
-		//Here the user didn't cancel the modification so we need to save the modifications
-		item.save();
-	}
 
 }
