@@ -110,7 +110,7 @@ public abstract class AbstractDBconnection extends AbstractItem {
 	}
 	
 
-	
+	@Override
 	public String[] commandLineArguments() {
 		String [] arguments = new String[numberOfArguments()]; //the arguments take the date and every field except the connectionName
 		

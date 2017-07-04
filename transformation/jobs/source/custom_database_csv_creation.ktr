@@ -490,7 +490,7 @@
     </hop>
     <hop>
       <from>Group by</from>
-      <to>setDate</to>
+      <to>Set Variables</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -786,8 +786,8 @@
     </step>
 
   <step>
-    <name>setDate</name>
-    <type>TextFileOutput</type>
+    <name>Set Variables</name>
+    <type>SetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -796,39 +796,15 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <separator>&#x3b;</separator>
-    <enclosure>&#x22;</enclosure>
-    <enclosure_forced>N</enclosure_forced>
-    <enclosure_fix_disabled>N</enclosure_fix_disabled>
-    <header>Y</header>
-    <footer>N</footer>
-    <format>DOS</format>
-    <compression>None</compression>
-    <encoding/>
-    <endedLine/>
-    <fileNameInField>N</fileNameInField>
-    <fileNameField/>
-    <create_parent_folder>Y</create_parent_folder>
-    <file>
-      <name>&#x24;&#x7b;Internal.Transformation.Filename.Directory&#x7d;&#x2f;..&#x2f;..&#x2f;savings&#x2f;&#x24;&#x7b;</name>
-      <is_command>N</is_command>
-      <servlet_output>N</servlet_output>
-      <do_not_open_new_file_init>N</do_not_open_new_file_init>
-      <extention>txt</extention>
-      <append>N</append>
-      <split>N</split>
-      <haspartno>N</haspartno>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <SpecifyFormat>N</SpecifyFormat>
-      <date_time_format/>
-      <add_to_result_filenames>Y</add_to_result_filenames>
-      <pad>N</pad>
-      <fast_dump>N</fast_dump>
-      <splitevery>0</splitevery>
-    </file>
     <fields>
-    </fields>
+      <field>
+        <field_name>max_date</field_name>
+        <variable_name>MAX_DATE</variable_name>
+        <variable_type>ROOT_JOB</variable_type>
+        <default_value/>
+        </field>
+      </fields>
+    <use_formatting>Y</use_formatting>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -837,7 +813,7 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>992</xloc>
+      <xloc>976</xloc>
       <yloc>672</yloc>
       <draw>Y</draw>
     </GUI>

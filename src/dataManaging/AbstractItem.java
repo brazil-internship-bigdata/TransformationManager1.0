@@ -9,7 +9,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javafx.print.Printer;
 import tools.CancelledCommandException;
 
 public abstract class AbstractItem implements Item {
