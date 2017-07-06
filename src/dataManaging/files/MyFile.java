@@ -85,11 +85,6 @@ public class MyFile extends AbstractItem {
 
 
 
-	@Override
-	public boolean isJobRunning() {
-		// TODO check if the job is scheduled on the computer
-		return jobRunning;
-	}
 
 
 

@@ -87,11 +87,6 @@ public abstract class AbstractDBconnection extends AbstractItem {
 	}
 
 
-	@Override
-	public boolean isJobRunning() {
-		// TODO check if the job is scheduled by the computer
-		return jobRunning;
-	}
 	
 	/**
 	 * Check the validity of the DBconnection

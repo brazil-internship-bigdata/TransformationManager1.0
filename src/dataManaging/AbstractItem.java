@@ -13,7 +13,7 @@ import tools.CancelledCommandException;
 
 public abstract class AbstractItem implements Item {
 
-	protected boolean jobRunning;
+	//protected boolean jobRunning;
 	protected Date lastTransformation;
 
 	private DateFormat format = new SimpleDateFormat("dd.MM.yyyy-HH:mm:ss");
@@ -40,18 +40,18 @@ public abstract class AbstractItem implements Item {
 		
 		identifier = attributes[0];
 		
-		int indexOfDate = attributes.length -2;
-		int indexOfJobRunning = attributes.length -1;
+		int indexOfDate = attributes.length -1;
+//		int indexOfJobRunning = attributes.length -1;
 		
 		parseLastTransformationDate(attributes[indexOfDate]);
-		this.jobRunning = attributes[indexOfJobRunning].equals("true");	
+//		this.jobRunning = attributes[indexOfJobRunning].equals("true");	
 	}
 	
 
 	
 	private void abstractInit() {
 		
-		this.jobRunning = false;
+//		this.jobRunning = false;
 		lastTransformation = defaultDate;
 		init(); //abstract method for now
 	}
@@ -62,7 +62,8 @@ public abstract class AbstractItem implements Item {
 	@Override
 	public boolean isJobRunning() {
 		// TODO check if the job is scheduled on the computer
-		return jobRunning;
+//		return jobRunning;
+		return false;
 	}
 
 
@@ -87,7 +88,7 @@ public abstract class AbstractItem implements Item {
 	
 	@Override
 	public void setJobRunning(boolean b) {
-		jobRunning = b;
+//		jobRunning = b;
 	}
 	
 	@Override
@@ -98,7 +99,7 @@ public abstract class AbstractItem implements Item {
 	@Override
 	public int numberOfAttributes() {
 		//last transformation date and jobRunning boolean
-		return 3 + numberOfCustomFields();
+		return 2 + numberOfCustomFields();
 	}
 	
 
@@ -107,7 +108,7 @@ public abstract class AbstractItem implements Item {
 		String res = getIdentifier();
 		res += separator + childSavingTextLine();
 		res += separator + lastTransformationDate();
-		res += separator + jobRunning;
+//		res += separator + jobRunning;
 		
 		return res;
 	}

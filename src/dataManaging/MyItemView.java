@@ -105,7 +105,7 @@ public class MyItemView extends JPanel
 			}
 			
 			
-			File sources = new File("transformation/jobs/source");			
+			File sources = new File("transformation/jobs/source/" + item.getIdentifier());			
 			File[] jobs =  sources.listFiles();
 
 			

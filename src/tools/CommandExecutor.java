@@ -33,7 +33,7 @@ public class CommandExecutor {
 	}
 
 	
-	private static String [] buildCommand(Item item) {
+	private static String [] buildCommandObsolete(Item item) {
 		
 		/*command format: 
 		0->/bin/bash,
@@ -73,7 +73,23 @@ public class CommandExecutor {
 		return command;
 	}
 
-	
+
+	private static String[] buildCommand(Item item) {
+		String [] command = new String[5];
+		
+		String pathToJob = item.jobFile().getAbsolutePath();
+		
+		
+		//TODO treat windows, Mac OSX and UNIX
+		
+		command[0] = "/bin/bash";
+		command[1] = new File(pathToPentaho).getAbsolutePath() + "/kitchen.sh";
+		command[2] = "/file";
+		command[3] = pathToJob;
+		command[4] = "/norep";
+		
+		return command;
+	}
 		
 	/**
 	 * execute the given command
@@ -90,12 +106,15 @@ public class CommandExecutor {
 		ProcessBuilder pb = new ProcessBuilder(command);
 		//Thank you : https://examples.javacodegeeks.com/core-java/lang/processbuilder/java-lang-processbuilder-example/
 
-		System.out.println("Run command: " + command.toString());
+		System.out.println("Run command: ");
+		for(int i = 0; i<command.length ; i++)
+			System.out.print(command[i] + " ");
+		
 		Process process = pb.start();
 		int errCode = process.waitFor();
 
 		
-		System.out.println("Output:\n" + output(process.getInputStream()));			
+		System.out.println("\nOutput:\n" + output(process.getInputStream()));			
 		if(errCode != 0) {
 			JOptionPane.showMessageDialog(null, "error during the transformation. errcode: " + errCode);
 		}

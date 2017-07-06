@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dataManaging.AbstractItem;
+
 public class DBconnectionPane extends JPanel 
 										implements ActionListener{
 	/**
@@ -119,7 +121,7 @@ public class DBconnectionPane extends JPanel
 		//for each field, check if it is not empty nor contains spaces
 		for(int i=0 ; i<t_jfields.length ; i++) {
 			all_fields_correct = all_fields_correct 
-					&& !t_jfields[i].getText().contains(" ")
+					&& !t_jfields[i].getText().contains(AbstractItem.separator)
 					&& !t_jfields[i].getText().equals(""); 			
 		}
 
