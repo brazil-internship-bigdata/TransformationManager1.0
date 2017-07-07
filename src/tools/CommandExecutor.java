@@ -119,7 +119,7 @@ public class CommandExecutor {
 			JOptionPane.showMessageDialog(null, "error during the transformation. errcode: " + errCode);
 		}
 		else {
-			item.setLastTransformationDate(new Date());
+			JOptionPane.showMessageDialog(null, "Ecureuil!");
 		}
 		
 		item.save();

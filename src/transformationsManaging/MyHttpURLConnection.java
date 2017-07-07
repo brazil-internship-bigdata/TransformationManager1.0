@@ -62,7 +62,7 @@ public class MyHttpURLConnection {
 		// HTTP POST request
 		private void sendPost() throws Exception {
 
-			String url = "https://selfsolve.apple.com/wcResults.do";
+			String url = "https://google.com";
 			URL obj = new URL(url);
 			HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
 
@@ -71,7 +71,7 @@ public class MyHttpURLConnection {
 			con.setRequestProperty("User-Agent", USER_AGENT);
 			con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-			String urlParameters = "sn=C02G8416DRJM&cn=&locale=&caller=&num=12345";
+			String urlParameters = "";// = "search?q=aa&oq=aa&aqs=chrome..69i57j0l5.970j0j7&client=ubuntu&sourceid=chrome&ie=UTF-8";
 
 			// Send post request
 			con.setDoOutput(true);
