@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import dataManaging.databaseConnections.AbstractDBconnection;
 import dataManaging.databaseConnections.DBconnectionPane;
-import tools.CancelledCommandException;
+import tools.exceptions.CancelledCommandException;
 
 public class MySQLconnection extends AbstractDBconnection {
 

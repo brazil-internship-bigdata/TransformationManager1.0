@@ -10,8 +10,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import tools.CancelledCommandException;
 import tools.MySupplier;
+import tools.exceptions.CancelledCommandException;
 
 
 public class MyListView<T extends Item> extends JPanel

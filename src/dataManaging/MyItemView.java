@@ -12,8 +12,8 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
-import tools.CancelledCommandException;
 import tools.CommandExecutor;
+import tools.exceptions.CancelledCommandException;
 
 public class MyItemView extends JPanel
 										implements ActionListener {

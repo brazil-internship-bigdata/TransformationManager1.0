@@ -1,7 +1,7 @@
 package dataManaging.files;
 
-import tools.CancelledCommandException;
 import tools.MySupplier;
+import tools.exceptions.CancelledCommandException;
 
 public class MyFileSupplier implements MySupplier<MyFile> {
 

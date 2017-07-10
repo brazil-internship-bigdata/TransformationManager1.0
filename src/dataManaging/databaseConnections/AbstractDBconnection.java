@@ -3,7 +3,7 @@ package dataManaging.databaseConnections;
 
 
 import dataManaging.AbstractItem;
-import tools.CancelledCommandException;
+import tools.exceptions.CancelledCommandException;
 
 public abstract class AbstractDBconnection extends AbstractItem {
 
