@@ -55,8 +55,11 @@ public class ApiConnectionPane implements ActionListener {
 	public void display() {
 		optionPane = new JOptionPane(null, JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 		dialog = new JDialog();
+		dialog.setModal(true);
 		dialog.setTitle("Connection to the lab");
-		dialog.add(optionPane);
+		dialog.add(connectionPane);
+		
+		dialog.pack();
 		dialog.setVisible(true);
 	}
 
