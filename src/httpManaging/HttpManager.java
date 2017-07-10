@@ -27,7 +27,6 @@ public class HttpManager {
 	
 	private String userName;
 	private String password;
-	private String connectionParameters;
 	
 	private boolean connected;
 	
@@ -128,6 +127,7 @@ public class HttpManager {
 			System.err.println("I didn't manage to print the ids in a file.");
 			e.printStackTrace();
 		} finally {
+			printer.flush();
 			printer.close();
 		}
 		
@@ -177,7 +177,7 @@ public class HttpManager {
 		ArrayList<String> filesToAsk = res.response;
 		
 		for(String filePath : filesToAsk) {
-			String parameters = "something" + filePath + connectionParameters;//TODO
+			String parameters = "something" + filePath + connectionParameters();//TODO
 
 			System.out.println("I am a bad piece of code");
 			
@@ -189,7 +189,13 @@ public class HttpManager {
 	
 	
 	
-	
+	//TODO replace pseudo code
+	private String connectionParameters() {
+		return "something" + userName + "anotherThing" + password;
+	}
+
+
+
 	private Result post(String parameters) throws IOException {
 		URL obj = new URL(url);
 
