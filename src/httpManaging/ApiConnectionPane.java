@@ -3,6 +3,7 @@ package httpManaging;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -19,7 +20,6 @@ import net.miginfocom.swing.MigLayout;
 public class ApiConnectionPane implements ActionListener {
 
 	private JPanel connectionPane;
-	private JOptionPane optionPane;
 	private JDialog dialog;
 	
 	private JTextField userName = new JTextField(20);
@@ -53,7 +53,6 @@ public class ApiConnectionPane implements ActionListener {
 	}
 	
 	public void display() {
-		optionPane = new JOptionPane(null, JOptionPane.DEFAULT_OPTION,JOptionPane.PLAIN_MESSAGE, null, new Object[]{}, null);
 		dialog = new JDialog();
 		dialog.setModal(true);
 		dialog.setTitle("Connection to the lab");
@@ -69,12 +68,22 @@ public class ApiConnectionPane implements ActionListener {
 		if(e.getSource() == connectionButton) {
 			HttpManager httpMan = new HttpManager();
 			
-			boolean connected = httpMan.connect(userName.getText(), password.getText());
+			try {
+				httpMan.connect(userName.getText(), password.getText());
+
+				if( !httpMan.connected() ) {
+					JOptionPane.showMessageDialog(null, "Connection failed");
+					return;
+				} else {
+					dialog.setVisible(false);
+				}
+
 			
-			if(!connected) {
-				JOptionPane.showMessageDialog(null, "Connection failed");
-				return;
+				
+			} catch (IOException e1) {
+				e1.printStackTrace();
 			}
+			
 			
 			
 		}

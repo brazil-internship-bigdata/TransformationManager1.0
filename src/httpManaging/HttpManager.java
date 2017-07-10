@@ -6,9 +6,14 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -17,11 +22,15 @@ import main.Home;
 
 public class HttpManager {
 
-	private String url = "https://localhost";
+	private final String url = "https://localhost";
+	private final String savingsPath = "savings/API/ids";
 	
 	private String userName;
 	private String password;
 	private String connectionParameters;
+	
+	private boolean connected;
+	
 	
 	private class Result{
 		int code;
@@ -41,33 +50,95 @@ public class HttpManager {
 	}
 	
 	
-	boolean connect(String userName, String password) {
+	
+	public HttpManager() {
+		//For now, we assume that the connection wasn't made. This might change if the ids are correctly stored in the savings File
+		connected = false;
+
+		Path path = Paths.get(savingsPath);
+		if( !Files.exists(path) ) {
+			return;
+		} else {
+
+			try {
+				List<String> content = Files.readAllLines(path);
+			
+				if(content.size() != 2) {
+					//The file's format isn't normal. => we are not connected
+					connected = false;
+					return;
+				}
+				
+				//Here, the savingsFiles exists, in the right format. So we use the ID and password to create this object
+				String idLine = content.get(0);
+				String pwLine = content.get(1);
+				
+				userName = idLine.replaceAll("ID=", "");
+				password = pwLine.replaceAll("PASSWORD=", "");
+				connected = true;
+				
+			} catch (IOException e) {
+				//If we don't manage to read the savings File, we are not connected.
+				connected = false;
+				e.printStackTrace();
+				return;
+			}
+			
+			
+		}
+	}
+	
+	
+	
+	/**
+	 * Tests the connection ids to communicate with the API.
+	 * @param userName of the company
+	 * @param password of the company
+	 * @return true if the API returns a positive question to the company. false if the response isn't.
+	 * @throws IOException In case of failure during the communication with the API
+	 */
+	public void connect(String userName, String password) throws IOException {
 		
 		String urlParameters = "connection?id=+"+userName+"&pw="+password;
 
-		Result res;
-		try {
-			res = post(urlParameters);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
+		Result res = post(urlParameters);
 			
-		if( res.code() == HttpURLConnection.HTTP_OK ) {
-			//these 2 are probably useless
-			this.userName = userName;
-			this.password = password;
-
-			this.connectionParameters = urlParameters;
-			System.out.println("I most likely am not a good piece of code");
-			return true;
+		if( res.code() != HttpURLConnection.HTTP_OK ) {
+			connected = false;
+			return;
 		}
-		else return false;
+		
+		this.userName = userName;
+		this.password = password;
 
+		System.out.println("I most likely am not a good piece of code");
+
+		//write the ids to connect to the lab's API.
+		File savingsFile = new File(savingsPath);	
+		if( !savingsFile.exists() ) {
+			savingsFile.getParentFile().mkdirs();
+			savingsFile.createNewFile();
+		}
+		
+		PrintWriter printer = null;
+		try {
+			printer = new PrintWriter(savingsFile);
+			printer.print("ID="+userName+"\nPASSWORD="+password);
+		} catch (IOException e) {
+			System.err.println("I didn't manage to print the ids in a file.");
+			e.printStackTrace();
+		} finally {
+			printer.close();
+		}
+		
+		connected = true;
+		return;
 	}
 
 
-	
+	public boolean connected() {
+		return connected;
+	}
 	
 	
 	/**
