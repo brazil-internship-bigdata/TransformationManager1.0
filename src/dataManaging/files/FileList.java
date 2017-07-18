@@ -41,6 +41,14 @@ public class FileList extends AbstractDataList<MyFile> {
 	protected File itemSavingFolder() {
 		return new File("savings/files");
 	}
+
+
+
+	@Override
+	public String listName() {
+		// TODO Auto-generated method stub
+		return "List of files";
+	}
 }
 
 

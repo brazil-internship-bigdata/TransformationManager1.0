@@ -27,4 +27,9 @@ public class MySQLconnectionsList extends AbstractDataList<MySQLconnection> {
 		return new File(MySQLconnection.savingFolderPath());
 	}
 
+	@Override
+	public String listName() {
+		return "List of MySQL connections";
+	}
+
 }
