@@ -35,6 +35,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 		initList(savingFolder);
 	}
 	
+	public abstract String listName();
 	
 	/**
 	 * saving folder of the concrete type of item contained in this list
@@ -82,7 +83,7 @@ public abstract class AbstractDataList<E extends Item> extends ArrayList<E> {
 	 * @return the element corresponding to the parameters contained in the textLine
 	 */
 	protected abstract E textLine2Element(String textLine) throws IllegalArgumentException;
-
+	//TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
 	
 	@Override
 	public boolean add(E e) {

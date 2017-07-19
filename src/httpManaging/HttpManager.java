@@ -17,33 +17,36 @@ import java.util.List;
 import javax.net.ssl.HttpsURLConnection;
 
 import dataManaging.Item;
-import main.Home;
 
 public class HttpManager {
 
-	private final String	url			= "http://localhost";
-	private final String	savingsPath	= "savings/API/ids";
 
-	private String			userName;
-	private String			password;
-
-	private boolean			connected;
-
-	private class Result {
-		int					code;
-		ArrayList<String>	response;
+	private final String url = "http://localhost:8080/webapp/";
+	private final String savingsPath = "savings/API/ids";
+	
+	private String userName;
+	private String password;
+	
+	private boolean connected;
+	
+	
+	private class Result{
+		private int code;
+		private ArrayList<String> response;
 
 		public Result(int code, ArrayList<String> response) {
 			this.code = code;
 			this.response = response;
 		}
 
-		public ArrayList<String> response() {
-			return response;
-		}
-
-		public int code() {
-			return code;
+		public String getFileBody() {
+			StringBuffer body = new StringBuffer();
+			
+			for(String line : response) {
+				body.append(line);
+			}
+			
+			return body.toString();
 		}
 	}
 
@@ -99,12 +102,12 @@ public class HttpManager {
 	 *             In case of failure during the communication with the API
 	 */
 	public void connect(String userName, String password) throws IOException {
+		
+		String urlParameters = "company_name=+"+userName+"&password_company="+password;
 
-		String urlParameters = "id=+" + userName + "&pw=" + password;
-
-		Result res = post(urlParameters);
-
-		if (res.code() != HttpURLConnection.HTTP_OK) {
+		Result res = get(urlParameters, url + "loginAPI");
+			
+		if( res.code != HttpURLConnection.HTTP_OK ) {
 			connected = false;
 			return;
 		}
@@ -149,15 +152,14 @@ public class HttpManager {
 	 * @throws IOException
 	 *             if the post method failed
 	 */
-	private Result postIdentifier(Item item) throws IOException {
+	private Result getFileList(Item item) throws IOException {
 		String itemIdentifier = item.getIdentifier();
-		String companyName = Home.COMPANY_NAME;
-
-		// TODO identifier is an ambiguous name, it should be replaced...
-		// ItemIdentifier?
-		String urlParameters = "transformation?company=" + companyName + "&identifier=" + itemIdentifier;
-
-		Result res = post(urlParameters);
+		
+		
+		//TODO identifier is an ambiguous name, it should be replaced... ItemIdentifier?
+		String urlParameters = "company_name=" + userName + "/" + itemIdentifier; //TODO verify if necessary : + "&password=" + password;
+		
+		Result res = get(urlParameters, url+"/fileList");
 		return res;
 
 	}
@@ -171,48 +173,68 @@ public class HttpManager {
 	 * @throws IOException
 	 *             if one of the posts request failed.
 	 */
-	void retrieveTransformationFiles(Item item) throws IOException {
-		File dir = new File(item.transformationFolder());
-		if (!dir.isDirectory()) {
+	public void retrieveTransformationFiles(Item item) throws IOException {
+		File localDir = new File(item.transformationFolder());
+		if( !localDir.isDirectory() ) {
 			item.generateFolders();
 		}
-
-		Result res = postIdentifier(item);
-
+		
+		Result res = getFileList(item);
+		
 		ArrayList<String> filesToAsk = res.response;
+		
+		for(String remoteFilePath : filesToAsk) {
+			String parameters = "file=" + remoteFilePath + "&" + connectionParameters();
+			Result fileReceived = post(parameters, url+"/download");
+			
+			//Check the http code result.
+			if(fileReceived.code != HttpURLConnection.HTTP_OK) {
+				throw new IOException("One of the file couldn't be retrieved");
+			}
 
-		for (String filePath : filesToAsk) {
-			String parameters = "something" + filePath + connectionParameters();// TODO
+			//Get the fileReceived's body
+			String fileBody = fileReceived.getFileBody();
 
-			System.out.println("I am a bad piece of code");
-
-			post(parameters);
+				
+			//get path of the file to download (fileName is in the remoteFilePath. path is localDir/fileName)
+			String fileName = new File(remoteFilePath).getName();
+			File localFile = new File(localDir, fileName);
+			localFile.createNewFile();
+			
+			//Create a print writer to set the body of the recently created file
+			PrintWriter pw = new PrintWriter(localFile);
+			pw.write(fileBody);
+			pw.close();
 		}
 
 	}
-
-	// TODO replace pseudo code
+	
+	
+	
+	
 	private String connectionParameters() {
-		return "something" + userName + "anotherThing" + password;
+		return "company_name=" + userName + "&password=" + password;
 	}
 
-	private Result post(String parameters) throws IOException {
+	private Result post(String parameters, String url) throws IOException {
 		URL obj = new URL(url);
 
-		HttpsURLConnection con = (HttpsURLConnection) obj.openConnection();
+		byte[] postData       = urlParameters.getBytes( StandardCharsets.UTF_8 );
+		int    postDataLength = postData.length;
+		
+		
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
 		// add request header
 		con.setRequestMethod("POST");
-		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		conn.setRequestProperty( "Content-Length", Integer.toString(postDataLength) );
 
-		// String urlParameters = "connection?id=+"+userName+"&pw="+password;//
-		// =
-		// "search?q=aa&oq=aa&aqs=chrome..69i57j0l5.970j0j7&client=ubuntu&sourceid=chrome&ie=UTF-8";
 
 		// Send post request
 		con.setDoOutput(true);
 		DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		wr.writeBytes(parameters);
+		wr.writeBytes(postData);
 		wr.flush();
 		wr.close();
 
@@ -231,13 +253,54 @@ public class HttpManager {
 		}
 		in.close();
 
-		// print result
-		for (String line : response) {
-			System.out.println(line);
 
+		//print result
+		System.out.println("code = " + responseCode);
+
+		for(String line : response) {
+			System.out.println(line);			
 		}
 
 		return new Result(responseCode, response);
+	}
+
+	
+	// HTTP GET request
+	private Result get(String parameters, String url) throws IOException {
+
+
+		URL obj = new URL(url);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+
+		// optional default is GET
+		con.setRequestMethod("GET");
+
+
+		int responseCode = con.getResponseCode();
+		System.out.println("\nSending 'GET' request to URL : " + url);
+		System.out.println("Response Code : " + responseCode);
+
+		BufferedReader in = new BufferedReader(
+				new InputStreamReader(con.getInputStream()));
+		String inputLine;
+		ArrayList<String> response = new ArrayList<String>();
+
+		while ((inputLine = in.readLine()) != null) {
+			response.add(inputLine);
+		}
+		in.close();
+
+		int code = con.getResponseCode();
+		
+		//print result
+		System.out.println("code = " + code);
+		
+		for(String line : response) {
+			System.out.println(line);
+		}
+		
+		return new Result(code, response);
+
 	}
 
 }

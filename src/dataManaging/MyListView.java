@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -25,7 +26,7 @@ public class MyListView<T extends Item> extends JPanel
 	
 	private MySupplier<T> supplier;
 	
-	private AbstractDataList<T> listData; //TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
+	private AbstractDataList<T> listData; 
 
 	
 	private JPanel buttonsPane;
@@ -40,6 +41,7 @@ public class MyListView<T extends Item> extends JPanel
 		
 		this.supplier = supplier;
 
+		
 		//Creation of the buttons Pane
 		buttonsPane = new JPanel();		
 		
@@ -61,6 +63,7 @@ public class MyListView<T extends Item> extends JPanel
 		
 		//Creation of the List view
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.add(new JLabel(list.listName()), BOTTOM_ALIGNMENT);
 		this.add(buttonsPane);
 		init(list);	
 	}
