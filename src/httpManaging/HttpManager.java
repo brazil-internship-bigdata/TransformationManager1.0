@@ -53,37 +53,35 @@ public class HttpManager {
 		connected = false;
 
 		Path path = Paths.get(savingsPath);
-		if (!Files.exists(path)) {
+		if (!Files.exists(path))
 			return;
-		} else {
 
-			try {
-				List<String> content = Files.readAllLines(path);
+		try {
+			List<String> content = Files.readAllLines(path);
 
-				if (content.size() != 2) {
-					// The file's format isn't normal. => we are not connected
-					connected = false;
-					return;
-				}
-
-				// Here, the savingsFiles exists, in the right format. So we use
-				// the ID and password to create this object
-				String idLine = content.get(0);
-				String pwLine = content.get(1);
-
-				userName = idLine.replaceAll("ID=", "");
-				password = pwLine.replaceAll("PASSWORD=", "");
-				connected = true;
-
-			} catch (IOException e) {
-				// If we don't manage to read the savings File, we are not
-				// connected.
+			if (content.size() != 2) {
+				// The file's format isn't normal. => we are not connected
 				connected = false;
-				e.printStackTrace();
 				return;
 			}
 
+			// Here, the savingsFiles exists, in the right format. So we use
+			// the ID and password to create this object
+			String idLine = content.get(0);
+			String pwLine = content.get(1);
+
+			userName = idLine.replaceAll("ID=", "");
+			password = pwLine.replaceAll("PASSWORD=", "");
+			connected = true;
+
+		} catch (IOException e) {
+			// If we don't manage to read the savings File, we are not
+			// connected.
+			connected = false;
+			e.printStackTrace();
+			return;
 		}
+
 	}
 
 	/**
