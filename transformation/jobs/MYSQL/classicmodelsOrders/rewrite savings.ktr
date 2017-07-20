@@ -577,12 +577,12 @@
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>//Script here
 
-if( new_date == "NEW_DATE" ) {
+if( new_date == "${NEW_DATE}" ) {
 	var date = last_time;
 } else {
 	var date = new_date;
 }
-writeToLog(getVariable("NEW_DATE"));</jsScript_script>
+writeToLog(new_date);</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
