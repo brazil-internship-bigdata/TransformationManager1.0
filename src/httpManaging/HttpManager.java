@@ -12,6 +12,7 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,7 +41,7 @@ public class HttpManager {
 			StringBuffer body = new StringBuffer();
 
 			for (String line : response) {
-				body.append(line);
+				body.append(line + "\r\n");
 			}
 
 			return body.toString();
@@ -152,17 +153,16 @@ public class HttpManager {
 
 		// TODO identifier is an ambiguous name, it should be replaced...
 		// ItemIdentifier?
-		String urlParameters = "company_name=" + userName + "/" + itemIdentifier; // TODO
-																					// verify
-																					// if
-																					// necessary
-																					// :
-																					// +
-																					// "&password="
-																					// +
-																					// password;
-
-		Result res = get(urlParameters, url + "/fileList");
+		String urlParameters = "company_name=" + userName; // TODO for now, we
+															// ignore the
+															// identifier
+															// because webapp
+															// encounters null
+															// pointer exception
+															// because of it
+															// + "/"
+															// + itemIdentifier;
+		Result res = get(urlParameters, url + "filelist");
 		return res;
 
 	}
@@ -186,9 +186,9 @@ public class HttpManager {
 
 		ArrayList<String> filesToAsk = res.response;
 
-		for (String remoteFilePath : filesToAsk) {
-			String parameters = "file=" + remoteFilePath + "&" + connectionParameters();
-			Result fileReceived = post(parameters, url + "/download");
+		for (String fileName : filesToAsk) {
+			String parameters = "file=" + fileName + "&company=" + userName + "&password=" + password;// connectionParameters();
+			Result fileReceived = post(parameters, url + "download");
 
 			// Check the http code result.
 			if (fileReceived.code != HttpURLConnection.HTTP_OK) {
@@ -198,11 +198,21 @@ public class HttpManager {
 			// Get the fileReceived's body
 			String fileBody = fileReceived.getFileBody();
 
-			// get path of the file to download (fileName is in the
-			// remoteFilePath. path is localDir/fileName)
-			String fileName = new File(remoteFilePath).getName();
+			// get path of the file to download
+			/*
+			 * Path localFilePath = Paths.get(localDir.getAbsolutePath(),
+			 * fileName); Files.createFile(localFilePath);
+			 * Files.setPosixFilePermissions(localFilePath, perms)
+			 */
 			File localFile = new File(localDir, fileName);
 			localFile.createNewFile();
+			String extension = fileName.substring(fileName.lastIndexOf(".") + 1);
+
+			if (extension.equals("sh") || extension.equals("bat")) {
+
+				Files.setPosixFilePermissions(Paths.get(localFile.getAbsolutePath()),
+						PosixFilePermissions.fromString("rwxr-xr-x"));
+			}
 
 			// Create a print writer to set the body of the recently created
 			// file
@@ -214,7 +224,7 @@ public class HttpManager {
 	}
 
 	private String connectionParameters() {
-		return "company_name=" + userName + "&password=" + password;
+		return "company=" + userName + "&password=" + password;
 	}
 
 	private Result post(String parameters, String url) throws IOException {
@@ -229,6 +239,8 @@ public class HttpManager {
 		con.setRequestMethod("POST");
 		// con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		con.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+		con.setRequestProperty("Cache-Control", "no-cache");
+		con.setRequestProperty("charset", "utf-8");
 
 		// Send post request
 		con.setDoOutput(true);
@@ -254,10 +266,9 @@ public class HttpManager {
 		// print result
 		System.out.println("code = " + responseCode);
 
-		for (String line : response) {
-			System.out.println(line);
-		}
-
+		/*
+		 * for (String line : response) { System.out.println(line); }
+		 */
 		return new Result(responseCode, response);
 	}
 
@@ -274,6 +285,7 @@ public class HttpManager {
 		con.setInstanceFollowRedirects(false);
 		con.setRequestProperty("Content-Type", "text/plain");
 		con.setRequestProperty("charset", "utf-8");
+		con.setRequestProperty("Cache-Control", "no-cache");
 		con.connect();
 
 		BufferedReader in = null;
@@ -301,10 +313,9 @@ public class HttpManager {
 		// print result
 		System.out.println("code = " + code);
 
-		for (String line : response) {
-			System.out.println(line);
-		}
-
+		/*
+		 * for (String line : response) { System.out.println(line); }
+		 */
 		return new Result(code, response);
 
 	}

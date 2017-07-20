@@ -140,7 +140,7 @@ public class MyItemView extends JPanel implements ActionListener {
 				item.setJobRunning(false);
 				e1.printStackTrace();
 			} finally {
-				item.save();
+				// item.save();
 			}
 
 			// TODO PUT HERE (or maybe through pentaho)
