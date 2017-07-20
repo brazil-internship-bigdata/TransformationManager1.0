@@ -26,7 +26,7 @@ public class Home extends JFrame
 
 	
 	public static final String SOFTWARE_NAME = "Ecureuil";
-
+	public static final String COMPANY_NAME = "SQUIRREL";
 	
 	private JSplitPane horizontalSplitPane;
 

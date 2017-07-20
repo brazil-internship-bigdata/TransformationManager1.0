@@ -3,31 +3,28 @@ package dataManaging.databaseConnections;
 
 
 import dataManaging.AbstractItem;
-import tools.CancelledCommandException;
+import tools.exceptions.CancelledCommandException;
 
 public abstract class AbstractDBconnection extends AbstractItem {
 
 //	protected boolean jobRunning;
 
-	//parameters that represent the connection to the DB
+	//parameters that represent the connection to the DB TODO chould be a method to force redefinition in childrens. But that's no big deal.
 	protected String[][] fields; 
 
 
 	
-	protected AbstractDBconnection() {
+	protected AbstractDBconnection() throws CancelledCommandException {
 		super();
 	}
 
-	public AbstractDBconnection(DBconnectionPane adbcp) {
-		this();
-		setFieldsFromGUI(adbcp);
-	}
 
 	public AbstractDBconnection(String[] attributes) throws IllegalArgumentException {
 		super(attributes);
 		
+		//attributes[0] contains the Identifier. that's why we take from attributes[i+1]
 		for(int i = 0 ; i<numberOfCustomFields(); i++) {
-			fields[i][0] = attributes[i];
+			fields[i][0] = attributes[i+1];
 		}
 	}
 
@@ -62,22 +59,34 @@ public abstract class AbstractDBconnection extends AbstractItem {
 		return "Edit connection parameters";
 	}
 
-	@Override
+/*	@Override
 	public String name() {
 		return fields[connectionNameIndex()][0];
 	}
+*/
+	/**
+	 * The databaseNameIndex should always be 2
+	 * @return 2
+	 */
+	protected int databaseNameIndex() {
+		return 2;
+	}
 
+	/**
+	 * TODO remove
+	 * the connectionNameIndex should always be 0.
+	 * @return 0
+	 */
+	protected int connectionNameIndex() {
+		return 0;
+	}
+	
 	@Override
 	public boolean check() {
 		return checkConnection();
 	}
 
 
-	@Override
-	public boolean isJobRunning() {
-		// TODO check if the job is scheduled by the computer
-		return jobRunning;
-	}
 	
 	/**
 	 * Check the validity of the DBconnection
@@ -95,22 +104,15 @@ public abstract class AbstractDBconnection extends AbstractItem {
 		return numberOfCustomFields()-1;
 	}
 	
-	/**
-	 * the connectionNameIndex should always be 0.
-	 * @return 0
-	 */
-	protected int connectionNameIndex() {
-		return 0;
-	}
-	
-	
+
+	@Override
 	public String[] commandLineArguments() {
 		String [] arguments = new String[numberOfArguments()]; //the arguments take the date and every field except the connectionName
 		
 		//DATE: LAST TIME
 		arguments[connectionNameIndex()] = lastTransformationDate();
 		
-		
+		//TODO change this!!
 		for(int i = 1 ; i<numberOfArguments(); i++) {
 			arguments[i] = fields[i][0];
 		}
@@ -129,5 +131,18 @@ public abstract class AbstractDBconnection extends AbstractItem {
 
 		return res;
 	}
+	
+	
+	@Override
+	public int numberOfCustomFields() {
+		return fields.length; 
+	}
+
+	//TODO this should be useless. Now only use 1 argument : identifier. the others are already stored in files so pentaho can read in it.
+	@Override
+	public int numberOfArguments() {
+		return 5; //MYSQL -> needs lastTime, hostName, DataBaseName, userName, Password
+	}
+
 
 }

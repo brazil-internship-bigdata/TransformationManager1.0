@@ -1,16 +1,18 @@
 package dataManaging.files;
 
-import java.util.function.Supplier;
+import tools.MySupplier;
+import tools.exceptions.CancelledCommandException;
 
-public class MyFileSupplier implements Supplier<MyFile> {
+public class MyFileSupplier implements MySupplier<MyFile> {
 
 
 	
 	@Override
-	public MyFile get() {
+	public MyFile get() throws CancelledCommandException {
 		return new MyFile();
 	}
 /*
+ * TODO remove
 	@Override
 	public MyFile createWithGUI() throws CancelledCommandException {
 		MyFile f = new MyFile();

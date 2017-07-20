@@ -12,6 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import dataManaging.AbstractItem;
+
 public class DBconnectionPane extends JPanel 
 										implements ActionListener{
 	/**
@@ -45,10 +47,6 @@ public class DBconnectionPane extends JPanel
 			return;
 		}
 		
-/*		for(JTextField element : fields_map.keySet()) {
-			element.setText(t);
-		}
-*/		
 		
 		this.setLayout(new GridLayout(adbc.numberOfCustomFields()+2,2)); //numberOfFields+2 rows to add the blanc and the buttons. 2 columns to add the labels and the JTextFields
 
@@ -97,13 +95,12 @@ public class DBconnectionPane extends JPanel
 	}
 
 	/**
-	 * create option pane and return the result of showOptionDialog
+	 * create option pane and return the result of showOptionDialog TODO do the same as in IdentifierPane
 	 * @return the result of a showOptionDialog with JOPTIONPANE.OK_CANCEL_OPTION
 	 */
 	public int showCreationDialog() {
-//		final JOptionPane optionPane = new JOptionPane(this, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
 		
-		dialog = new JDialog();//= new JDialog((Frame) this.getTopLevelAncestor(), "Connection parameters",true);
+		dialog = new JDialog();
 		dialog.setModal(true);
 		dialog.setTitle("Connection parameters");
 		dialog.setContentPane(this);
@@ -124,7 +121,7 @@ public class DBconnectionPane extends JPanel
 		//for each field, check if it is not empty nor contains spaces
 		for(int i=0 ; i<t_jfields.length ; i++) {
 			all_fields_correct = all_fields_correct 
-					&& !t_jfields[i].getText().contains(" ")
+					&& !t_jfields[i].getText().contains(AbstractItem.separator)
 					&& !t_jfields[i].getText().equals(""); 			
 		}
 
@@ -151,10 +148,6 @@ public class DBconnectionPane extends JPanel
 
 	
 	
-	public static void main(String[] args) {
-//		System.out.println(new DBconnectionPane().showCreationDialog());
-	}
-
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

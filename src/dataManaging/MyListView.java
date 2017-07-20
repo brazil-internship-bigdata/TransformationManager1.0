@@ -3,15 +3,16 @@ package dataManaging;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.function.Supplier;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import tools.CancelledCommandException;
+import tools.MySupplier;
+import tools.exceptions.CancelledCommandException;
 
 
 public class MyListView<T extends Item> extends JPanel
@@ -23,9 +24,9 @@ public class MyListView<T extends Item> extends JPanel
 	 */
 	private static final long serialVersionUID = 6278407390981154945L;
 	
-	private Supplier<T> supplier;
+	private MySupplier<T> supplier;
 	
-	private AbstractDataList<T> listData; //TODO delete this comment : This map joins the list Items inside a given List and the elements of the listView
+	private AbstractDataList<T> listData; 
 
 	
 	private JPanel buttonsPane;
@@ -35,11 +36,12 @@ public class MyListView<T extends Item> extends JPanel
 	
 	
 	//TODO modify this
-	public MyListView(AbstractDataList<T> list, Supplier<T> supplier) {
+	public MyListView(AbstractDataList<T> list, MySupplier<T> supplier) {
 		super();
 		
 		this.supplier = supplier;
 
+		
 		//Creation of the buttons Pane
 		buttonsPane = new JPanel();		
 		
@@ -61,6 +63,7 @@ public class MyListView<T extends Item> extends JPanel
 		
 		//Creation of the List view
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		this.add(new JLabel(list.listName()), BOTTOM_ALIGNMENT);
 		this.add(buttonsPane);
 		init(list);	
 	}
@@ -106,7 +109,7 @@ public class MyListView<T extends Item> extends JPanel
 		for(T t : listData) {
 			if(!t.check()) {
 				successfulCheck = false;
-				invalidItems += "\n" + t.name();
+				invalidItems += "\n" + t.getIdentifier();
 			}
 		}
 

@@ -1,4 +1,4 @@
-package tools;
+package tools.exceptions;
 
 public class CancelledCommandException extends Exception {
 
