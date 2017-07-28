@@ -192,7 +192,6 @@ public class HttpManager {
 		
 		ArrayList<String> filesToAsk = res.response;
 
-		
 		for (String fileName : filesToAsk) {
 			String parameters = "file=" + fileName + "&company=" + userName + "&password=" + password;// connectionParameters();
 			Result fileReceived = post(parameters, url + "download");
