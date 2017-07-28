@@ -2,22 +2,22 @@
 <transformation>
   <info>
     <name>httpPost</name>
-    <description/>
-    <extended_description/>
-    <trans_version/>
+    <description />
+    <extended_description />
+    <trans_version />
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;</directory>
+    <directory>/</directory>
     <parameters>
     </parameters>
     <log>
       <trans-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <size_limit_lines/>
-        <interval/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <size_limit_lines />
+        <interval />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -42,37 +42,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject/>
+          <subject />
         </field>
         <field>
           <id>ERRORS</id>
@@ -126,11 +126,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <interval/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <interval />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -208,10 +208,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -274,10 +274,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -350,10 +350,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection/>
-        <schema/>
-        <table/>
-        <timeout_days/>
+        <connection />
+        <schema />
+        <table />
+        <timeout_days />
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -402,9 +402,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection/>
-      <table/>
-      <field/>
+      <connection />
+      <table />
+      <field />
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -415,7 +415,7 @@
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
-    <shared_objects_file/>
+    <shared_objects_file />
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
@@ -428,19 +428,19 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2017&#x2f;07&#x2f;10 18&#x3a;22&#x3a;05.485</created_date>
+    <created_date>2017/07/10 18:22:05.485</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2017&#x2f;07&#x2f;10 18&#x3a;22&#x3a;05.485</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <modified_date>2017/07/10 18:22:05.485</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
     <notepad>
-      <note>v&#xe9;rifier la mani&#xe8;re dont je nomme la variable company name dans le fichier api&#x2f;ids</note>
+      <note>vérifier la manière dont je nomme la variable company name dans le fichier api/ids</note>
       <xloc>112</xloc>
       <yloc>432</yloc>
-      <width>567</width>
-      <heigth>27</heigth>
+      <width>613</width>
+      <heigth>28</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -459,9 +459,9 @@
   </notepads>
   <order>
     <hop>
-      <from>HTTP Post</from>
+      <from>HTTP Post http://httpbin.org/post     ?fileName=result_classicmodelsOrders.csv&amp;file=${F_CONTENT}&amp;company=ECU&amp;password=102030</from>
       <to>Filter rows</to>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Filter rows</from>
@@ -469,43 +469,57 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;webapp&#x2f;upload</from>
-      <to>HTTP Post</to>
+      <from>http://localhost:8080/webapp/upload</from>
+      <to>HTTP Post http://httpbin.org/post     ?fileName=result_classicmodelsOrders.csv&amp;file=${F_CONTENT}&amp;company=ECU&amp;password=102030</to>
       <enabled>N</enabled>
     </hop>
     <hop>
       <from>REST Client</from>
       <to>Filter rows</to>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
     </hop>
     <hop>
       <from>Get Variables</from>
       <to>REST Client</to>
+      <enabled>N</enabled>
+    </hop>
+    <hop>
+      <from>Get Variables</from>
+      <to>HTTP Post http://httpbin.org/post     ?fileName=result_classicmodelsOrders.csv&amp;file=${F_CONTENT}&amp;company=ECU&amp;password=102030</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
     <name>Filter rows</name>
     <type>FilterRows</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-<send_true_to/>
-<send_false_to/>
+    <send_true_to />
+    <send_false_to />
     <compare>
-<condition>
- <negated>N</negated>
- <leftvalue>code</leftvalue>
- <function>&#x3d;</function>
- <rightvalue/>
- <value><name>constant</name><type>Integer</type><text>200</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>&#x23;&#x3b;-&#x23;</mask></value> </condition>
+      <condition>
+        <negated>N</negated>
+        <leftvalue>code</leftvalue>
+        <function>&lt;></function>
+        <rightvalue />
+        <value>
+          <name>constant</name>
+          <type>Integer</type>
+          <text>200</text>
+          <length>-1</length>
+          <precision>0</precision>
+          <isnull>N</isnull>
+          <mask>#;-#</mask>
+        </value>
+      </condition>
     </compare>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -517,58 +531,81 @@
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
-    </step>
-
+  </step>
   <step>
     <name>Get Variables</name>
     <type>GetVariable</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
     <fields>
       <field>
         <name>company_name</name>
-        <variable>&#x24;&#x7b;COMPANY_NAME&#x7d;</variable>
+        <variable>${ID}</variable>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
         <name>password</name>
-        <variable>&#x24;&#x7b;PASSWORD&#x7d;</variable>
+        <variable>${PASSWORD}</variable>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
         <name>f_content</name>
-        <variable>&#x24;&#x7b;F_CONTENT&#x7d;</variable>
+        <variable>${F_CONTENT}</variable>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>fileName</name>
+        <variable>${FILE_NAME}</variable>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>content_type</name>
+        <variable>${CONTENT_TYPE}</variable>
+        <type>String</type>
+        <format />
+        <currency />
+        <decimal />
+        <group />
         <length>-1</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
     </fields>
-    <cluster_schema/>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -580,41 +617,391 @@
       <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
-    </step>
-
+  </step>
   <step>
-    <name>HTTP Post</name>
+    <name>HTTP Post http://httpbin.org/post     ?fileName=result_classicmodelsOrders.csv&amp;file=${F_CONTENT}&amp;company=ECU&amp;password=102030</name>
     <type>HTTPPOST</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-    <postafile>Y</postafile>
-    <encoding/>
-    <url>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;webapp&#x2f;upload</url>
+    <postafile>N</postafile>
+    <encoding>UTF-8</encoding>
+    <url>http://localhost:8080/webapp/upload?fileName=resultat.csv&amp;company=ECU&amp;password=102030&amp;file=orderNumber;orderDate
+10100;2003/01/06 00:00:00
+10101;2003/01/09 00:00:00
+10102;2003/01/10 00:00:00
+10103;2003/01/29 00:00:00
+10104;2003/01/31 00:00:00
+10105;2003/02/11 00:00:00
+10106;2003/02/17 00:00:00
+10107;2003/02/24 00:00:00
+10108;2003/03/03 00:00:00
+10109;2003/03/10 00:00:00
+10110;2003/03/18 00:00:00
+10111;2003/03/25 00:00:00
+10112;2003/03/24 00:00:00
+10113;2003/03/26 00:00:00
+10114;2003/04/01 00:00:00
+10115;2003/04/04 00:00:00
+10116;2003/04/11 00:00:00
+10117;2003/04/16 00:00:00
+10118;2003/04/21 00:00:00
+10119;2003/04/28 00:00:00
+10120;2003/04/29 00:00:00
+10121;2003/05/07 00:00:00
+10122;2003/05/08 00:00:00
+10123;2003/05/20 00:00:00
+10124;2003/05/21 00:00:00
+10125;2003/05/21 00:00:00
+10126;2003/05/28 00:00:00
+10127;2003/06/03 00:00:00
+10128;2003/06/06 00:00:00
+10129;2003/06/12 00:00:00
+10130;2003/06/16 00:00:00
+10131;2003/06/16 00:00:00
+10132;2003/06/25 00:00:00
+10133;2003/06/27 00:00:00
+10134;2003/07/01 00:00:00
+10135;2003/07/02 00:00:00
+10136;2003/07/04 00:00:00
+10137;2003/07/10 00:00:00
+10138;2003/07/07 00:00:00
+10139;2003/07/16 00:00:00
+10140;2003/07/24 00:00:00
+10141;2003/08/01 00:00:00
+10142;2003/08/08 00:00:00
+10143;2003/08/10 00:00:00
+10144;2003/08/13 00:00:00
+10145;2003/08/25 00:00:00
+10146;2003/09/03 00:00:00
+10147;2003/09/05 00:00:00
+10148;2003/09/11 00:00:00
+10149;2003/09/12 00:00:00
+10150;2003/09/19 00:00:00
+10151;2003/09/21 00:00:00
+10152;2003/09/25 00:00:00
+10153;2003/09/28 00:00:00
+10154;2003/10/02 00:00:00
+10155;2003/10/06 00:00:00
+10156;2003/10/08 00:00:00
+10157;2003/10/09 00:00:00
+10158;2003/10/10 00:00:00
+10159;2003/10/10 00:00:00
+10160;2003/10/11 00:00:00
+10161;2003/10/17 00:00:00
+10162;2003/10/18 00:00:00
+10163;2003/10/20 00:00:00
+10164;2003/10/21 00:00:00
+10165;2003/10/22 00:00:00
+10166;2003/10/21 00:00:00
+10167;2003/10/23 00:00:00
+10168;2003/10/28 00:00:00
+10169;2003/11/04 00:00:00
+10170;2003/11/04 00:00:00
+10171;2003/11/05 00:00:00
+10172;2003/11/05 00:00:00
+10173;2003/11/05 00:00:00
+10174;2003/11/06 00:00:00
+10175;2003/11/06 00:00:00
+10176;2003/11/06 00:00:00
+10177;2003/11/07 00:00:00
+10178;2003/11/08 00:00:00
+10179;2003/11/11 00:00:00
+10180;2003/11/11 00:00:00
+10181;2003/11/12 00:00:00
+10182;2003/11/12 00:00:00
+10183;2003/11/13 00:00:00
+10184;2003/11/14 00:00:00
+10185;2003/11/14 00:00:00
+10186;2003/11/14 00:00:00
+10187;2003/11/15 00:00:00
+10188;2003/11/18 00:00:00
+10189;2003/11/18 00:00:00
+10190;2003/11/19 00:00:00
+10191;2003/11/20 00:00:00
+10192;2003/11/20 00:00:00
+10193;2003/11/21 00:00:00
+10194;2003/11/25 00:00:00
+10195;2003/11/25 00:00:00
+10196;2003/11/26 00:00:00
+10197;2003/11/26 00:00:00
+10198;2003/11/27 00:00:00
+10199;2003/12/01 00:00:00
+10200;2003/12/01 00:00:00
+10201;2003/12/01 00:00:00
+10202;2003/12/02 00:00:00
+10203;2003/12/02 00:00:00
+10204;2003/12/02 00:00:00
+10205;2003/12/03 00:00:00
+10206;2003/12/05 00:00:00
+10207;2003/12/09 00:00:00
+10208;2004/01/02 00:00:00
+10209;2004/01/09 00:00:00
+10210;2004/01/12 00:00:00
+10211;2004/01/15 00:00:00
+10212;2004/01/16 00:00:00
+10213;2004/01/22 00:00:00
+10214;2004/01/26 00:00:00
+10215;2004/01/29 00:00:00
+10216;2004/02/02 00:00:00
+10217;2004/02/04 00:00:00
+10218;2004/02/09 00:00:00
+10219;2004/02/10 00:00:00
+10220;2004/02/12 00:00:00
+10221;2004/02/18 00:00:00
+10222;2004/02/19 00:00:00
+10223;2004/02/20 00:00:00
+10224;2004/02/21 00:00:00
+10225;2004/02/22 00:00:00
+10226;2004/02/26 00:00:00
+10227;2004/03/02 00:00:00
+10228;2004/03/10 00:00:00
+10229;2004/03/11 00:00:00
+10230;2004/03/15 00:00:00
+10231;2004/03/19 00:00:00
+10232;2004/03/20 00:00:00
+10233;2004/03/29 00:00:00
+10234;2004/03/30 00:00:00
+10235;2004/04/02 00:00:00
+10236;2004/04/03 00:00:00
+10237;2004/04/05 00:00:00
+10238;2004/04/09 00:00:00
+10239;2004/04/12 00:00:00
+10240;2004/04/13 00:00:00
+10241;2004/04/13 00:00:00
+10242;2004/04/20 00:00:00
+10243;2004/04/26 00:00:00
+10244;2004/04/29 00:00:00
+10245;2004/05/04 00:00:00
+10246;2004/05/05 00:00:00
+10247;2004/05/05 00:00:00
+10248;2004/05/07 00:00:00
+10249;2004/05/08 00:00:00
+10250;2004/05/11 00:00:00
+10251;2004/05/18 00:00:00
+10252;2004/05/26 00:00:00
+10253;2004/06/01 00:00:00
+10254;2004/06/03 00:00:00
+10255;2004/06/04 00:00:00
+10256;2004/06/08 00:00:00
+10257;2004/06/14 00:00:00
+10258;2004/06/15 00:00:00
+10259;2004/06/15 00:00:00
+10260;2004/06/16 00:00:00
+10261;2004/06/17 00:00:00
+10262;2004/06/24 00:00:00
+10263;2004/06/28 00:00:00
+10264;2004/06/30 00:00:00
+10265;2004/07/02 00:00:00
+10266;2004/07/06 00:00:00
+10267;2004/07/07 00:00:00
+10268;2004/07/12 00:00:00
+10269;2004/07/16 00:00:00
+10270;2004/07/19 00:00:00
+10271;2004/07/20 00:00:00
+10272;2004/07/20 00:00:00
+10273;2004/07/21 00:00:00
+10274;2004/07/21 00:00:00
+10275;2004/07/23 00:00:00
+10276;2004/08/02 00:00:00
+10277;2004/08/04 00:00:00
+10278;2004/08/06 00:00:00
+10279;2004/08/09 00:00:00
+10280;2004/08/17 00:00:00
+10281;2004/08/19 00:00:00
+10282;2004/08/20 00:00:00
+10283;2004/08/20 00:00:00
+10284;2004/08/21 00:00:00
+10285;2004/08/27 00:00:00
+10286;2004/08/28 00:00:00
+10287;2004/08/30 00:00:00
+10288;2004/09/01 00:00:00
+10289;2004/09/03 00:00:00
+10290;2004/09/07 00:00:00
+10291;2004/09/08 00:00:00
+10292;2004/09/08 00:00:00
+10293;2004/09/09 00:00:00
+10294;2004/09/10 00:00:00
+10295;2004/09/10 00:00:00
+10296;2004/09/15 00:00:00
+10297;2004/09/16 00:00:00
+10298;2004/09/27 00:00:00
+10299;2004/09/30 00:00:00
+10300;2003/10/04 00:00:00
+10301;2003/10/05 00:00:00
+10302;2003/10/06 00:00:00
+10303;2004/10/06 00:00:00
+10304;2004/10/11 00:00:00
+10305;2004/10/13 00:00:00
+10306;2004/10/14 00:00:00
+10307;2004/10/14 00:00:00
+10308;2004/10/15 00:00:00
+10309;2004/10/15 00:00:00
+10310;2004/10/16 00:00:00
+10311;2004/10/16 00:00:00
+10312;2004/10/21 00:00:00
+10313;2004/10/22 00:00:00
+10314;2004/10/22 00:00:00
+10315;2004/10/29 00:00:00
+10316;2004/11/01 00:00:00
+10317;2004/11/02 00:00:00
+10318;2004/11/02 00:00:00
+10319;2004/11/03 00:00:00
+10320;2004/11/03 00:00:00
+10321;2004/11/04 00:00:00
+10322;2004/11/04 00:00:00
+10323;2004/11/05 00:00:00
+10324;2004/11/05 00:00:00
+10325;2004/11/05 00:00:00
+10326;2004/11/09 00:00:00
+10327;2004/11/10 00:00:00
+10328;2004/11/12 00:00:00
+10329;2004/11/15 00:00:00
+10330;2004/11/16 00:00:00
+10331;2004/11/17 00:00:00
+10332;2004/11/17 00:00:00
+10333;2004/11/18 00:00:00
+10334;2004/11/19 00:00:00
+10335;2004/11/19 00:00:00
+10336;2004/11/20 00:00:00
+10337;2004/11/21 00:00:00
+10338;2004/11/22 00:00:00
+10339;2004/11/23 00:00:00
+10340;2004/11/24 00:00:00
+10341;2004/11/24 00:00:00
+10342;2004/11/24 00:00:00
+10343;2004/11/24 00:00:00
+10344;2004/11/25 00:00:00
+10345;2004/11/25 00:00:00
+10346;2004/11/29 00:00:00
+10347;2004/11/29 00:00:00
+10348;2004/11/01 00:00:00
+10349;2004/12/01 00:00:00
+10350;2004/12/02 00:00:00
+10351;2004/12/03 00:00:00
+10352;2004/12/03 00:00:00
+10353;2004/12/04 00:00:00
+10354;2004/12/04 00:00:00
+10355;2004/12/07 00:00:00
+10356;2004/12/09 00:00:00
+10357;2004/12/10 00:00:00
+10358;2004/12/10 00:00:00
+10359;2004/12/15 00:00:00
+10360;2004/12/16 00:00:00
+10361;2004/12/17 00:00:00
+10362;2005/01/05 00:00:00
+10363;2005/01/06 00:00:00
+10364;2005/01/06 00:00:00
+10365;2005/01/07 00:00:00
+10366;2005/01/10 00:00:00
+10367;2005/01/12 00:00:00
+10368;2005/01/19 00:00:00
+10369;2005/01/20 00:00:00
+10370;2005/01/20 00:00:00
+10371;2005/01/23 00:00:00
+10372;2005/01/26 00:00:00
+10373;2005/01/31 00:00:00
+10374;2005/02/02 00:00:00
+10375;2005/02/03 00:00:00
+10376;2005/02/08 00:00:00
+10377;2005/02/09 00:00:00
+10378;2005/02/10 00:00:00
+10379;2005/02/10 00:00:00
+10380;2005/02/16 00:00:00
+10381;2005/02/17 00:00:00
+10382;2005/02/17 00:00:00
+10383;2005/02/22 00:00:00
+10384;2005/02/23 00:00:00
+10385;2005/02/28 00:00:00
+10386;2005/03/01 00:00:00
+10387;2005/03/02 00:00:00
+10388;2005/03/03 00:00:00
+10389;2005/03/03 00:00:00
+10390;2005/03/04 00:00:00
+10391;2005/03/09 00:00:00
+10392;2005/03/10 00:00:00
+10393;2005/03/11 00:00:00
+10394;2005/03/15 00:00:00
+10395;2005/03/17 00:00:00
+10396;2005/03/23 00:00:00
+10397;2005/03/28 00:00:00
+10398;2005/03/30 00:00:00
+10399;2005/04/01 00:00:00
+10400;2005/04/01 00:00:00
+10401;2005/04/03 00:00:00
+10402;2005/04/07 00:00:00
+10403;2005/04/08 00:00:00
+10404;2005/04/08 00:00:00
+10405;2005/04/14 00:00:00
+10406;2005/04/15 00:00:00
+10407;2005/04/22 00:00:00
+10408;2005/04/22 00:00:00
+10409;2005/04/23 00:00:00
+10410;2005/04/29 00:00:00
+10411;2005/05/01 00:00:00
+10412;2005/05/03 00:00:00
+10413;2005/05/05 00:00:00
+10414;2005/05/06 00:00:00
+10415;2005/05/09 00:00:00
+10416;2005/05/10 00:00:00
+10417;2005/05/13 00:00:00
+10418;2005/05/16 00:00:00
+10419;2005/05/17 00:00:00
+10420;2005/05/29 00:00:00
+10421;2005/05/29 00:00:00
+10422;2005/05/30 00:00:00
+10423;2005/05/30 00:00:00
+10424;2005/05/31 00:00:00
+10425;2005/05/31 00:00:00</url>
     <urlInField>N</urlInField>
-    <urlField/>
-    <requestEntity/>
-    <httpLogin/>
+    <urlField />
+    <requestEntity />
+    <httpLogin />
     <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
+    <proxyHost />
+    <proxyPort />
     <socketTimeout>10000</socketTimeout>
     <connectionTimeout>10000</connectionTimeout>
     <closeIdleConnectionsTime>-1</closeIdleConnectionsTime>
     <lookup>
-      </lookup>
+      <arg>
+        <name>company_name</name>
+        <parameter>company</parameter>
+        <header>N</header>
+      </arg>
+      <arg>
+        <name>password</name>
+        <parameter>password</parameter>
+        <header>N</header>
+      </arg>
+      <arg>
+        <name>fileName</name>
+        <parameter>file</parameter>
+        <header>N</header>
+      </arg>
+      <arg>
+        <name>fileName</name>
+        <parameter>fileName</parameter>
+        <header>N</header>
+      </arg>
+      <arg>
+        <name>content_type</name>
+        <parameter>Content-Type</parameter>
+        <header>Y</header>
+      </arg>
+    </lookup>
     <result>
       <name>result</name>
       <code>code</code>
-      <response_time/>
-      <response_header/>
-      </result>
-    <cluster_schema/>
+      <response_time />
+      <response_header />
+    </result>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -626,28 +1013,94 @@
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
-    </step>
-
+  </step>
   <step>
-    <name>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;webapp&#x2f;upload</name>
-    <type>RowGenerator</type>
-    <description/>
+    <name>REST Client</name>
+    <type>Rest</type>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
+    </partitioning>
+    <applicationType>TEXT PLAIN</applicationType>
+    <method>POST</method>
+    <url>http://localhost:8080/webapp/upload</url>
+    <urlInField>N</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName>company_name</methodFieldName>
+    <urlField />
+    <bodyField />
+    <httpLogin />
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost />
+    <proxyPort />
+    <preemptive>N</preemptive>
+    <trustStoreFile />
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <headers>
+      </headers>
+    <parameters>
+      </parameters>
+    <matrixParameters>
+      <matrixParameter>
+        <field>company_name</field>
+        <name>company_name</name>
+      </matrixParameter>
+      <matrixParameter>
+        <field>password</field>
+        <name>password</name>
+      </matrixParameter>
+      <matrixParameter>
+        <field>f_content</field>
+        <name>f_content</name>
+      </matrixParameter>
+      <matrixParameter>
+        <field>fileName</field>
+        <name>fileName</name>
+      </matrixParameter>
+    </matrixParameters>
+    <result>
+      <name>result</name>
+      <code>code</code>
+      <response_time />
+      <response_header />
+    </result>
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>http://localhost:8080/webapp/upload</name>
+    <type>RowGenerator</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
     </partitioning>
     <fields>
       <field>
         <name>url</name>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif>https&#x3a;&#x2f;&#x2f;localhost...</nullif>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif>https://localhost...</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -655,10 +1108,10 @@
       <field>
         <name>company</name>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
         <nullif>BUS1</nullif>
         <length>-1</length>
         <precision>-1</precision>
@@ -667,11 +1120,11 @@
       <field>
         <name>password</name>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <nullif/>
+        <format />
+        <currency />
+        <decimal />
+        <group />
+        <nullif />
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -679,10 +1132,10 @@
     </fields>
     <limit>1</limit>
     <never_ending>N</never_ending>
-    <interval_in_ms/>
-    <row_time_field/>
-    <last_time_field/>
-    <cluster_schema/>
+    <interval_in_ms />
+    <row_time_field />
+    <last_time_field />
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -694,23 +1147,23 @@
       <yloc>176</yloc>
       <draw>Y</draw>
     </GUI>
-    </step>
-
+  </step>
   <step>
     <name>not ok</name>
     <type>Abort</type>
-    <description/>
+    <description />
     <distribute>Y</distribute>
-    <custom_distribution/>
+    <custom_distribution />
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name/>
+      <schema_name />
     </partitioning>
-      <row_threshold>0</row_threshold>
-      <message>response not ok</message>
-      <always_log_rows>Y</always_log_rows>
-    <cluster_schema/>
+    <row_threshold>0</row_threshold>
+    <message>response not ok</message>
+    <always_log_rows>Y</always_log_rows>
+    <abort_with_error>Y</abort_with_error>
+    <cluster_schema />
     <remotesteps>
       <input>
       </input>
@@ -718,76 +1171,11 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>368</yloc>
+      <xloc>832</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
     </GUI>
-    </step>
-
-  <step>
-    <name>REST Client</name>
-    <type>Rest</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <applicationType>TEXT PLAIN</applicationType>
-    <method>POST</method>
-    <url>http&#x3a;&#x2f;&#x2f;localhost&#x3a;8080&#x2f;webapp&#x2f;upload</url>
-    <urlInField>N</urlInField>
-    <dynamicMethod>N</dynamicMethod>
-    <methodFieldName/>
-    <urlField/>
-    <bodyField/>
-    <httpLogin/>
-    <httpPassword>Encrypted </httpPassword>
-    <proxyHost/>
-    <proxyPort/>
-    <preemptive>N</preemptive>
-    <trustStoreFile/>
-    <trustStorePassword>Encrypted </trustStorePassword>
-    <headers>
-      </headers>
-    <parameters>
-      <parameter>
-        <field>company_name</field>
-        <name>company</name>
-        </parameter>
-      <parameter>
-        <field>password</field>
-        <name>password</name>
-        </parameter>
-      <parameter>
-        <field>f_content</field>
-        <name>file</name>
-        </parameter>
-      </parameters>
-    <matrixParameters>
-      </matrixParameters>
-    <result>
-      <name>result</name>
-      <code>code</code>
-      <response_time/>
-      <response_header/>
-      </result>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>496</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-    </GUI>
-    </step>
-
+  </step>
   <step_error_handling>
   </step_error_handling>
   <slave-step-copy-partition-distribution>
