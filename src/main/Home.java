@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 
+import dataManaging.AbstractDataList;
 import dataManaging.MyListView;
 import dataManaging.databaseConnections.sqlConnection.MySQLconnection;
 import dataManaging.databaseConnections.sqlConnection.MySQLconnectionSupplier;
@@ -42,8 +43,8 @@ public class Home extends JFrame
 	
 	
 
-	private FileList fileList; //List of the selected files to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
-	private MySQLconnectionsList mySQLconnectionsList;
+	private AbstractDataList<MyFile> fileList; //List of the selected files to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
+	private AbstractDataList<MySQLconnection> mySQLconnectionsList;
 
 	
 	public Home() {

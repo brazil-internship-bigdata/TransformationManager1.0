@@ -111,7 +111,7 @@ public class HttpManager {
 		this.userName = userName;
 		this.password = password;
 
-		System.out.println("I most likely am not a good piece of code");
+		//System.out.println("I most likely am not a good piece of code");
 
 		// write the ids to connect to the lab's API.
 		File savingsFile = new File(savingsPath);
