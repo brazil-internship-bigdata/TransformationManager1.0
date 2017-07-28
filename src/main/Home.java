@@ -14,6 +14,7 @@ import dataManaging.databaseConnections.sqlConnection.MySQLconnectionsList;
 import dataManaging.files.FileList;
 import dataManaging.files.MyFile;
 import dataManaging.files.MyFileSupplier;
+import httpManaging.ApiConnectionPane;
 
 
 public class Home extends JFrame
@@ -48,6 +49,10 @@ public class Home extends JFrame
 	public Home() {
 		super(SOFTWARE_NAME);
 
+		
+		new ApiConnectionPane().display();
+		
+		
 		this.fileList = new FileList();
 		this.mySQLconnectionsList = new MySQLconnectionsList();
 		
