@@ -111,7 +111,7 @@ public class HttpManager {
 		this.userName = userName;
 		this.password = password;
 
-		System.out.println("I most likely am not a good piece of code");
+		//System.out.println("I most likely am not a good piece of code");
 
 		// write the ids to connect to the lab's API.
 		File savingsFile = new File(savingsPath);
@@ -184,6 +184,12 @@ public class HttpManager {
 
 		Result res = getFileList(item);
 
+		if (res.response == null) {
+			//The connection was obsolete => for now, we shall close the app
+			System.err.println("The connection was obsolete. Unhandled problem => closing the app");
+			System.exit(0);
+		}
+		
 		ArrayList<String> filesToAsk = res.response;
 
 		for (String fileName : filesToAsk) {

@@ -29,10 +29,15 @@ public class Home extends JFrame implements ContainerListener {
 
 	private JSplitPane							horizontalSplitPane;
 
+<<<<<<< HEAD
 	/* LEFT */
 	private JScrollPane							filesScrollPane;							// vertical
 																							// scroll
 	private MyListView<MyFile>					filesPane;
+=======
+	private AbstractDataList<MyFile> fileList; //List of the selected files to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
+	private AbstractDataList<MySQLconnection> mySQLconnectionsList;
+>>>>>>> branch 'sql' of https://github.com/brazil-internship-bigdata/TransformationManager1.0.git
 
 	/* RIGHT */
 	private JScrollPane							dbConnectionsScrollPane;
@@ -72,8 +77,15 @@ public class Home extends JFrame implements ContainerListener {
 	public Home() {
 		super(SOFTWARE_NAME);
 
+<<<<<<< HEAD
 		new ApiConnectionPane().display();
 
+=======
+		
+		new ApiConnectionPane().display();
+		
+		
+>>>>>>> branch 'sql' of https://github.com/brazil-internship-bigdata/TransformationManager1.0.git
 		this.fileList = new FileList();
 		this.mySQLconnectionsList = new MySQLconnectionsList();
 
