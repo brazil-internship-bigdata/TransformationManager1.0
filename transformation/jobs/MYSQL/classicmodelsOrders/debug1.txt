@@ -1,1 +1,9 @@
+<<<<<<< HEAD
+classicmodelsOrders localhost classicmodels root polytech 31.12.1969-21:00:00
+=======
+<<<<<<< HEAD
+classicmodelsOrders localhost classicmodels root 3754d13a8 31.12.1969-21:00:00
+=======
 classicmodelsOrders localhost classicmodels root polytech 31.05.2005-00:00:00
+>>>>>>> branch 'sql' of https://github.com/brazil-internship-bigdata/TransformationManager1.0.git
+>>>>>>> branch 'sql' of https://github.com/brazil-internship-bigdata/TransformationManager1.0.git
