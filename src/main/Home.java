@@ -29,71 +29,32 @@ public class Home extends JFrame implements ContainerListener {
 
 	private JSplitPane							horizontalSplitPane;
 
-<<<<<<< HEAD
 	/* LEFT */
 	private JScrollPane							filesScrollPane;							// vertical
 																							// scroll
 	private MyListView<MyFile>					filesPane;
-=======
-	private AbstractDataList<MyFile> fileList; //List of the selected files to transform and send. This list must be created by reading the file savingsFile. this list must be modified through add and remove methods.
-	private AbstractDataList<MySQLconnection> mySQLconnectionsList;
->>>>>>> branch 'sql' of https://github.com/brazil-internship-bigdata/TransformationManager1.0.git
 
 	/* RIGHT */
 	private JScrollPane							dbConnectionsScrollPane;
 	private MyListView<MySQLconnection>			mySQLconnectionsPane;
 
-	private AbstractDataList<MyFile>			fileList;									// List
-																							// of
-																							// the
-																							// selected
-																							// files
-																							// to
-																							// transform
-																							// and
-																							// send.
-																							// This
-																							// list
-																							// must
-																							// be
-																							// created
-																							// by
-																							// reading
-																							// the
-																							// file
-																							// savingsFile.
-																							// this
-																							// list
-																							// must
-																							// be
-																							// modified
-																							// through
-																							// add
-																							// and
-																							// remove
-																							// methods.
+	private AbstractDataList<MyFile>			fileList;
+	
+	// List of the selected files to transform and send. This list must be created by
+	// reading the file savings. this list must be modified through add and remove methods.
+
+	
 	private AbstractDataList<MySQLconnection>	mySQLconnectionsList;
 
 	public Home() {
 		super(SOFTWARE_NAME);
 
-<<<<<<< HEAD
 		new ApiConnectionPane().display();
 
-=======
-		
-		new ApiConnectionPane().display();
-		
-		
->>>>>>> branch 'sql' of https://github.com/brazil-internship-bigdata/TransformationManager1.0.git
 		this.fileList = new FileList();
 		this.mySQLconnectionsList = new MySQLconnectionsList();
 
 		// List of selected directories (left part)
-		/*
-		 * filesPane = new JPanel(); TODO remove this comment block
-		 * filesPane.setLayout(new BoxLayout(filesPane, BoxLayout.Y_AXIS));
-		 */
 		filesPane = new MyListView<MyFile>(fileList, new MyFileSupplier());
 		filesScrollPane = new JScrollPane(filesPane);
 
